@@ -29,12 +29,8 @@ public class Main extends JavaPlugin implements Listener {
         getCommand("eshop").setExecutor(manager);
 
         // Enable Metrics
-        try {
-            Metrics metrics = new Metrics(this);
-            metrics.start();
-        } catch (IOException e) {
-            getLogger().severe("Couldn't start Metrics.");
-        }
+        Metrics metrics = new Metrics(this);
+        
     }
 
     public static void debug(String msg){
