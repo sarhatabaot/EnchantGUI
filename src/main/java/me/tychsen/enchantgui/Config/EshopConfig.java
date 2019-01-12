@@ -25,8 +25,13 @@ public class EshopConfig {
         config = plugin.getConfig();
     }
 
+    public boolean getDebug(){
+        return config.getBoolean("debug");
+    }
+
     public int getPrice(Enchantment enchantment, int level) {
-        String path = enchantment.getName().toLowerCase() + ".level" + level;
+        String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
+        path = path.split(":")[1];
         return config.getInt(path);
     }
 
@@ -56,7 +61,9 @@ public class EshopConfig {
     }
 
     public String[] getEnchantLevels(Enchantment ench) {
-        String path = ench.getName().toLowerCase();
+        String path = ench.getKey().toString().toLowerCase();
+        path = path.split(":")[1];
+        Main.debug(path); //debug
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 
