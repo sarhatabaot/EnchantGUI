@@ -15,7 +15,7 @@ payment-currency: money
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.
-arrow_damage:
+power:
     level1: 100
     level2: 200
     level3: 300
@@ -23,26 +23,26 @@ arrow_damage:
     level5: 500
     level8: 800
     level10: 1000
-arrow_fire:
+flame:
     level1: 100
-arrow_infinite:
+infinity:
     level1: 100
-arrow_knockback:
-    level1: 100
-    level2: 200
-damage_all:
+punch:
     level1: 100
     level2: 200
-    level3: 300
-    level4: 400
-    level5: 500
-damage_arthropods:
+sharpness:
     level1: 100
     level2: 200
     level3: 300
     level4: 400
     level5: 500
-damage_undead:
+bane_of_arthropods:
+    level1: 100
+    level2: 200
+    level3: 300
+    level4: 400
+    level5: 500
+smite:
     level1: 100
     level2: 200
     level3: 300
@@ -52,13 +52,13 @@ depth_strider:
     level1: 100
     level2: 200
     level3: 300
-dig_speed:
+efficiency:
     level1: 100
     level2: 200
     level3: 300
     level4: 400
     level5: 500
-durability:
+unbreaking:
     level1: 100
     level2: 200
     level3: 300
@@ -68,15 +68,15 @@ fire_aspect:
 knockback:
     level1: 100
     level2: 200
-loot_bonus_blocks:
+looting:
     level1: 100
     level2: 200
     level3: 300
-loot_bonus_mobs:
+fortune:
     level1: 100
     level2: 200
     level3: 300
-luck:
+luck_of_the_sea:
     level1: 100
     level2: 200
     level3: 300
@@ -84,31 +84,31 @@ lure:
     level1: 100
     level2: 200
     level3: 300
-oxygen:
+respiration:
     level1: 100
     level2: 200
     level3: 300
-protection_environmental:
-    level1: 100
-    level2: 200
-    level3: 300
-    level4: 400
-protection_explosions:
+protection:
     level1: 100
     level2: 200
     level3: 300
     level4: 400
-protection_fall:
+blast_protection:
     level1: 100
     level2: 200
     level3: 300
     level4: 400
-protection_fire:
+feather_falling:
     level1: 100
     level2: 200
     level3: 300
     level4: 400
-protection_projectile:
+fire_protection:
+    level1: 100
+    level2: 200
+    level3: 300
+    level4: 400
+projectile_protection:
     level1: 100
     level2: 200
     level3: 300
@@ -119,14 +119,14 @@ thorns:
     level1: 100
     level2: 200
     level3: 300
-water_worker:
+aqua_affinity:
     level1: 100
 frost_walker:
     level1: 100
     level2: 200
 mending:
     level1: 100
-sweeping_edge:
+sweeping:
     level1: 100
     level2: 200
     level3: 300
@@ -146,3 +146,6 @@ riptide:
     level1: 100
     level2: 200
     level3: 300
+
+# For Debugging only
+debug: false

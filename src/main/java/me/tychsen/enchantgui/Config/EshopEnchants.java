@@ -54,7 +54,7 @@ public class EshopEnchants {
         addItem(Enchantment.FROST_WALKER, Material.DIAMOND_BOOTS, lm.getString("enchant.frost_walker"));
         addItem(Enchantment.MENDING, Material.DIAMOND_PICKAXE, lm.getString("enchant.mending"));
         // 1.13
-        addItem(Enchantment.SWEEPING_EDGE,Material.DIAMOND_SWORD,lm.getString("enchant.sweeping_edge"));
+        addItem(Enchantment.SWEEPING_EDGE,Material.DIAMOND_SWORD,lm.getString("enchant.sweeping"));
 
         addItem(Enchantment.CHANNELING,Material.TRIDENT,lm.getString("enchant.channeling"));
         addItem(Enchantment.IMPALING,Material.TRIDENT,lm.getString("enchant.impaling"));
@@ -82,7 +82,7 @@ public class EshopEnchants {
      */
     private String enchantPermName(Enchantment type) {
         String perm = "eshop.enchant.";
-        perm += type.getName().toLowerCase();
+        perm += (type.getKey().toString().toLowerCase()).split(":")[1];
         return perm;
     }
 }

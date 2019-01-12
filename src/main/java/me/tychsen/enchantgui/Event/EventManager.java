@@ -50,13 +50,13 @@ public class EventManager implements Listener, CommandExecutor {
     // that is enchanted - which will then be an enchanting table...
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR &&
-                e.getPlayer().getItemInHand().getType() == Material.ENCHANTING_TABLE) { //TODO: deprecated
+                e.getPlayer().getInventory().getItemInMainHand().getType() == Material.ENCHANTING_TABLE) {
             handlePlayerInteractEvent(e);
         }
     }
 
     private void handleInventoryClickEvent(InventoryClickEvent e) {
-        if (e.getCurrentItem().getType() == Material.AIR) return;
+        if (e.getCurrentItem().getType() == Material.AIR) return; //TODO: add check if clicked outside inventory (console spams)
         if (e.getInventory().getType() != InventoryType.CHEST) return;
 
         Player p = (Player) e.getWhoClicked();

@@ -15,7 +15,7 @@ public class EshopPermissionSys {
 
         Enchantment ench = enchants.keySet().toArray(new Enchantment[1])[0];
         String base = "eshop.enchants.";
-        String name = ench.getKey().getKey().toLowerCase();
+        String name = (ench.getKey().toString().toLowerCase()).split(":")[1];
         String perm = base + name;
 
         return p.hasPermission(perm) || p.hasPermission(base + "all");
@@ -25,7 +25,7 @@ public class EshopPermissionSys {
         if (p.isOp()) return true;
 
         String base = "eshop.enchants.";
-        String enchName = ench.getKey().getKey().toLowerCase();
+        String enchName = (ench.getKey().toString().toLowerCase()).split(":")[1];
         String perm = base + enchName + "." + level;
 
         return p.hasPermission(perm) || p.hasPermission(base + enchName + ".all") || p.hasPermission(base + "all");
