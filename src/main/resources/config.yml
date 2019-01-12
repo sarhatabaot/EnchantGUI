@@ -126,3 +126,23 @@ frost_walker:
     level2: 200
 mending:
     level1: 100
+sweeping_edge:
+    level1: 100
+    level2: 200
+    level3: 300
+channeling:
+    level1: 100
+impaling:
+    level1: 100
+    level2: 200
+    level3: 300
+    level4: 400
+    level5: 500
+loyalty:
+    level1: 100
+    level2: 200
+    level3: 300
+riptide:
+    level1: 100
+    level2: 200
+    level3: 300

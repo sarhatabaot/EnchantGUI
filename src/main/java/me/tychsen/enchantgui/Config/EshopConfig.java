@@ -25,8 +25,8 @@ public class EshopConfig {
         config = plugin.getConfig();
     }
 
-    public int getPrice(Enchantment ench, int level) {
-        String path = ench.getName().toLowerCase() + ".level" + level;
+    public int getPrice(Enchantment enchantment, int level) {
+        String path = enchantment.getName().toLowerCase() + ".level" + level;
         return config.getInt(path);
     }
 

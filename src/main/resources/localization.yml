@@ -28,6 +28,11 @@ enchant:
   aqua_affinity: "Aqua affinity"
   frost_walker: "Frost walker"
   mending: "Mending"
+  sweeping_edge: "Sweeping edge"
+  channeling: "Channeling"
+  impaling: "Impaling"
+  loyalty: "Loyalty"
+  riptide: "Riptide"
 
 command-from-console: "Can't use this command from console..."
 no-permission: "Sorry, you do not have permission for this."
