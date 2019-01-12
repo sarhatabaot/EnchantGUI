@@ -84,7 +84,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
                 tmp.setItemMeta(meta);
 
                 itemList.add(tmp);
-                Main.debug(tmp.toString()+tmp.getType().toString()); //debug
+                Main.debug(tmp.toString());
                 levels.add(enchantLevel);
             }
         }

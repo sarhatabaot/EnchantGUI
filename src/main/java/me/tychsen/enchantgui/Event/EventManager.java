@@ -39,7 +39,7 @@ public class EventManager implements Listener, CommandExecutor {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
                 Logger logger = Main.getInstance().getLogger();
-                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex); //prints the error, spams the console
+                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex); //prints the error, spams the console, (when clicking outside of inventory)
             }
         }
     }

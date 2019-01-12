@@ -59,7 +59,7 @@ public class LocalizationManager {
         InputStream defaultConfigInputStream = plugin.getResource(FILE_NAME_LOCALIZATION);
         if (defaultConfigInputStream != null) {
             try {
-                defaultConfigStream = new InputStreamReader(plugin.getResource(FILE_NAME_LOCALIZATION), "UTF8");
+                defaultConfigStream = new InputStreamReader(plugin.getResource(FILE_NAME_LOCALIZATION), "UTF8"); //TODO
             } catch (UnsupportedEncodingException e) {
                 defaultConfigStream = new InputStreamReader(plugin.getResource(FILE_NAME_LOCALIZATION));
             }

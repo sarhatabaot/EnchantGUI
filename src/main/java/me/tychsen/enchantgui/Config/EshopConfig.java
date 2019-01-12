@@ -63,7 +63,7 @@ public class EshopConfig {
     public String[] getEnchantLevels(Enchantment ench) {
         String path = ench.getKey().toString().toLowerCase();
         path = path.split(":")[1];
-        Main.debug(path); //debug
+        Main.debug(path);
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 
