@@ -24,6 +24,6 @@ dependencies {
     compile "net.milkbowl.vault:VaultAPI:1.7"
 }
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = "5.1.1"
 }
