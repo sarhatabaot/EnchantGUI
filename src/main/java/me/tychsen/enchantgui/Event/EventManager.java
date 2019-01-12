@@ -39,7 +39,7 @@ public class EventManager implements Listener, CommandExecutor {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
                 Logger logger = Main.getInstance().getLogger();
-                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex);
+                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex); //prints the error, spams the console
             }
         }
     }
@@ -50,14 +50,14 @@ public class EventManager implements Listener, CommandExecutor {
     // that is enchanted - which will then be an enchanting table...
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR &&
-                e.getPlayer().getItemInHand().getType() == Material.ENCHANTMENT_TABLE) {
+                e.getPlayer().getItemInHand().getType() == Material.ENCHANTING_TABLE) { //TODO: deprecated
             handlePlayerInteractEvent(e);
         }
     }
 
     private void handleInventoryClickEvent(InventoryClickEvent e) {
         if (e.getCurrentItem().getType() == Material.AIR) return;
-        if (e.getClickedInventory().getType() != InventoryType.CHEST) return;
+        if (e.getInventory().getType() != InventoryType.CHEST) return;
 
         Player p = (Player) e.getWhoClicked();
         system.handleMenuClick(p, e);

@@ -38,9 +38,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     public Inventory enchantMenu(Player p, ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = generateEnchantMenu(p, item, playerLevels);
-
-        return inv;
+        return generateEnchantMenu(p, item, playerLevels);
     }
 
     private void generateMainMenu(Player p, Inventory inv) {
@@ -74,7 +72,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
             if (permsys.hasEnchantPermission(p, ench, level)) {
                 ItemStack tmp = item.clone();
                 ItemMeta meta = tmp.getItemMeta();
-                List<String> lores = new ArrayList<String>();
+                List<String> lores = new ArrayList<>();
                 lores.add(ChatColor.GOLD + "Level: " + level);
                 if (!(config.getEconomy() instanceof NullPayment)) {
                     int price = config.getPrice(ench, level);

@@ -1,8 +1,9 @@
 name: EnchantGUI
-version: 1.4.1
+version: 1.5.0
 main: me.tychsen.enchantgui.Main
+api-version: 1.13
 
-author: Dentych
+authors: [Dentych, sarhatabaot]
 dependency: Vault
 
 commands:
