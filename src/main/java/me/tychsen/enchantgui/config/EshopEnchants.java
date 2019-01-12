@@ -72,13 +72,5 @@ public class EshopEnchants {
         item.setItemMeta(meta);
         enchantList.add(item);
     }
-
-    /**
-     * Returns the permission name for the enchant type.
-     */
-    private String enchantPermName(Enchantment type) {
-        String perm = "eshop.enchant.";
-        perm += (type.getKey().toString().toLowerCase()).split(":")[1];
-        return perm;
-    }
+    
 }
