@@ -53,6 +53,14 @@ public class EshopEnchants {
         addItem(Enchantment.WATER_WORKER, Material.DIAMOND_HELMET, lm.getString("enchant.aqua_affinity"));
         addItem(Enchantment.FROST_WALKER, Material.DIAMOND_BOOTS, lm.getString("enchant.frost_walker"));
         addItem(Enchantment.MENDING, Material.DIAMOND_PICKAXE, lm.getString("enchant.mending"));
+        // 1.13
+        addItem(Enchantment.SWEEPING_EDGE,Material.DIAMOND_SWORD,lm.getString("enchant.sweeping_edge"));
+
+        addItem(Enchantment.CHANNELING,Material.TRIDENT,lm.getString("enchant.channeling"));
+        addItem(Enchantment.IMPALING,Material.TRIDENT,lm.getString("enchant.impaling"));
+        addItem(Enchantment.LOYALTY,Material.TRIDENT,lm.getString("enchant.loyalty"));
+        addItem(Enchantment.RIPTIDE,Material.TRIDENT,lm.getString("enchant.riptide"));
+
     }
 
     /**
