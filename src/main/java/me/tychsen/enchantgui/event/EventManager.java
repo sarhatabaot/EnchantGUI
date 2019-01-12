@@ -1,9 +1,9 @@
-package me.tychsen.enchantgui.Event;
+package me.tychsen.enchantgui.event;
 
-import me.tychsen.enchantgui.Config.EshopConfig;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
+import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.Menu.MenuSystem;
+import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -50,14 +50,15 @@ public class EventManager implements Listener, CommandExecutor {
     // that is enchanted - which will then be an enchanting table...
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_AIR &&
-                e.getPlayer().getItemInHand().getType() == Material.ENCHANTMENT_TABLE) {
+                e.getPlayer().getInventory().getItemInMainHand().getType() == Material.ENCHANTING_TABLE) {
             handlePlayerInteractEvent(e);
         }
     }
 
     private void handleInventoryClickEvent(InventoryClickEvent e) {
+        if (e.getCurrentItem() == null) return;
         if (e.getCurrentItem().getType() == Material.AIR) return;
-        if (e.getClickedInventory().getType() != InventoryType.CHEST) return;
+        if (e.getInventory().getType() != InventoryType.CHEST) return;
 
         Player p = (Player) e.getWhoClicked();
         system.handleMenuClick(p, e);
@@ -81,7 +82,7 @@ public class EventManager implements Listener, CommandExecutor {
         return true;
     }
 
-    private boolean handleCommand(CommandSender sender, String[] args) {
+    private void handleCommand(CommandSender sender, String[] args) {
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
@@ -97,6 +98,5 @@ public class EventManager implements Listener, CommandExecutor {
             }
         }
 
-        return true;
     }
 }

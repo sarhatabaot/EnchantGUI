@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Menu;
+package me.tychsen.enchantgui.menu;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
