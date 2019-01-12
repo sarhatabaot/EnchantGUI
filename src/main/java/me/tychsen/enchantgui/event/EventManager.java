@@ -39,7 +39,7 @@ public class EventManager implements Listener, CommandExecutor {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
                 Logger logger = Main.getInstance().getLogger();
-                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex); //prints the error, spams the console, (when clicking outside of inventory)
+                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex); 
             }
         }
     }
@@ -56,7 +56,8 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     private void handleInventoryClickEvent(InventoryClickEvent e) {
-        if (e.getCurrentItem().getType() == Material.AIR) return; //TODO: add check if clicked outside inventory (console spams)
+        if (e.getCurrentItem() == null) return;
+        if (e.getCurrentItem().getType() == Material.AIR) return;
         if (e.getInventory().getType() != InventoryType.CHEST) return;
 
         Player p = (Player) e.getWhoClicked();

@@ -72,5 +72,5 @@ public class EshopEnchants {
         item.setItemMeta(meta);
         enchantList.add(item);
     }
-    
+
 }
