@@ -20,10 +20,10 @@ repositories {
 }
 
 dependencies {
-    compile "org.spigotmc:spigot-api:1.10.2-R0.1-SNAPSHOT"
-    compile "net.milkbowl.vault:VaultAPI:1.5"
+    compileOnly 'org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT'
+    compile "net.milkbowl.vault:VaultAPI:1.7"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "3.1"
+    gradleVersion = "5.1.1"
 }
