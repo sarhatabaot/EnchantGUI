@@ -34,7 +34,7 @@ public class EshopEnchants {
         addItem(Enchantment.DAMAGE_UNDEAD, Material.DIAMOND_SWORD, lm.getString("enchant.smite"));
         addItem(Enchantment.DEPTH_STRIDER, Material.DIAMOND_BOOTS, lm.getString("enchant.depth_strider"));
         addItem(Enchantment.DIG_SPEED, Material.DIAMOND_PICKAXE, lm.getString("enchant.efficiency"));
-        addItem(Enchantment.DURABILITY, Material.DIAMOND_PICKAXE, lm.getString("enchant.durability"));
+        addItem(Enchantment.DURABILITY, Material.DIAMOND_PICKAXE, lm.getString("enchant.unbreaking"));
         addItem(Enchantment.FIRE_ASPECT, Material.DIAMOND_SWORD, lm.getString("enchant.fire_aspect"));
         addItem(Enchantment.KNOCKBACK, Material.DIAMOND_SWORD, lm.getString("enchant.knockback"));
         addItem(Enchantment.LOOT_BONUS_BLOCKS, Material.DIAMOND_PICKAXE, lm.getString("enchant.fortune"));
