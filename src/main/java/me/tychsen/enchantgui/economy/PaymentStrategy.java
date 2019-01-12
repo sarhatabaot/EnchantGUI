@@ -1,7 +1,6 @@
-package me.tychsen.enchantgui.Economy;
+package me.tychsen.enchantgui.economy;
 
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 public interface PaymentStrategy {
     boolean withdraw(Player p, int amount);

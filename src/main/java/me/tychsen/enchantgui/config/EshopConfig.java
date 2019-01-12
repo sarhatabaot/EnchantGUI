@@ -1,11 +1,11 @@
-package me.tychsen.enchantgui.Config;
+package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Economy.MoneyPayment;
-import me.tychsen.enchantgui.Economy.NullPayment;
-import me.tychsen.enchantgui.Economy.PaymentStrategy;
-import me.tychsen.enchantgui.Economy.XPPayment;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
-import me.tychsen.enchantgui.Menu.DefaultMenuSystem;
+import me.tychsen.enchantgui.economy.MoneyPayment;
+import me.tychsen.enchantgui.economy.NullPayment;
+import me.tychsen.enchantgui.economy.PaymentStrategy;
+import me.tychsen.enchantgui.economy.XPPayment;
+import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.Main;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;

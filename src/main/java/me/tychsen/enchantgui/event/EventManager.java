@@ -1,9 +1,9 @@
-package me.tychsen.enchantgui.Event;
+package me.tychsen.enchantgui.event;
 
-import me.tychsen.enchantgui.Config.EshopConfig;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
+import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.Menu.MenuSystem;
+import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -81,7 +81,7 @@ public class EventManager implements Listener, CommandExecutor {
         return true;
     }
 
-    private boolean handleCommand(CommandSender sender, String[] args) {
+    private void handleCommand(CommandSender sender, String[] args) {
 
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
@@ -97,6 +97,5 @@ public class EventManager implements Listener, CommandExecutor {
             }
         }
 
-        return true;
     }
 }

@@ -1,11 +1,10 @@
-package me.tychsen.enchantgui.Menu;
+package me.tychsen.enchantgui.menu;
 
-import me.tychsen.enchantgui.Config.EshopConfig;
-import me.tychsen.enchantgui.Config.EshopEnchants;
-import me.tychsen.enchantgui.Economy.PaymentStrategy;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
+import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.economy.PaymentStrategy;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.Permissions.EshopPermissionSys;
+import me.tychsen.enchantgui.permissions.EshopPermissionSys;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -24,7 +23,6 @@ public class DefaultMenuSystem implements MenuSystem {
     private Map<String, String[]> playerLevels;
     private int inventorySize;
 
-    private EshopEnchants enchants;
     private EshopPermissionSys permsys;
     private EshopConfig config;
     private MenuGenerator generator;

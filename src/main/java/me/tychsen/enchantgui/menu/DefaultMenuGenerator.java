@@ -1,11 +1,10 @@
-package me.tychsen.enchantgui.Menu;
+package me.tychsen.enchantgui.menu;
 
-import me.tychsen.enchantgui.Config.EshopConfig;
-import me.tychsen.enchantgui.Config.EshopEnchants;
-import me.tychsen.enchantgui.Economy.NullPayment;
+import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EshopEnchants;
+import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.Permissions.EshopPermissionSys;
-import org.bukkit.Bukkit;
+import me.tychsen.enchantgui.permissions.EshopPermissionSys;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

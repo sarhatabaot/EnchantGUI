@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Localization;
+package me.tychsen.enchantgui.localization;
 
 import me.tychsen.enchantgui.Main;
 import org.bukkit.ChatColor;
@@ -55,7 +55,7 @@ public class LocalizationManager {
         config = YamlConfiguration.loadConfiguration(configFile);
 
         // Look for defaults in the jar
-        Reader defaultConfigStream = null;
+        Reader defaultConfigStream;
         InputStream defaultConfigInputStream = plugin.getResource(FILE_NAME_LOCALIZATION);
         if (defaultConfigInputStream != null) {
             try {

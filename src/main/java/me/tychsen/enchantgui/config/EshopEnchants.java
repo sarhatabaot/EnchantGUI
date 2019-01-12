@@ -1,9 +1,8 @@
-package me.tychsen.enchantgui.Config;
+package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Localization.LocalizationManager;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

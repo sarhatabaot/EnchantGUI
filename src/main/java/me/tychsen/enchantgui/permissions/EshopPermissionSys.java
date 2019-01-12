@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Permissions;
+package me.tychsen.enchantgui.permissions;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
