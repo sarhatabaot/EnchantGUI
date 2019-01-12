@@ -73,7 +73,7 @@ public class DefaultMenuSystem implements MenuSystem {
         LocalizationManager lm = LocalizationManager.getInstance();
         ItemStack item = event.getCurrentItem();
         Enchantment ench = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
-        ItemStack playerHand = p.getItemInHand();
+        ItemStack playerHand = p.getInventory().getItemInMainHand();
         int level = Integer.parseInt(playerLevels.get(p.getName())[event.getSlot()]);
 
         int price = config.getPrice(ench, level);
