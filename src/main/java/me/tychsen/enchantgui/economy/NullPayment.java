@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Economy;
+package me.tychsen.enchantgui.economy;
 
 import org.bukkit.entity.Player;
 

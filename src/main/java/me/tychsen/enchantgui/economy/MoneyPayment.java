@@ -1,8 +1,7 @@
-package me.tychsen.enchantgui.Economy;
+package me.tychsen.enchantgui.economy;
 
 import me.tychsen.enchantgui.Main;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,12 +20,7 @@ public class MoneyPayment implements PaymentStrategy {
     }
 
     public boolean withdraw(Player p, int amount) {
-        EconomyResponse r = econ.withdrawPlayer(p, amount);
-
-        if (r.transactionSuccess())
-            return true;
-        else
-            return false;
+        return econ.withdrawPlayer(p, amount).transactionSuccess();
     }
 
     private boolean setupEconomy() {

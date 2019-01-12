@@ -1,11 +1,11 @@
-package me.tychsen.enchantgui.Config;
+package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Economy.MoneyPayment;
-import me.tychsen.enchantgui.Economy.NullPayment;
-import me.tychsen.enchantgui.Economy.PaymentStrategy;
-import me.tychsen.enchantgui.Economy.XPPayment;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
-import me.tychsen.enchantgui.Menu.DefaultMenuSystem;
+import me.tychsen.enchantgui.economy.MoneyPayment;
+import me.tychsen.enchantgui.economy.NullPayment;
+import me.tychsen.enchantgui.economy.PaymentStrategy;
+import me.tychsen.enchantgui.economy.XPPayment;
+import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.Main;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -25,8 +25,13 @@ public class EshopConfig {
         config = plugin.getConfig();
     }
 
-    public int getPrice(Enchantment ench, int level) {
-        String path = ench.getName().toLowerCase() + ".level" + level;
+    public boolean getDebug(){
+        return config.getBoolean("debug");
+    }
+
+    public int getPrice(Enchantment enchantment, int level) {
+        String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
+        path = path.split(":")[1];
         return config.getInt(path);
     }
 
@@ -56,7 +61,9 @@ public class EshopConfig {
     }
 
     public String[] getEnchantLevels(Enchantment ench) {
-        String path = ench.getName().toLowerCase();
+        String path = ench.getKey().toString().toLowerCase();
+        path = path.split(":")[1];
+        Main.debug(path);
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 

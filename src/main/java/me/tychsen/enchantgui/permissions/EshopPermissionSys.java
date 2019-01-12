@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Permissions;
+package me.tychsen.enchantgui.permissions;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,26 +15,20 @@ public class EshopPermissionSys {
 
         Enchantment ench = enchants.keySet().toArray(new Enchantment[1])[0];
         String base = "eshop.enchants.";
-        String name = ench.getName().toLowerCase();
+        String name = (ench.getKey().toString().toLowerCase()).split(":")[1];
         String perm = base + name;
 
-        if (p.hasPermission(perm) || p.hasPermission(base + "all"))
-            return true;
-
-        return false;
+        return p.hasPermission(perm) || p.hasPermission(base + "all");
     }
 
     public boolean hasEnchantPermission(Player p, Enchantment ench, int level) {
         if (p.isOp()) return true;
 
         String base = "eshop.enchants.";
-        String enchName = ench.getName().toLowerCase();
+        String enchName = (ench.getKey().toString().toLowerCase()).split(":")[1];
         String perm = base + enchName + "." + level;
 
-        if (p.hasPermission(perm) || p.hasPermission(base + enchName + ".all") || p.hasPermission(base + "all"))
-            return true;
-
-        return false;
+        return p.hasPermission(perm) || p.hasPermission(base + enchName + ".all") || p.hasPermission(base + "all");
     }
 
     public boolean hasUsePermission(Player p) {
@@ -43,10 +37,6 @@ public class EshopPermissionSys {
         String base = "eshop.";
         String perm = base + "use";
 
-        if (p.hasPermission(perm)) {
-            return true;
-        }
-
-        return false;
+        return  p.hasPermission(perm);
     }
 }

@@ -1,9 +1,8 @@
-package me.tychsen.enchantgui.Config;
+package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Localization.LocalizationManager;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -35,7 +34,7 @@ public class EshopEnchants {
         addItem(Enchantment.DAMAGE_UNDEAD, Material.DIAMOND_SWORD, lm.getString("enchant.smite"));
         addItem(Enchantment.DEPTH_STRIDER, Material.DIAMOND_BOOTS, lm.getString("enchant.depth_strider"));
         addItem(Enchantment.DIG_SPEED, Material.DIAMOND_PICKAXE, lm.getString("enchant.efficiency"));
-        addItem(Enchantment.DURABILITY, Material.DIAMOND_PICKAXE, lm.getString("enchant.durability"));
+        addItem(Enchantment.DURABILITY, Material.DIAMOND_PICKAXE, lm.getString("enchant.unbreaking"));
         addItem(Enchantment.FIRE_ASPECT, Material.DIAMOND_SWORD, lm.getString("enchant.fire_aspect"));
         addItem(Enchantment.KNOCKBACK, Material.DIAMOND_SWORD, lm.getString("enchant.knockback"));
         addItem(Enchantment.LOOT_BONUS_BLOCKS, Material.DIAMOND_PICKAXE, lm.getString("enchant.fortune"));
@@ -53,6 +52,12 @@ public class EshopEnchants {
         addItem(Enchantment.WATER_WORKER, Material.DIAMOND_HELMET, lm.getString("enchant.aqua_affinity"));
         addItem(Enchantment.FROST_WALKER, Material.DIAMOND_BOOTS, lm.getString("enchant.frost_walker"));
         addItem(Enchantment.MENDING, Material.DIAMOND_PICKAXE, lm.getString("enchant.mending"));
+        addItem(Enchantment.SWEEPING_EDGE,Material.DIAMOND_SWORD,lm.getString("enchant.sweeping"));
+        addItem(Enchantment.CHANNELING,Material.TRIDENT,lm.getString("enchant.channeling"));
+        addItem(Enchantment.IMPALING,Material.TRIDENT,lm.getString("enchant.impaling"));
+        addItem(Enchantment.LOYALTY,Material.TRIDENT,lm.getString("enchant.loyalty"));
+        addItem(Enchantment.RIPTIDE,Material.TRIDENT,lm.getString("enchant.riptide"));
+
     }
 
     /**
@@ -65,16 +70,7 @@ public class EshopEnchants {
         meta.setDisplayName(displayName);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
-
         enchantList.add(item);
     }
 
-    /**
-     * Returns the permission name for the enchant type.
-     */
-    private String enchantPermName(Enchantment type) {
-        String perm = "eshop.enchant.";
-        perm += type.getName().toLowerCase();
-        return perm;
-    }
 }

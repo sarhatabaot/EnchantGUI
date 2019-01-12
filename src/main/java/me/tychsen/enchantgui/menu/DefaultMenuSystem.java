@@ -1,10 +1,10 @@
-package me.tychsen.enchantgui.Menu;
+package me.tychsen.enchantgui.menu;
 
-import me.tychsen.enchantgui.Config.EshopConfig;
-import me.tychsen.enchantgui.Config.EshopEnchants;
-import me.tychsen.enchantgui.Economy.PaymentStrategy;
-import me.tychsen.enchantgui.Localization.LocalizationManager;
-import me.tychsen.enchantgui.Permissions.EshopPermissionSys;
+import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.economy.PaymentStrategy;
+import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.permissions.EshopPermissionSys;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -23,7 +23,6 @@ public class DefaultMenuSystem implements MenuSystem {
     private Map<String, String[]> playerLevels;
     private int inventorySize;
 
-    private EshopEnchants enchants;
     private EshopPermissionSys permsys;
     private EshopConfig config;
     private MenuGenerator generator;
@@ -72,14 +71,13 @@ public class DefaultMenuSystem implements MenuSystem {
     private void purchaseEnchant(Player p, InventoryClickEvent event) {
         LocalizationManager lm = LocalizationManager.getInstance();
         ItemStack item = event.getCurrentItem();
-        Enchantment ench = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
-        ItemStack playerHand = p.getItemInHand();
+        Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
+        ItemStack playerHand = p.getInventory().getItemInMainHand();
+
         int level = Integer.parseInt(playerLevels.get(p.getName())[event.getSlot()]);
+        int price = config.getPrice(enchantment, level);
 
-        int price = config.getPrice(ench, level);
-
-        // DEBUG
-        //p.sendMessage("Slot: " + slot + ". Level: " + level);
+        Main.debug("Slot: "+event.getSlot()+" Level: "+ level);
 
         if (playerHand == null || playerHand.getType() == Material.AIR) {
             p.sendMessage(start + lm.getString("cant-enchant"));
@@ -87,11 +85,11 @@ public class DefaultMenuSystem implements MenuSystem {
             return;
         }
 
-        if (ench.canEnchantItem(playerHand)) {
+        if (enchantment.canEnchantItem(playerHand)) {
             PaymentStrategy payment = config.getEconomy();
 
             if (payment.withdraw(p, price)) {
-                enchantItem(playerHand, ench, level);
+                enchantItem(playerHand, enchantment, level);
                 p.sendMessage(start + lm.getString("item-enchanted") + " " + ChatColor.LIGHT_PURPLE +
                         item.getItemMeta().getDisplayName() + " " + level);
                 p.closeInventory();

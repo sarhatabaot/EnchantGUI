@@ -1,4 +1,4 @@
-package me.tychsen.enchantgui.Economy;
+package me.tychsen.enchantgui.economy;
 
 import org.bukkit.entity.Player;
 
@@ -18,10 +18,6 @@ public class XPPayment implements PaymentStrategy {
 
     @Override
     public boolean hasSufficientFunds(Player p, int amount) {
-        if (p.getLevel() >= amount) {
-            return true;
-        }
-
-        return false;
+        return (p.getLevel() >= amount);
     }
 }
