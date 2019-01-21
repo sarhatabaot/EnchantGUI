@@ -12,6 +12,10 @@ menu-name: EnchantGUI
 # You can also put 'disable' to disable the economy-aspect of the plugin entirely.
 payment-currency: money
 
+# This allows enchantments to be applied to items that don't normally accept them,
+# i.e. elytra with protection
+ignore-itemtype: false
+
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.

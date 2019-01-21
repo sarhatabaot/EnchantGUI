@@ -85,7 +85,7 @@ public class DefaultMenuSystem implements MenuSystem {
             return;
         }
 
-        if (enchantment.canEnchantItem(playerHand)) {
+        if (enchantment.canEnchantItem(playerHand) || config.getIgnoreItemType()) {
             PaymentStrategy payment = config.getEconomy();
 
             if (payment.withdraw(p, price)) {
@@ -96,13 +96,14 @@ public class DefaultMenuSystem implements MenuSystem {
             } else {
                 p.sendMessage(start + lm.getString("insufficient-funds"));
             }
-        } else {
+        }
+        else{
             p.sendMessage(start + lm.getString("item-cant-be-enchanted"));
         }
     }
 
     private void enchantItem(ItemStack playerHand, Enchantment ench, int level) {
-        if (level > ench.getMaxLevel()) {
+        if (level > ench.getMaxLevel() || !ench.canEnchantItem(playerHand)) {
             // Unsafe enchant
             playerHand.addUnsafeEnchantment(ench, level);
         } else {

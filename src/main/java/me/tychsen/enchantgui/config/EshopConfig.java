@@ -25,6 +25,10 @@ public class EshopConfig {
         config = plugin.getConfig();
     }
 
+    public boolean getIgnoreItemType(){
+        return config.getBoolean("ignore-itemtype");
+    }
+
     public boolean getDebug(){
         return config.getBoolean("debug");
     }
