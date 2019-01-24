@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui.menu;
 
 import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EshopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
@@ -12,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,10 +51,15 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
+    private boolean isGoBackItem(ItemStack item){
+        return item.getItemMeta().getDisplayName().equalsIgnoreCase("Go back")
+                && item.getType() == Material.matchMaterial(EshopShop.getInstance().getString("shop.back-item"));
+    }
+
     @Override
     public void handleMenuClick(Player p, InventoryClickEvent event) {
         if (playerLevels.containsKey(p.getName())) {
-            if (event.getCurrentItem().getType() == Material.EMERALD) {
+            if (isGoBackItem(event.getCurrentItem())) {
                 playerLevels.remove(p.getName());
                 showMainMenu(p);
             } else if (event.getCurrentItem().getType() != Material.AIR){
