@@ -1,7 +1,10 @@
 shop:
-  level:
-  price:
-  title:
+  level: "&eLevel: {0}"
+  price: "&2Price: {0}$"
+  back-item: "EMERALD"
+  display-name: ""
+  # Set the item that displays in the shop
+  # You can only set items that support the enchantment.
   enchants:
     power: "BOW"
     flame: "BOW"
