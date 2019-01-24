@@ -64,6 +64,21 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return MessageFormat.format(string, type);
     }
 
+    private ItemStack generateItemWithMeta(ItemStack item, int level, Enchantment enchantment){
+        ItemStack tmp = item.clone();
+        ItemMeta meta = tmp.getItemMeta();
+        List<String> lores = new ArrayList<>();
+        lores.add(format(level,"level"));
+
+        if (!(config.getEconomy() instanceof NullPayment)) {
+            int price = config.getPrice(enchantment, level);
+            lores.add(format(price,"price"));
+        }
+
+        meta.setLore(lores);
+        tmp.setItemMeta(meta);
+        return tmp;
+    }
     private Inventory generateEnchantMenu(Player p, ItemStack item, Map<String, String[]> playerLevels) {
         Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
 
@@ -80,20 +95,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
             enchantLevel = enchantLevel.substring(5);
             int level = Integer.parseInt(enchantLevel);
             if (permsys.hasEnchantPermission(p, enchantment, level)) {
-                ItemStack tmp = item.clone();
-                ItemMeta meta = tmp.getItemMeta();
-                List<String> lores = new ArrayList<>();
-
-                lores.add(format(level,"level"));
-                if (!(config.getEconomy() instanceof NullPayment)) {
-                    int price = config.getPrice(enchantment, level);
-                    lores.add(format(price,"price"));
-                }
-                meta.setLore(lores);
-                tmp.setItemMeta(meta);
-
-                itemList.add(tmp);
-                Main.debug(tmp.toString());
+                itemList.add(generateItemWithMeta(item,level,enchantment));
+                Main.debug(item.toString());
                 levels.add(enchantLevel);
             }
         }
