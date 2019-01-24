@@ -22,7 +22,7 @@ public class EshopEnchants {
     public List<ItemStack> getEnchantList() { return enchantList; }
 
     private Material matchEnchant(String enchantment){
-        return Material.matchMaterial(shop.getString("shop."+enchantment));
+        return Material.matchMaterial(shop.getString("shop.enchants."+enchantment));
     }
 
     /**
