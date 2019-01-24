@@ -1,5 +1,5 @@
 group 'Tychsen.me'
-version '1.5.2-GUI'
+version '1.5.3'
 
 apply plugin: 'java'
 
