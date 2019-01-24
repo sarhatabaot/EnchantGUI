@@ -28,8 +28,8 @@ public class EshopShop {
 
     public void reload(CommandSender sender) {
         reloadConfig();
-        String start = ChatColor.AQUA + LocalizationManager.getInstance().getString("prefix") + " " + ChatColor.WHITE;
-        sender.sendMessage(start + LocalizationManager.getInstance().getString("shop-configuration-reloaded"));
+        String start = ChatColor.AQUA + EshopShop.getInstance().getString("prefix") + " " + ChatColor.WHITE;
+        sender.sendMessage(start + EshopShop.getInstance().getString("shop-reloaded"));
     }
 
     public String getString(String string){
