@@ -74,6 +74,9 @@ public class DefaultMenuGenerator implements MenuGenerator {
                 ItemStack tmp = item.clone();
                 ItemMeta meta = tmp.getItemMeta();
                 List<String> lores = new ArrayList<>();
+
+                //TODO: Option to change color, localization message here?
+                
                 lores.add(ChatColor.GOLD + "Level: " + level);
                 if (!(config.getEconomy() instanceof NullPayment)) {
                     int price = config.getPrice(enchantment, level);

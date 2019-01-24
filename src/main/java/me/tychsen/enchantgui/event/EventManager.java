@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui.event;
 
 import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EshopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
@@ -88,6 +89,7 @@ public class EventManager implements Listener, CommandExecutor {
             if (args[0].equalsIgnoreCase("reload")) {
                 EshopConfig.getInstance().reloadConfig(sender);
                 LocalizationManager.getInstance().reload(sender);
+                EshopShop.getInstance().reload(sender);
             }
         } else {
             if (sender instanceof Player) {
