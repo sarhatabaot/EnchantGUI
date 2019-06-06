@@ -83,6 +83,8 @@ public class EventManager implements Listener, CommandExecutor {
         return true;
     }
 
+
+
     private void handleCommand(CommandSender sender, String[] args) {
 
         if (args.length > 0) {
