@@ -29,7 +29,7 @@ public class EventManager implements Listener, CommandExecutor {
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
-        String inventoryName = e.getInventory().getName().toLowerCase();
+        String inventoryName = e.getInventory().getViewers().get(0).getOpenInventory().getTitle().toLowerCase();
         String configInventoryName = EshopConfig.getInstance().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
