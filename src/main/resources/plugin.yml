@@ -8,8 +8,10 @@ dependency: Vault
 
 commands:
     eshop:
+        aliases:
+            - enchantgui
         description: Command for the EnchantGUI plugin.
-        usage: Simply just /eshop
+        usage: "/<command>"
         permission: eshop.use
 permissions:
     eshop.use:
