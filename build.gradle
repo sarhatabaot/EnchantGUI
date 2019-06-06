@@ -33,6 +33,8 @@ dependencies {
     implementation "org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT"
     implementation "net.milkbowl.vault:VaultAPI:1.7"
     compile "org.bstats:bstats-bukkit:1.5"
+    compile group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
+
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
