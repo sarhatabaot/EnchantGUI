@@ -5,7 +5,6 @@ import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,7 +16,7 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        if (!setupEconomy() ) {
+        if (!setupEconomy()) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
             return;
@@ -36,12 +35,12 @@ public class Main extends JavaPlugin implements Listener {
 
         // Enable Metrics
         Metrics metrics = new Metrics(this);
-        getLogger().info(getName()+" "+getDescription().getVersion() + "enabled!");
+        getLogger().info(getName() + " " + getDescription().getVersion() + "enabled!");
     }
 
-    public static void debug(String msg){
-        if(EshopConfig.getInstance().getDebug())
-            Bukkit.getPluginManager().getPlugin("EnchantGUI").getLogger().warning(String.format("\u001B[33m DEBUG %s \u001B[0m",msg));
+    public static void debug(String msg) {
+        if (EshopConfig.getInstance().getDebug())
+            Main.getInstance().getLogger().warning(String.format("\u001B[33m" + "DEBUG %s \u001B[0m", msg));
     }
 
     private boolean setupEconomy() {

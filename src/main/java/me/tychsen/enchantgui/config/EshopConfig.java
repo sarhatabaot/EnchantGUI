@@ -84,6 +84,17 @@ public class EshopConfig {
         return enchantLevels;
     }
 
+    public String getEconomyCurrency(){
+        switch (config.getString("payment-currency").toLowerCase()) {
+            case "money":
+                return Main.getEconomy().currencyNameSingular();
+            case "xp":
+                return "levels";
+            default:
+                return "";
+        }
+    }
+
     public PaymentStrategy getEconomy() {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
@@ -98,7 +109,6 @@ public class EshopConfig {
                     break;
             }
         }
-
         return economy;
     }
 

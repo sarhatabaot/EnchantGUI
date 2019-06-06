@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,18 +76,15 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("eshop")) {
             handleCommand(sender, args);
         }
-
         return true;
     }
 
 
-
     private void handleCommand(CommandSender sender, String[] args) {
-
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
                 EshopConfig.getInstance().reloadConfig(sender);
@@ -101,6 +99,5 @@ public class EventManager implements Listener, CommandExecutor {
                 sender.sendMessage(LocalizationManager.getInstance().getString("command-from-console"));
             }
         }
-
     }
 }
