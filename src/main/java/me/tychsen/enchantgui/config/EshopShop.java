@@ -1,6 +1,8 @@
 package me.tychsen.enchantgui.config;
 
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,8 +28,8 @@ public class EshopShop {
 
     public void reload(CommandSender sender) {
         reloadConfig();
-        String start = ChatColor.AQUA + EshopShop.getInstance().getString("prefix") + " " + ChatColor.WHITE;
-        sender.sendMessage(start + EshopShop.getInstance().getString("shop-reloaded"));
+        String start = ChatColor.AQUA + LocalizationManager.getInstance().getString("prefix") + " " + ChatColor.WHITE;
+        sender.sendMessage(start + LocalizationManager.getInstance().getString("shop-reloaded"));
     }
 
     public String getString(String string){
@@ -59,9 +61,9 @@ public class EshopShop {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
             config.setDefaults(defaultConfig);
         }
-
         Main.debug("Config reloaded.");
     }
+
 
     private FileConfiguration getConfig(){
         if(config==null)
