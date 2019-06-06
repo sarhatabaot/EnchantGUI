@@ -1,9 +1,7 @@
 package me.tychsen.enchantgui.config;
 
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,7 +13,7 @@ import java.io.*;
  * @author sarhatabaot
  */
 public class EshopShop {
-    private final static String FILE_NAME_SHOP = "shop.yml";
+    private static final String FILE_NAME_SHOP = "shop.yml";
     private static EshopShop instance;
     private Plugin plugin;
     private File configFile;

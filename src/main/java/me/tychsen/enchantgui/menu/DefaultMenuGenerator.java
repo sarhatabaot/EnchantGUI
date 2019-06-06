@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -23,18 +24,17 @@ public class DefaultMenuGenerator implements MenuGenerator {
     private int inventorySize;
     private EshopConfig config;
     private EshopEnchants enchants;
-    private EshopPermissionSys permsys;
+    private EshopPermissionSys permSys;
 
-    public DefaultMenuGenerator(int inventorySize, EshopConfig config, EshopPermissionSys permsys) {
+    public DefaultMenuGenerator(int inventorySize, EshopConfig config, EshopPermissionSys permSys) {
         this.inventorySize = inventorySize;
         this.config = config;
-        // TODO: Figure out better fix of EshopEnchants.
         this.enchants = new EshopEnchants();
-        this.permsys = permsys;
+        this.permSys = permSys;
 
     }
 
-    public Inventory mainMenu(Player p) {
+    public Inventory mainMenu(@NotNull Player p) {
         Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
         generateMainMenu(p, inv);
 
@@ -45,45 +45,59 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return generateEnchantMenu(p, item, playerLevels);
     }
 
+    private List<ItemStack> showPerItem(List<ItemStack> itemList, @NotNull ItemStack item, Player p) {
+        List<ItemStack> modifiedList = new ArrayList<>(itemList);
+        for (Enchantment enchantment : item.getEnchantments().keySet()) {
+            if (enchantment.canEnchantItem(p.getInventory().getItemInMainHand())) {
+                modifiedList.add(item);
+            }
+        }
+        return modifiedList;
+    }
+
     private void generateMainMenu(Player p, Inventory inv) {
         List<ItemStack> enchantList = enchants.getEnchantList();
         List<ItemStack> itemList = new ArrayList<>();
 
         for (ItemStack item : enchantList) {
-            if (permsys.hasEnchantPermission(p, item)) {
-                itemList.add(item);
+            if (permSys.hasEnchantPermission(p, item)) {
+                if (config.getShowPerItem()) {
+                    itemList = showPerItem(itemList, item, p);
+                } else {
+                    itemList.add(item);
+                }
             }
         }
         inv.setContents(itemList.toArray(new ItemStack[itemList.size()]));
     }
 
-    private String format(int type, String name){
+    @NotNull
+    private String format(int type, String name) {
         EshopShop shop = EshopShop.getInstance();
-        String string = shop.getString("shop."+name);
-        string = ChatColor.translateAlternateColorCodes('&',string);
+        String string = shop.getString("shop." + name);
+        string = ChatColor.translateAlternateColorCodes('&', string);
         return MessageFormat.format(string, type);
     }
 
-    private ItemStack generateItemWithMeta(ItemStack item, int level, Enchantment enchantment){
+    private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
         ItemStack tmp = item.clone();
         ItemMeta meta = tmp.getItemMeta();
         List<String> lores = new ArrayList<>();
-        lores.add(format(level,"level"));
+        lores.add(format(level, "level"));
 
         if (!(config.getEconomy() instanceof NullPayment)) {
             int price = config.getPrice(enchantment, level);
-            lores.add(format(price,"price"));
+            lores.add(format(price, "price"));
         }
 
         meta.setLore(lores);
         tmp.setItemMeta(meta);
         return tmp;
     }
-    private Inventory generateEnchantMenu(Player p, ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
 
+    private Inventory generateEnchantMenu(@NotNull Player p, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
+        Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
-        //String name = item.getItemMeta().getDisplayName();
         List<ItemStack> itemList = new ArrayList<>();
 
         // Generate the correct items for the player.
@@ -94,8 +108,10 @@ public class DefaultMenuGenerator implements MenuGenerator {
         for (String enchantLevel : enchantLevels) {
             enchantLevel = enchantLevel.substring(5);
             int level = Integer.parseInt(enchantLevel);
-            if (permsys.hasEnchantPermission(p, enchantment, level)) {
-                itemList.add(generateItemWithMeta(item,level,enchantment));
+            if (permSys.hasEnchantPermission(p, enchantment, level)) {
+                //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
+
+                itemList.add(generateItemWithMeta(item, level, enchantment));
                 Main.debug(item.toString());
                 levels.add(enchantLevel);
             }
@@ -111,7 +127,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return inv;
     }
 
-    private ItemStack generateBackItem(){
+    private ItemStack generateBackItem() {
         Material material = Material.matchMaterial(EshopShop.getInstance().getString("shop.back-item"));
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();

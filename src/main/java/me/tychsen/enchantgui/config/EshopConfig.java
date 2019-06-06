@@ -52,6 +52,10 @@ public class EshopConfig {
         }
     }
 
+    public boolean getShowPerItem(){
+        return config.getBoolean("show-per-item");
+    }
+
     public void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
