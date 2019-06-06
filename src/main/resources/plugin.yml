@@ -8,5 +8,13 @@ dependency: Vault
 
 commands:
     eshop:
-        description: Command for the EnchantGUI plugin
+        description: Command for the EnchantGUI plugin.
         usage: Simply just /eshop
+        permission: eshop.use
+permissions:
+    eshop.use:
+        description: Gives access to /eshop.
+    eshop.admin:
+        description: Gives access to /eshop reload.
+    eshop.all:
+        description: Gives access to all enchants and all levels of the enchants.
