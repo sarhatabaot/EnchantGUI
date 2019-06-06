@@ -66,8 +66,6 @@ public class LocalizationManager {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
             config.setDefaults(defaultConfig);
         }
-
-        plugin.getLogger().info("");
     }
 
     /**

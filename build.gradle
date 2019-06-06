@@ -1,7 +1,13 @@
-group 'Tychsen.me'
-version '1.5.2'
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.0.0'
+    id 'java'
+}
 
-apply plugin: 'java'
+group = 'me.tychsen'
+version  = '1.5.4'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
@@ -17,13 +23,34 @@ repositories {
         name = "bungeecord-chat"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
+    maven {
+        name = "codemc-repo"
+        url = "https://repo.codemc.org/repository/maven-public"
+    }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.13.1-R0.1-SNAPSHOT'
-    compile "net.milkbowl.vault:VaultAPI:1.7"
+    implementation "org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT"
+    implementation "net.milkbowl.vault:VaultAPI:1.7"
+    compile "org.bstats:bstats-bukkit:1.5"
+    compile group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
+
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        filter ReplaceTokens, tokens: [version: version]
+    }
+}
+
+shadowJar {
+    classifier = ""
+    configurations = [project.configurations.compile]
+    relocate 'org.bstats', 'me.tychsen.enchantgui.util'
 }
 
 wrapper {
-    gradleVersion = "5.1.1"
+    gradleVersion = "5.4.1"
 }

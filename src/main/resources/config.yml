@@ -16,6 +16,10 @@ payment-currency: money
 # i.e. elytra with protection
 ignore-itemtype: false
 
+# Shows only the available enchantments for the selected item
+# overrides ignore-itemtype
+show-per-item: false
+
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.

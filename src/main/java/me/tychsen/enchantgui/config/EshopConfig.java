@@ -52,6 +52,10 @@ public class EshopConfig {
         }
     }
 
+    public boolean getShowPerItem(){
+        return config.getBoolean("show-per-item");
+    }
+
     public void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
@@ -80,6 +84,17 @@ public class EshopConfig {
         return enchantLevels;
     }
 
+    public String getEconomyCurrency(){
+        switch (config.getString("payment-currency").toLowerCase()) {
+            case "money":
+                return Main.getEconomy().currencyNameSingular();
+            case "xp":
+                return "levels";
+            default:
+                return "";
+        }
+    }
+
     public PaymentStrategy getEconomy() {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
@@ -94,7 +109,6 @@ public class EshopConfig {
                     break;
             }
         }
-
         return economy;
     }
 

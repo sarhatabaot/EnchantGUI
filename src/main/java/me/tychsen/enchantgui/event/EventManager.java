@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui.event;
 
 import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EshopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
@@ -15,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,7 +30,7 @@ public class EventManager implements Listener, CommandExecutor {
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
-        String inventoryName = e.getInventory().getName().toLowerCase();
+        String inventoryName = e.getInventory().getViewers().get(0).getOpenInventory().getTitle().toLowerCase();
         String configInventoryName = EshopConfig.getInstance().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
@@ -74,20 +76,20 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("eshop")) {
             handleCommand(sender, args);
         }
-
         return true;
     }
 
-    private void handleCommand(CommandSender sender, String[] args) {
 
+    private void handleCommand(CommandSender sender, String[] args) {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {
                 EshopConfig.getInstance().reloadConfig(sender);
                 LocalizationManager.getInstance().reload(sender);
+                EshopShop.getInstance().reload(sender);
             }
         } else {
             if (sender instanceof Player) {
@@ -97,6 +99,5 @@ public class EventManager implements Listener, CommandExecutor {
                 sender.sendMessage(LocalizationManager.getInstance().getString("command-from-console"));
             }
         }
-
     }
 }
