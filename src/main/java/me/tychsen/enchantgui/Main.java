@@ -3,6 +3,7 @@ package me.tychsen.enchantgui;
 import me.tychsen.enchantgui.config.EshopConfig;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -27,12 +28,12 @@ public class Main extends JavaPlugin implements Listener {
 
         // Enable Metrics
         Metrics metrics = new Metrics(this);
-
+        getLogger().info(getName()+" "+getDescription().getVersion() + "enabled!");
     }
 
     public static void debug(String msg){
         if(EshopConfig.getInstance().getDebug())
-            Bukkit.getPluginManager().getPlugin("EnchantGUI").getLogger().warning("\u001B[33m"+"[DEBUG] "+msg+"\u001B[0m");
+            Bukkit.getPluginManager().getPlugin("EnchantGUI").getLogger().warning(String.format("\u001B[33m DEBUG %s \u001B[0m",msg));
     }
 
     public static Main getInstance() {
