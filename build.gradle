@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'me.tychsen'
-version  = '1.5.4'
+version  = '1.5.5'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -34,7 +34,6 @@ dependencies {
     implementation "net.milkbowl.vault:VaultAPI:1.7"
     compile "org.bstats:bstats-bukkit:1.5"
     compile group: 'org.jetbrains', name: 'annotations', version: '16.0.1'
-
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
@@ -53,4 +52,5 @@ shadowJar {
 
 wrapper {
     gradleVersion = "5.4.1"
+    
 }
