@@ -6,6 +6,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class EshopEnchants {
 
     public List<ItemStack> getEnchantList() { return enchantList; }
 
-    private Material matchEnchant(String enchantment){
+    private Material matchEnchant(@NotNull String enchantment){
         return Material.matchMaterial(shop.getString("shop.enchants."+enchantment));
     }
 
@@ -63,7 +64,9 @@ public class EshopEnchants {
         addItem(Enchantment.IMPALING,matchEnchant("impaling"),lm.getString("enchant.impaling"));
         addItem(Enchantment.LOYALTY,matchEnchant("loyalty"),lm.getString("enchant.loyalty"));
         addItem(Enchantment.RIPTIDE,matchEnchant("riptide"),lm.getString("enchant.riptide"));
-
+        addItem(Enchantment.PIERCING,matchEnchant("piercing"),lm.getString("enchant.piercing"));
+        addItem(Enchantment.MULTISHOT,matchEnchant("multishot"),lm.getString("enchant.multishot"));
+        addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
     }
 
     /**

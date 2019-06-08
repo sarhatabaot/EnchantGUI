@@ -41,3 +41,6 @@ shop:
     impaling: "TRIDENT"
     loyalty: "TRIDENT"
     riptide: "TRIDENT"
+    quick_charge: "CROSSBOW"
+    piercing: "CROSSBOW"
+    multishot: "CROSSBOW"

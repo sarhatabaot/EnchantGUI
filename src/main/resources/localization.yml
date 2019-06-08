@@ -33,6 +33,9 @@ enchant:
   impaling: "Impaling"
   loyalty: "Loyalty"
   riptide: "Riptide"
+  quick_charge: "Quick Charge"
+  piercing: "Piercing"
+  multishot: "Multishot"
 
 command-from-console: "Can't use this command from console..."
 no-permission: "Sorry, you do not have permission for this."

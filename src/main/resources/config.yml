@@ -154,6 +154,17 @@ riptide:
     level1: 100
     level2: 200
     level3: 300
+piercing:
+    level1: 100
+    level2: 200
+    level3: 300
+    level4: 400
+multishot:
+    level1: 100
+quick_charge:
+    level1: 100
+    level2: 200
+    level3: 300
 
 # For Debugging only
 debug: false
