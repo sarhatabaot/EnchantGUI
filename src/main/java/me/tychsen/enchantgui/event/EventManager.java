@@ -14,12 +14,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static me.tychsen.enchantgui.Main.debug;
 
 public class EventManager implements Listener, CommandExecutor {
     private MenuSystem system;
@@ -29,8 +32,13 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     @EventHandler
+    public void onCreativeClickEvent(InventoryCreativeEvent event){
+        onInventoryClickEvent(event);
+    }
+
+    @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
-        String inventoryName = e.getInventory().getViewers().get(0).getOpenInventory().getTitle().toLowerCase();
+        String inventoryName = e.getView().getTitle();
         String configInventoryName = EshopConfig.getInstance().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
@@ -46,15 +54,10 @@ public class EventManager implements Listener, CommandExecutor {
         }
     }
 
-    //@EventHandler
-    // TODO: Implement Enchanting table right click to open menu.
-    // Requires more work, though, as it's currently the item in the hand
-    // that is enchanted - which will then be an enchanting table...
+    @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
-        if (e.getAction() == Action.RIGHT_CLICK_AIR &&
-                e.getPlayer().getInventory().getItemInMainHand().getType() == Material.ENCHANTING_TABLE) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE)
             handlePlayerInteractEvent(e);
-        }
     }
 
     private void handleInventoryClickEvent(InventoryClickEvent e) {
@@ -67,10 +70,8 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
-        if (p.isOp()) {
-            // TODO: || playerHasUsePerms(p) <-- Implement this crap somewhere
-            // IMPORTANT: PlayerInteractEvent EventHandler is currently disabled, so no worries...
+        debug("Enchanting table="+EshopConfig.getBoolean("right-click-enchanting-table"));
+        if (EshopConfig.getBoolean("right-click-enchanting-table") && e.getPlayer().hasPermission("eshop.enchantingtable")) {
             system.showMainMenu(e.getPlayer());
         }
     }
