@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author sarhatabaot
@@ -53,11 +54,7 @@ public class EshopShop {
         Reader defaultConfigStream;
         InputStream defaultConfigInputStream = plugin.getResource(FILE_NAME_SHOP);
         if (defaultConfigInputStream != null) {
-            try {
-                defaultConfigStream = new InputStreamReader(plugin.getResource(FILE_NAME_SHOP), "UTF8"); //TODO
-            } catch (UnsupportedEncodingException e) {
-                defaultConfigStream = new InputStreamReader(plugin.getResource(FILE_NAME_SHOP));
-            }
+            defaultConfigStream = new InputStreamReader(defaultConfigInputStream, StandardCharsets.UTF_8);
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(defaultConfigStream);
             config.setDefaults(defaultConfig);
         }
