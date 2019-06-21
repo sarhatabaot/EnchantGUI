@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui.config;
 
+import lombok.Setter;
 import me.tychsen.enchantgui.economy.MoneyPayment;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
@@ -14,13 +15,14 @@ import org.bukkit.enchantments.Enchantment;
 import java.util.Map;
 
 public class EshopConfig {
+    @Setter
     private static EshopConfig instance;
     private Main plugin;
     private FileConfiguration config;
     private PaymentStrategy economy;
 
     public EshopConfig() {
-        instance = this;
+        setInstance(this);
         this.plugin = Main.getInstance();
         config = plugin.getConfig();
     }
@@ -37,6 +39,10 @@ public class EshopConfig {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
         return config.getInt(path);
+    }
+
+    public static boolean getBoolean(String path){
+        return Main.getInstance().getConfig().getBoolean(path);
     }
 
     public String getMenuName() {

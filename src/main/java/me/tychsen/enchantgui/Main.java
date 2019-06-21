@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui;
 
+import lombok.Setter;
 import me.tychsen.enchantgui.config.EshopConfig;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
@@ -10,12 +11,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
+    @Setter
     private static Main instance;
     private static Economy econ = null;
 
     @Override
     public void onEnable() {
-        instance = this;
+        setInstance(this);
         if (!setupEconomy()) {
             getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
@@ -35,7 +37,7 @@ public class Main extends JavaPlugin implements Listener {
 
         // Enable Metrics
         Metrics metrics = new Metrics(this);
-        getLogger().info(getName() + " " + getDescription().getVersion() + "enabled!");
+        getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
     }
 
     public static void debug(String msg) {
