@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui.config;
 
+import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.economy.MoneyPayment;
 import me.tychsen.enchantgui.economy.NullPayment;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class EshopConfig {
     @Setter
+    @Getter
     private static EshopConfig instance;
     private Main plugin;
     private FileConfiguration config;
@@ -68,9 +70,9 @@ public class EshopConfig {
             plugin.reloadConfig();
             config = plugin.getConfig();
             economy = null;
-            sender.sendMessage(DefaultMenuSystem.start + lm.getString("config-reloaded"));
+            sender.sendMessage(DefaultMenuSystem.START + lm.getString("config-reloaded"));
         } else {
-            sender.sendMessage(DefaultMenuSystem.start + lm.getString("no-permission"));
+            sender.sendMessage(DefaultMenuSystem.START + lm.getString("no-permission"));
         }
     }
 
@@ -118,7 +120,4 @@ public class EshopConfig {
         return economy;
     }
 
-    public static EshopConfig getInstance() {
-        return instance;
-    }
 }

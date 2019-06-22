@@ -2,9 +2,7 @@ package me.tychsen.enchantgui.menu;
 
 import me.tychsen.enchantgui.config.EshopConfig;
 import me.tychsen.enchantgui.config.EshopShop;
-import me.tychsen.enchantgui.economy.MoneyPayment;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
-import me.tychsen.enchantgui.economy.XPPayment;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EshopPermissionSys;
@@ -15,13 +13,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultMenuSystem implements MenuSystem {
-    public static String start =
+    public static final String START =
             ChatColor.AQUA + LocalizationManager.getInstance().getString("prefix") + " " + ChatColor.WHITE;
 
     private Map<String, String[]> playerLevels;
@@ -89,7 +86,7 @@ public class DefaultMenuSystem implements MenuSystem {
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            p.sendMessage(start + lm.getString("cant-enchant"));
+            p.sendMessage(START + lm.getString("cant-enchant"));
             p.closeInventory();
             return;
         }
@@ -99,14 +96,15 @@ public class DefaultMenuSystem implements MenuSystem {
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s %s " + ChatColor.LIGHT_PURPLE + "%s %d" + ChatColor.WHITE + " for " + ChatColor.GOLD + "%d %s", start, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EshopConfig.getInstance().getEconomyCurrency());
+                String message = String.format("%s %s " + ChatColor.LIGHT_PURPLE + "%s %d" + ChatColor.WHITE + " for " + ChatColor.GOLD + "%d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EshopConfig.getInstance().getEconomyCurrency());
                 p.sendMessage(message);
                 p.closeInventory();
             } else {
-                p.sendMessage(start + lm.getString("insufficient-funds"));
+                p.sendMessage(START + lm.getString("insufficient-funds"));
             }
         } else {
-            p.sendMessage(start + lm.getString("item-cant-be-enchanted"));
+            p.sendMessage(START + lm.getString("item-cant-be-enchanted"));
+            //TODO p.closeInventory(); add option for this
         }
     }
 
