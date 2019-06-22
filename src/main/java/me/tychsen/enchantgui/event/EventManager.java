@@ -38,7 +38,7 @@ public class EventManager implements Listener, CommandExecutor {
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
-        String inventoryName = e.getView().getTitle();
+        String inventoryName = e.getView().getTitle().toLowerCase();
         String configInventoryName = EshopConfig.getInstance().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
@@ -72,7 +72,6 @@ public class EventManager implements Listener, CommandExecutor {
     }
 
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
-        debug("Enchanting table="+EshopConfig.getBoolean("right-click-enchanting-table"));
         if (EshopConfig.getBoolean("right-click-enchanting-table") && e.getPlayer().hasPermission("eshop.enchantingtable")) {
             system.showMainMenu(e.getPlayer());
         }
