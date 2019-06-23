@@ -15,6 +15,7 @@ public class Main extends JavaPlugin implements Listener {
     private static Main instance;
     private static Economy econ = null;
 
+
     @Override
     public void onEnable() {
         setInstance(this);
@@ -37,7 +38,12 @@ public class Main extends JavaPlugin implements Listener {
 
         // Enable Metrics
         Metrics metrics = new Metrics(this);
+
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
+    }
+
+    public static String getMinecraftVersion(){
+        return instance.getServer().getVersion();
     }
 
     public static void debug(String msg) {

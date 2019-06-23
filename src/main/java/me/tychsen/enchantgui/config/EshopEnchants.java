@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui.config;
 
+import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -64,9 +65,12 @@ public class EshopEnchants {
         addItem(Enchantment.IMPALING,matchEnchant("impaling"),lm.getString("enchant.impaling"));
         addItem(Enchantment.LOYALTY,matchEnchant("loyalty"),lm.getString("enchant.loyalty"));
         addItem(Enchantment.RIPTIDE,matchEnchant("riptide"),lm.getString("enchant.riptide"));
-        addItem(Enchantment.PIERCING,matchEnchant("piercing"),lm.getString("enchant.piercing"));
-        addItem(Enchantment.MULTISHOT,matchEnchant("multishot"),lm.getString("enchant.multishot"));
-        addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
+        if(!Main.getMinecraftVersion().contains("1.13")) {
+            addItem(Enchantment.PIERCING, matchEnchant("piercing"), lm.getString("enchant.piercing"));
+            addItem(Enchantment.MULTISHOT, matchEnchant("multishot"), lm.getString("enchant.multishot"));
+            addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
+            Main.getInstance().getLogger().info("Registered 1.14 enchantments.");
+        }
     }
 
     /**
