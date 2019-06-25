@@ -13,3 +13,5 @@ permissions:
         description: Gives access to /eshop reload.
     eshop.all:
         description: Gives access to all enchants and all levels of the enchants.
+    eshop.enchanting-table:
+        description: Gives access to the right click on enchanting table feature.
