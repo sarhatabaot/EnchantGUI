@@ -5,7 +5,7 @@ import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.permissions.EshopPermissionSys;
+import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -25,9 +25,9 @@ public class DefaultMenuGenerator implements MenuGenerator {
     private int inventorySize;
     private EShopConfig config;
     private EShopEnchants enchants;
-    private EshopPermissionSys permSys;
+    private EShopPermissionSys permSys;
 
-    public DefaultMenuGenerator(int inventorySize, EShopConfig config, EshopPermissionSys permSys) {
+    public DefaultMenuGenerator(int inventorySize, EShopConfig config, EShopPermissionSys permSys) {
         this.inventorySize = inventorySize;
         this.config = config;
         this.enchants = new EShopEnchants();
