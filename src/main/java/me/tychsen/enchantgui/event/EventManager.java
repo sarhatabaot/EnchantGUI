@@ -35,10 +35,11 @@ public class EventManager implements Listener{
         if (correctEvent) {
             e.setCancelled(true);
             if (!(e.getWhoClicked() instanceof Player)) return;
+            if (e.getView().getBottomInventory().contains(e.getCurrentItem())) return;
             try {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
-                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled. "+ex.getMessage()); //Should fail silently if the items clicked are in the bottom inventory
+                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled. "+ex.getMessage());
             }
         }
     }
@@ -55,6 +56,7 @@ public class EventManager implements Listener{
         if (e.getCurrentItem() == null) return;
         if (e.getCurrentItem().getType() == Material.AIR) return;
         if (e.getInventory().getType() != InventoryType.CHEST) return;
+
 
         Player p = (Player) e.getWhoClicked();
         system.handleMenuClick(p, e);
