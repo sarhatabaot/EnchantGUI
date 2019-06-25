@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui.localization;
 
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -24,7 +25,7 @@ public class LocalizationManager {
     }
 
     public String getString(String key) {
-        return ChatColor.translateAlternateColorCodes('&', getConfig().getString(key));
+        return Common.colorize(getConfig().getString(key));
     }
 
     public void reload(CommandSender sender) {
