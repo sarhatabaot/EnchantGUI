@@ -6,6 +6,7 @@ import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EshopPermissionSys;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -22,7 +23,6 @@ public class DefaultMenuSystem implements MenuSystem {
             ChatColor.AQUA + LocalizationManager.getInstance().getString("prefix") + " " + ChatColor.WHITE;
 
     private Map<String, String[]> playerLevels;
-    private int inventorySize;
 
     private EshopPermissionSys permsys;
     private EshopConfig config;
@@ -30,7 +30,6 @@ public class DefaultMenuSystem implements MenuSystem {
 
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
-        inventorySize = 36;
         permsys = new EshopPermissionSys();
         config = new EshopConfig();
         generator = new DefaultMenuGenerator(36, config, permsys);
@@ -96,8 +95,8 @@ public class DefaultMenuSystem implements MenuSystem {
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s %s " + ChatColor.LIGHT_PURPLE + "%s %d" + ChatColor.WHITE + " for " + ChatColor.GOLD + "%d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EshopConfig.getInstance().getEconomyCurrency());
-                p.sendMessage(message);
+                String message = String.format("%s %s &d %s %d &f for &6 %d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EshopConfig.getInstance().getEconomyCurrency());
+                Common.tell(p,message);
                 p.closeInventory();
             } else {
                 p.sendMessage(START + lm.getString("insufficient-funds"));
@@ -108,13 +107,13 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
-    private void enchantItem(ItemStack playerHand, Enchantment ench, int level) {
-        if (level > ench.getMaxLevel() || !ench.canEnchantItem(playerHand)) {
+    private void enchantItem(ItemStack playerHand, Enchantment enchantment, int level) {
+        if (level > enchantment.getMaxLevel() || !enchantment.canEnchantItem(playerHand)) {
             // Unsafe enchant
-            playerHand.addUnsafeEnchantment(ench, level);
+            playerHand.addUnsafeEnchantment(enchantment, level);
         } else {
             // Safe, regular enchant
-            playerHand.addEnchantment(ench, level);
+            playerHand.addEnchantment(enchantment, level);
         }
     }
 }
