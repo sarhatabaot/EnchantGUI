@@ -1,8 +1,8 @@
 package me.tychsen.enchantgui.menu;
 
-import me.tychsen.enchantgui.config.EshopConfig;
-import me.tychsen.enchantgui.config.EshopEnchants;
-import me.tychsen.enchantgui.config.EshopShop;
+import me.tychsen.enchantgui.config.EShopConfig;
+import me.tychsen.enchantgui.config.EShopEnchants;
+import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EshopPermissionSys;
@@ -20,16 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+//TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
     private int inventorySize;
-    private EshopConfig config;
-    private EshopEnchants enchants;
+    private EShopConfig config;
+    private EShopEnchants enchants;
     private EshopPermissionSys permSys;
 
-    public DefaultMenuGenerator(int inventorySize, EshopConfig config, EshopPermissionSys permSys) {
+    public DefaultMenuGenerator(int inventorySize, EShopConfig config, EshopPermissionSys permSys) {
         this.inventorySize = inventorySize;
         this.config = config;
-        this.enchants = new EshopEnchants();
+        this.enchants = new EShopEnchants();
         this.permSys = permSys;
 
     }
@@ -73,7 +74,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
 
     @NotNull
     private String format(int type, String name) {
-        EshopShop shop = EshopShop.getInstance();
+        EShopShop shop = EShopShop.getInstance();
         String string = shop.getString("shop." + name);
         string = ChatColor.translateAlternateColorCodes('&', string);
         return MessageFormat.format(string, type);
@@ -128,7 +129,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     private ItemStack generateBackItem() {
-        Material material = Material.matchMaterial(EshopShop.getInstance().getString("shop.back-item"));
+        Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();
         meta.setDisplayName("Go back");
