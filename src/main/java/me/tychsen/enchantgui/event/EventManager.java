@@ -1,13 +1,9 @@
 package me.tychsen.enchantgui.event;
 
 import me.tychsen.enchantgui.config.EshopConfig;
-import me.tychsen.enchantgui.config.EshopShop;
-import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +12,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.jetbrains.annotations.NotNull;
 
 
 public class EventManager implements Listener{
@@ -43,7 +38,7 @@ public class EventManager implements Listener{
             try {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
-                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled."+ex.getMessage());
+                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled. "+ex.getMessage()); //Should fail silently if the items clicked are in the bottom inventory
             }
         }
     }
@@ -71,32 +66,4 @@ public class EventManager implements Listener{
         }
     }
 
-    @Deprecated
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        if (command.getName().equalsIgnoreCase("eshop")) {
-            handleCommand(sender, args);
-        }
-        return true;
-    }
-
-    /**
-     * @deprecated now using ShopCommand instead.
-     */
-    @Deprecated
-    private void handleCommand(CommandSender sender, String[] args) {
-        if (args.length > 0) {
-            if (args[0].equalsIgnoreCase("reload")) {
-                EshopConfig.getInstance().reloadConfig(sender);
-                LocalizationManager.getInstance().reload(sender);
-                EshopShop.getInstance().reload(sender);
-            }
-        } else {
-            if (sender instanceof Player) {
-                Player p = (Player) sender;
-                system.showMainMenu(p);
-            } else {
-                sender.sendMessage(LocalizationManager.getInstance().getString("command-from-console"));
-            }
-        }
-    }
 }
