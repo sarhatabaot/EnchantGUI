@@ -5,7 +5,7 @@ import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.permissions.EshopPermissionSys;
+import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -24,13 +24,13 @@ public class DefaultMenuSystem implements MenuSystem {
 
     private Map<String, String[]> playerLevels;
 
-    private EshopPermissionSys permsys;
+    private EShopPermissionSys permsys;
     private EShopConfig config;
     private MenuGenerator generator;
 
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
-        permsys = new EshopPermissionSys();
+        permsys = new EShopPermissionSys();
         config = new EShopConfig();
         generator = new DefaultMenuGenerator(36, config, permsys);
     }
