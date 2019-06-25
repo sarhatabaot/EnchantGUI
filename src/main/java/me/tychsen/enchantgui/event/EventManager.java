@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.event;
 
-import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
@@ -29,7 +29,7 @@ public class EventManager implements Listener{
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
         String inventoryName = e.getView().getTitle().toLowerCase();
-        String configInventoryName = EshopConfig.getInstance().getMenuName().toLowerCase();
+        String configInventoryName = EShopConfig.getInstance().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
         if (correctEvent) {
@@ -63,7 +63,7 @@ public class EventManager implements Listener{
     }
 
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
-        if (EshopConfig.getBoolean("right-click-enchanting-table") && e.getPlayer().hasPermission("eshop.enchantingtable")) {
+        if (EShopConfig.getBoolean("right-click-enchanting-table") && e.getPlayer().hasPermission("eshop.enchantingtable")) {
             system.showMainMenu(e.getPlayer());
         }
     }

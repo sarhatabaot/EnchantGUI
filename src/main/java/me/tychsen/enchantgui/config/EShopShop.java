@@ -2,7 +2,6 @@ package me.tychsen.enchantgui.config;
 
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -15,14 +14,14 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author sarhatabaot
  */
-public class EshopShop {
+public class EShopShop {
     private static final String FILE_NAME_SHOP = "shop.yml";
-    private static EshopShop instance;
+    private static EShopShop instance;
     private Plugin plugin;
     private File configFile;
     private FileConfiguration config;
 
-    private EshopShop(){
+    private EShopShop(){
         plugin = Main.getInstance();
         saveDefaultConfiguration();
     }
@@ -68,9 +67,9 @@ public class EshopShop {
         return config;
     }
 
-    public static EshopShop getInstance(){
+    public static EShopShop getInstance(){
         if(instance == null){
-            instance = new EshopShop();
+            instance = new EShopShop();
         }
         return instance;
     }

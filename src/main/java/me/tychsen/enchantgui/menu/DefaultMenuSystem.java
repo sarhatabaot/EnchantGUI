@@ -1,7 +1,7 @@
 package me.tychsen.enchantgui.menu;
 
-import me.tychsen.enchantgui.config.EshopConfig;
-import me.tychsen.enchantgui.config.EshopShop;
+import me.tychsen.enchantgui.config.EShopConfig;
+import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
@@ -25,13 +25,13 @@ public class DefaultMenuSystem implements MenuSystem {
     private Map<String, String[]> playerLevels;
 
     private EshopPermissionSys permsys;
-    private EshopConfig config;
+    private EShopConfig config;
     private MenuGenerator generator;
 
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
         permsys = new EshopPermissionSys();
-        config = new EshopConfig();
+        config = new EShopConfig();
         generator = new DefaultMenuGenerator(36, config, permsys);
     }
 
@@ -51,7 +51,7 @@ public class DefaultMenuSystem implements MenuSystem {
 
     private boolean isGoBackItem(ItemStack item) {
         return item.getItemMeta().getDisplayName().equalsIgnoreCase("Go back")
-                && item.getType() == Material.matchMaterial(EshopShop.getInstance().getString("shop.back-item"));
+                && item.getType() == Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
     }
 
     @Override
@@ -95,7 +95,7 @@ public class DefaultMenuSystem implements MenuSystem {
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s %s &d %s %d &f for &6 %d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EshopConfig.getInstance().getEconomyCurrency());
+                String message = String.format("%s %s &d %s %d &f for &6 %d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getInstance().getEconomyCurrency());
                 Common.tell(p,message);
                 p.closeInventory();
             } else {

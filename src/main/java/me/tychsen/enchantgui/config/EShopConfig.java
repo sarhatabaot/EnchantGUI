@@ -15,39 +15,38 @@ import org.bukkit.enchantments.Enchantment;
 
 import java.util.Map;
 
-public class EshopConfig {
+public class EShopConfig {
     @Setter
     @Getter
-    private static EshopConfig instance;
-    private Main plugin;
-    private FileConfiguration config;
+    private static EShopConfig instance;
+    @Setter
+    private static FileConfiguration config;
     private PaymentStrategy economy;
 
-    public EshopConfig() {
+    public EShopConfig() {
         setInstance(this);
-        this.plugin = Main.getInstance();
-        config = plugin.getConfig();
+        setConfig(Main.getInstance().getConfig());
     }
 
-    public boolean getIgnoreItemType(){
+    public static boolean getIgnoreItemType(){
         return config.getBoolean("ignore-itemtype");
     }
 
-    public boolean getDebug(){
+    public static boolean getDebug(){
         return config.getBoolean("debug");
     }
 
-    public int getPrice(Enchantment enchantment, int level) {
+    public static int getPrice(Enchantment enchantment, int level) {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
         return config.getInt(path);
     }
 
     public static boolean getBoolean(String path){
-        return Main.getInstance().getConfig().getBoolean(path);
+        return config.getBoolean(path);
     }
 
-    public String getMenuName() {
+    public static String getMenuName() {
         String path = "menu-name";
         if (config.contains(path) && config.isSet(path) && config.isString(path)) {
             if (config.getString(path).length() > 32) {
@@ -60,15 +59,15 @@ public class EshopConfig {
         }
     }
 
-    public boolean getShowPerItem(){
+    public static boolean getShowPerItem(){
         return config.getBoolean("show-per-item");
     }
 
     public void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
-            plugin.reloadConfig();
-            config = plugin.getConfig();
+            Main.getInstance().reloadConfig();
+            setConfig(Main.getInstance().getConfig());
             economy = null;
             sender.sendMessage(DefaultMenuSystem.START + lm.getString("config-reloaded"));
         } else {
@@ -76,8 +75,8 @@ public class EshopConfig {
         }
     }
 
-    public String[] getEnchantLevels(Enchantment ench) {
-        String path = ench.getKey().toString().toLowerCase();
+    public String[] getEnchantLevels(Enchantment enchantment) {
+        String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
         Main.debug(path);
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);

@@ -3,7 +3,7 @@ package me.tychsen.enchantgui;
 import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
-import me.tychsen.enchantgui.config.EshopConfig;
+import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
@@ -16,9 +16,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
     @Setter
+    @Getter
     private static Main instance;
-    private static Economy econ = null;
-
+    @Getter
+    @Setter
+    private static Economy economy = null;
     @Getter
     @Setter
     private static MenuSystem menuSystem;
@@ -32,15 +34,12 @@ public class Main extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        getLogger().info("Loading configs and stuff...");
-
         // Generate config.yml if there is none
         saveDefaultConfig();
 
         // Register event manager
         setMenuSystem(new DefaultMenuSystem());
-        EventManager manager = new EventManager(getMenuSystem());
-        getServer().getPluginManager().registerEvents(manager, this);
+        getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);
 
         // Register command
         Common.registerCommand(new ShopCommand());
@@ -51,13 +50,21 @@ public class Main extends JavaPlugin implements Listener {
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
     }
 
+    @Override
+    public void onDisable() {
+        setInstance(null);
+        setEconomy(null);
+        setMenuSystem(null);
+        getLogger().info(getName() + " " + getDescription().getVersion() + " disabled!");
+    }
+
     public static String getMinecraftVersion(){
         return instance.getServer().getVersion();
     }
 
     public static void debug(String msg) {
-        if (EshopConfig.getInstance().getDebug())
-            Main.getInstance().getLogger().warning(String.format("\u001B[33mDEBUG %s \u001B[0m", msg));
+        if (EShopConfig.getInstance().getDebug())
+            Main.getInstance().getLogger().warning(String.format("DEBUG %s", msg));
     }
 
     private boolean setupEconomy() {
@@ -70,15 +77,8 @@ public class Main extends JavaPlugin implements Listener {
             getLogger().severe("could not find Economy.class");
             return false;
         }
-        econ = rsp.getProvider();
-        return econ != null;
+        setEconomy(rsp.getProvider());
+        return economy != null;
     }
 
-    public static Economy getEconomy() {
-        return econ;
-    }
-
-    public static Main getInstance() {
-        return instance;
-    }
 }

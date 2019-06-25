@@ -12,12 +12,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EshopEnchants {
+public class EShopEnchants {
     private List<ItemStack> enchantList = new ArrayList<>();
-    private EshopShop shop;
+    private EShopShop shop;
 
-    public EshopEnchants() {
-        shop = EshopShop.getInstance();
+    public EShopEnchants() {
+        shop = EShopShop.getInstance();
         createEnchantList();
     }
 
