@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class PlayerCommand extends Command {
     private Player player;
-    private String[] args;
 
     @Setter(value= AccessLevel.PROTECTED)
     private String prefix;
@@ -32,7 +31,6 @@ public abstract class PlayerCommand extends Command {
         }
 
         this.player = (Player) sender;
-        this.args = args;
 
         try {
             run(player, args);
