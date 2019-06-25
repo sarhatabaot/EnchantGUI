@@ -6,13 +6,6 @@ api-version: "1.13"
 authors: [Dentych, sarhatabaot]
 dependency: Vault
 
-commands:
-    eshop:
-        aliases:
-            - enchantgui
-        description: Command for the EnchantGUI plugin.
-        usage: "/<command>"
-        permission: eshop.use
 permissions:
     eshop.use:
         description: Gives access to /eshop.

@@ -7,7 +7,6 @@ import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,12 +18,8 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import static me.tychsen.enchantgui.Main.debug;
-
-public class EventManager implements Listener, CommandExecutor {
+public class EventManager implements Listener{
     private MenuSystem system;
 
     public EventManager(MenuSystem system) {
@@ -48,8 +43,7 @@ public class EventManager implements Listener, CommandExecutor {
             try {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
-                Logger logger = Main.getInstance().getLogger();
-                logger.log(Level.SEVERE, "Inventory click event couldn't be handled.", ex);
+                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled."+ex.getMessage());
             }
         }
     }
@@ -77,7 +71,7 @@ public class EventManager implements Listener, CommandExecutor {
         }
     }
 
-    @Override
+    @Deprecated
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (command.getName().equalsIgnoreCase("eshop")) {
             handleCommand(sender, args);
@@ -85,7 +79,10 @@ public class EventManager implements Listener, CommandExecutor {
         return true;
     }
 
-
+    /**
+     * @deprecated now using ShopCommand instead.
+     */
+    @Deprecated
     private void handleCommand(CommandSender sender, String[] args) {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("reload")) {

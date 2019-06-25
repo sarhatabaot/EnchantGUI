@@ -8,6 +8,5 @@ import org.bukkit.event.inventory.InventoryClickEvent;
  */
 public interface MenuSystem {
     void showMainMenu(Player p);
-
     void handleMenuClick(Player p, InventoryClickEvent event);
 }

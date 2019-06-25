@@ -1,9 +1,13 @@
 package me.tychsen.enchantgui;
 
+import lombok.Getter;
 import lombok.Setter;
+import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EshopConfig;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
+import me.tychsen.enchantgui.menu.MenuSystem;
+import me.tychsen.enchantgui.util.Common;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.event.Listener;
@@ -15,12 +19,16 @@ public class Main extends JavaPlugin implements Listener {
     private static Main instance;
     private static Economy econ = null;
 
+    @Getter
+    @Setter
+    private static MenuSystem menuSystem;
+
 
     @Override
     public void onEnable() {
         setInstance(this);
         if (!setupEconomy()) {
-            getLogger().severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
+            getLogger().severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -30,11 +38,12 @@ public class Main extends JavaPlugin implements Listener {
         saveDefaultConfig();
 
         // Register event manager
-        EventManager manager = new EventManager(new DefaultMenuSystem());
+        setMenuSystem(new DefaultMenuSystem());
+        EventManager manager = new EventManager(getMenuSystem());
         getServer().getPluginManager().registerEvents(manager, this);
 
-        // Register command executor
-        getCommand("eshop").setExecutor(manager);
+        // Register command
+        Common.registerCommand(new ShopCommand());
 
         // Enable Metrics
         Metrics metrics = new Metrics(this);
@@ -48,7 +57,7 @@ public class Main extends JavaPlugin implements Listener {
 
     public static void debug(String msg) {
         if (EshopConfig.getInstance().getDebug())
-            Main.getInstance().getLogger().warning(String.format("\u001B[33m" + "DEBUG %s \u001B[0m", msg));
+            Main.getInstance().getLogger().warning(String.format("\u001B[33mDEBUG %s \u001B[0m", msg));
     }
 
     private boolean setupEconomy() {
