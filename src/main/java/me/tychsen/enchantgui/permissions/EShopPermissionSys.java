@@ -40,7 +40,6 @@ public class EShopPermissionSys {
 
         return  p.hasPermission(perm);
     }
-
     @RequiredArgsConstructor
     private final class TooManyEnchantmentsException extends RuntimeException {
         private static final long serialVersionUID = 1L;
