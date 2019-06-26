@@ -23,6 +23,11 @@ show-per-item: false
 # Right Click on Enchanting Table to show the gui
 right-click-enchanting-table: false
 
+# Enable to activate upgrade feature which will let you upgrade enchantments
+# By default the price will be the difference between the level
+upgrade-enchantment: false
+#upgrade-add-price add a percentage of the difference between the levels.
+
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.
