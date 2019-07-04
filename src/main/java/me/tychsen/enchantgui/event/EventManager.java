@@ -13,8 +13,6 @@ import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import static me.tychsen.enchantgui.Main.debug;
-
 
 public class EventManager implements Listener{
     private MenuSystem system;
