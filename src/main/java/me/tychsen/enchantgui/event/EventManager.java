@@ -13,6 +13,8 @@ import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import static me.tychsen.enchantgui.Main.debug;
+
 
 public class EventManager implements Listener{
     private MenuSystem system;
@@ -29,7 +31,7 @@ public class EventManager implements Listener{
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
         String inventoryName = e.getView().getTitle().toLowerCase();
-        String configInventoryName = EShopConfig.getInstance().getMenuName().toLowerCase();
+        String configInventoryName = EShopConfig.getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
         if (correctEvent) {
@@ -46,6 +48,14 @@ public class EventManager implements Listener{
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
+        if (!EShopConfig.getBoolean("right-click-enchanting-table")) {
+            return;
+        }
+        if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
+            return;
+        if(!e.getPlayer().hasPermission("eshop.enchantingtable"))
+            return;
+
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
             e.setCancelled(true);
             handlePlayerInteractEvent(e);
@@ -63,7 +73,12 @@ public class EventManager implements Listener{
     }
 
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
-        if (EShopConfig.getBoolean("right-click-enchanting-table") && e.getPlayer().hasPermission("eshop.enchantingtable")) {
+        if (e.getPlayer().hasPermission("eshop.enchantingtable")) {
+            if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
+                debug("Toggle player set contains UUID:="+Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()));
+                return;
+            }
+
             system.showMainMenu(e.getPlayer());
         }
     }
