@@ -1,6 +1,5 @@
 package me.tychsen.enchantgui.menu;
 
-import lombok.AllArgsConstructor;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
