@@ -3,7 +3,6 @@ package me.tychsen.enchantgui.config;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -77,6 +76,8 @@ public abstract class AConfig {
         }
         return config;
     }
+
+    public abstract String getString(String path);
 
 
 }

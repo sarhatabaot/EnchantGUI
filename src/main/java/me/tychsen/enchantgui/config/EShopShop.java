@@ -20,8 +20,9 @@ public class EShopShop extends AConfig{
         sender.sendMessage(LocalizationManager.getInstance().getString("prefix") +" "+ LocalizationManager.getInstance().getString("shop-reloaded"));
     }
 
-    public String getString(String string){
-        return getConfig().getString(string);
+    @Override
+    public String getString(String path){
+        return getConfig().getString(path);
     }
 
     public static EShopShop getInstance(){

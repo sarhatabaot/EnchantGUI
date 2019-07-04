@@ -4,12 +4,6 @@ import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.AConfig;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.plugin.Plugin;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 public class LocalizationManager extends AConfig {
     private static LocalizationManager instance;
@@ -19,8 +13,9 @@ public class LocalizationManager extends AConfig {
         saveDefaultConfiguration();
     }
 
-    public String getString(String key) {
-        return Common.colorize(getConfig().getString(key));
+    @Override
+    public String getString(String path) {
+        return Common.colorize(getConfig().getString(path));
     }
 
     public void reload(CommandSender sender) {
