@@ -18,9 +18,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.Map;
 
+import static me.tychsen.enchantgui.config.EShopConfig.getIgnoreItemType;
+import static me.tychsen.enchantgui.config.EShopConfig.getPrice;
+
 public class DefaultMenuSystem implements MenuSystem {
-    public static final String START =
-            ChatColor.AQUA + LocalizationManager.getInstance().getString("prefix") + " " + ChatColor.WHITE;
+    public static final String START = LocalizationManager.getInstance().getString("prefix") + " ";
 
     private Map<String, String[]> playerLevels;
 
@@ -44,8 +46,7 @@ public class DefaultMenuSystem implements MenuSystem {
 
             p.openInventory(inv);
         } else {
-            p.sendMessage(ChatColor.DARK_RED + lm.getString("prefix") + " " +
-                    ChatColor.RED + lm.getString("no-permission"));
+            Common.tell(p,lm.getString("no-permission"));
         }
     }
 
@@ -80,7 +81,7 @@ public class DefaultMenuSystem implements MenuSystem {
         ItemStack playerHand = p.getInventory().getItemInMainHand();
 
         int level = Integer.parseInt(playerLevels.get(p.getName())[event.getSlot()]);
-        int price = config.getPrice(enchantment, level);
+        int price = getPrice(enchantment, level);
 
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
@@ -90,7 +91,7 @@ public class DefaultMenuSystem implements MenuSystem {
             return;
         }
 
-        if (enchantment.canEnchantItem(playerHand) || config.getIgnoreItemType()) {
+        if (enchantment.canEnchantItem(playerHand) || getIgnoreItemType()) {
             PaymentStrategy payment = config.getEconomy();
 
             if (payment.withdraw(p, price)) {
