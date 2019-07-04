@@ -22,6 +22,7 @@ public class ShopCommand extends PlayerCommand {
         setDescription("Command for the EnchantGUI plugin.");
         setUsage("/eshop");
         setPermission("eshop.use");
+        setPrefix(LocalizationManager.getInstance().getString("prefix"));
         menuSystem = Main.getMenuSystem();
     }
 
@@ -35,6 +36,21 @@ public class ShopCommand extends PlayerCommand {
             EShopConfig.getInstance().reloadConfig(player);
             LocalizationManager.getInstance().reload(player);
             EShopShop.getInstance().reload(player);
+            return;
+        }
+        LocalizationManager lm = LocalizationManager.getInstance();
+        if(args.length > 0 && args[0].equalsIgnoreCase("toggle")){
+            if(!player.hasPermission("eshop.enchantingtable.toggle"))
+                return;
+
+            if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
+                Main.getToggleRightClickPlayers().remove(player.getUniqueId());
+                tell(lm.getString("toggle-on"));
+            }
+            else {
+                Main.getToggleRightClickPlayers().add(player.getUniqueId());
+                tell(lm.getString("toggle-off"));
+            }
             return;
         }
 
