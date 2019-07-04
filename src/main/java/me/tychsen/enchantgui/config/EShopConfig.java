@@ -26,7 +26,8 @@ public class EShopConfig {
     private static EShopConfig instance;
     @Setter
     private static FileConfiguration config;
-    private PaymentStrategy economy;
+    @Setter
+    private static PaymentStrategy economy;
 
     public EShopConfig() {
         setInstance(this);
@@ -68,7 +69,7 @@ public class EShopConfig {
         return config.getBoolean("show-per-item");
     }
 
-    public void reloadConfig(CommandSender sender) {
+    public static void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
             Main.getInstance().reloadConfig();
@@ -80,7 +81,7 @@ public class EShopConfig {
         }
     }
 
-    public String[] getEnchantLevels(Enchantment enchantment) {
+    public static String[] getEnchantLevels(Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
         Main.debug(path);
@@ -96,7 +97,7 @@ public class EShopConfig {
         return enchantLevels;
     }
 
-    public String getEconomyCurrency(){
+    public static String getEconomyCurrency(){
         switch (config.getString("payment-currency").toLowerCase()) {
             case "money":
                 return Main.getEconomy().currencyNameSingular();
@@ -111,13 +112,13 @@ public class EShopConfig {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
                 case "money":
-                    economy = new MoneyPayment();
+                    setEconomy(new MoneyPayment());
                     break;
                 case "xp":
-                    economy = new XPPayment();
+                    setEconomy(new XPPayment());
                     break;
                 default:
-                    economy = new NullPayment();
+                    setEconomy(new NullPayment());
                     break;
             }
         }
