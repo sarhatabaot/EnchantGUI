@@ -1,6 +1,5 @@
 package me.tychsen.enchantgui.config;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.economy.MoneyPayment;
@@ -75,9 +74,9 @@ public class EShopConfig {
             Main.getInstance().reloadConfig();
             setConfig(Main.getInstance().getConfig());
             economy = null;
-            Common.tell(sender,DefaultMenuSystem.START + lm.getString("config-reloaded"));
+            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
         } else {
-            Common.tell(sender,DefaultMenuSystem.START + lm.getString("no-permission"));
+            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("no-permission"));
         }
     }
 
