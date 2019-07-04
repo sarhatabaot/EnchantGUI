@@ -129,6 +129,10 @@ public class DefaultMenuGenerator implements MenuGenerator {
 
     private ItemStack generateBackItem() {
         Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
+
+        if(material == null)
+            material = Material.EMERALD;
+
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();
         meta.setDisplayName("Go back");
