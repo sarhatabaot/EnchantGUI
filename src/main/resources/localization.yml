@@ -1,4 +1,4 @@
-prefix: "[EnchantGUI]"
+prefix: "&f[&bEnchantGUI&f]"
 
 enchant:
   power: "Power"
