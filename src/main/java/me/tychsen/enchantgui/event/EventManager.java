@@ -67,7 +67,6 @@ public class EventManager implements Listener{
         if (e.getCurrentItem().getType() == Material.AIR) return;
         if (e.getInventory().getType() != InventoryType.CHEST) return;
 
-
         Player p = (Player) e.getWhoClicked();
         system.handleMenuClick(p, e);
     }
@@ -75,7 +74,6 @@ public class EventManager implements Listener{
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getPlayer().hasPermission("eshop.enchantingtable")) {
             if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
-                debug("Toggle player set contains UUID:="+Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()));
                 return;
             }
 
