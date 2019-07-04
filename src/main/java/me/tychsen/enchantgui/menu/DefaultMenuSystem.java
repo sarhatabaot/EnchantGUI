@@ -7,7 +7,6 @@ import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import me.tychsen.enchantgui.util.Common;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -22,7 +21,7 @@ import static me.tychsen.enchantgui.config.EShopConfig.getIgnoreItemType;
 import static me.tychsen.enchantgui.config.EShopConfig.getPrice;
 
 public class DefaultMenuSystem implements MenuSystem {
-    public static final String START = LocalizationManager.getInstance().getString("prefix") + " ";
+    public static final String PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
 
     private Map<String, String[]> playerLevels;
 
@@ -37,16 +36,18 @@ public class DefaultMenuSystem implements MenuSystem {
         generator = new DefaultMenuGenerator(36, config, permsys);
     }
 
+    private void tell(Player player, String message){
+        Common.tell(player, PREFIX +message);
+    }
+
     @Override
     public void showMainMenu(Player p) {
         LocalizationManager lm = LocalizationManager.getInstance();
-        if (playerLevels.containsKey(p.getName())) playerLevels.remove(p.getName());
+        playerLevels.remove(p.getName());
         if (permsys.hasUsePermission(p)) {
-            Inventory inv = generator.mainMenu(p);
-
-            p.openInventory(inv);
+            p.openInventory(generator.mainMenu(p));
         } else {
-            Common.tell(p,lm.getString("no-permission"));
+            tell(p,lm.getString("no-permission"));
         }
     }
 
@@ -62,9 +63,9 @@ public class DefaultMenuSystem implements MenuSystem {
                 playerLevels.remove(p.getName());
                 showMainMenu(p);
             } else if (event.getCurrentItem().getType() != Material.AIR) {
-                // TODO: Figure out better way of purchasing enchants.
-                // For example a seperate class to call purchaseEnchant on.
-                // Required to enable Enchanting Table menu opener..
+                // FIXME: Figure out better way of purchasing enchants.
+                //  For example a seperate class to call purchaseEnchant on.
+                //  Required to enable Enchanting Table menu opener..
                 purchaseEnchant(p, event);
             }
         } else {
@@ -86,7 +87,7 @@ public class DefaultMenuSystem implements MenuSystem {
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            p.sendMessage(START + lm.getString("cant-enchant"));
+            tell(p,lm.getString("cant-enchant"));
             p.closeInventory();
             return;
         }
@@ -96,14 +97,14 @@ public class DefaultMenuSystem implements MenuSystem {
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s %s &d %s %d &f for &6 %d %s", START, lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getInstance().getEconomyCurrency());
-                Common.tell(p,message);
+                String message = String.format("%s &d%s %d &ffor &6%d %s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
+                tell(p,message);
                 p.closeInventory();
             } else {
-                p.sendMessage(START + lm.getString("insufficient-funds"));
+                tell(p,lm.getString("insufficient-funds"));
             }
         } else {
-            p.sendMessage(START + lm.getString("item-cant-be-enchanted"));
+            tell(p,lm.getString("item-cant-be-enchanted"));
             //TODO p.closeInventory(); add option for this
         }
     }
