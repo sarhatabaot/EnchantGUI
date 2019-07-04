@@ -9,19 +9,24 @@ import me.tychsen.enchantgui.economy.XPPayment;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 
 import java.util.Map;
 
+/**
+ * TODO: make this a static accessor class.
+ */
 public class EShopConfig {
     @Setter
     @Getter
     private static EShopConfig instance;
     @Setter
     private static FileConfiguration config;
-    private PaymentStrategy economy;
+    @Setter
+    private static PaymentStrategy economy;
 
     public EShopConfig() {
         setInstance(this);
@@ -63,19 +68,19 @@ public class EShopConfig {
         return config.getBoolean("show-per-item");
     }
 
-    public void reloadConfig(CommandSender sender) {
+    public static void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
             Main.getInstance().reloadConfig();
             setConfig(Main.getInstance().getConfig());
             economy = null;
-            sender.sendMessage(DefaultMenuSystem.START + lm.getString("config-reloaded"));
+            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
         } else {
-            sender.sendMessage(DefaultMenuSystem.START + lm.getString("no-permission"));
+            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("no-permission"));
         }
     }
 
-    public String[] getEnchantLevels(Enchantment enchantment) {
+    public static String[] getEnchantLevels(Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
         Main.debug(path);
@@ -91,7 +96,7 @@ public class EShopConfig {
         return enchantLevels;
     }
 
-    public String getEconomyCurrency(){
+    public static String getEconomyCurrency(){
         switch (config.getString("payment-currency").toLowerCase()) {
             case "money":
                 return Main.getEconomy().currencyNameSingular();
@@ -106,13 +111,13 @@ public class EShopConfig {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
                 case "money":
-                    economy = new MoneyPayment();
+                    setEconomy(new MoneyPayment());
                     break;
                 case "xp":
-                    economy = new XPPayment();
+                    setEconomy(new XPPayment());
                     break;
                 default:
-                    economy = new NullPayment();
+                    setEconomy(new NullPayment());
                     break;
             }
         }

@@ -6,6 +6,7 @@ import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static me.tychsen.enchantgui.config.EShopConfig.*;
+
 //TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
     private int inventorySize;
@@ -32,11 +35,10 @@ public class DefaultMenuGenerator implements MenuGenerator {
         this.config = config;
         this.enchants = new EShopEnchants();
         this.permSys = permSys;
-
     }
 
     public Inventory mainMenu(@NotNull Player p) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
+        Inventory inv = p.getServer().createInventory(p, inventorySize, getMenuName());
         generateMainMenu(p, inv);
 
         return inv;
@@ -62,48 +64,45 @@ public class DefaultMenuGenerator implements MenuGenerator {
 
         for (ItemStack item : enchantList) {
             if (permSys.hasEnchantPermission(p, item)) {
-                if (config.getShowPerItem()) {
+                if (getShowPerItem()) {
                     itemList = showPerItem(itemList, item, p);
                 } else {
                     itemList.add(item);
                 }
             }
         }
-        inv.setContents(itemList.toArray(new ItemStack[itemList.size()]));
+        inv.setContents(itemList.toArray(new ItemStack[0]));
     }
 
     @NotNull
     private String format(int type, String name) {
-        EShopShop shop = EShopShop.getInstance();
-        String string = shop.getString("shop." + name);
-        string = ChatColor.translateAlternateColorCodes('&', string);
-        return MessageFormat.format(string, type);
+        String string = EShopShop.getInstance().getString("shop." + name);
+        return MessageFormat.format(Common.colorize(string), type);
     }
 
     private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
-        ItemStack tmp = item.clone();
-        ItemMeta meta = tmp.getItemMeta();
+        ItemStack temp = item.clone();
+        ItemMeta meta = temp.getItemMeta();
         List<String> lores = new ArrayList<>();
         lores.add(format(level, "level"));
 
         if (!(config.getEconomy() instanceof NullPayment)) {
-            int price = config.getPrice(enchantment, level);
-            lores.add(format(price, "price"));
+            lores.add(format(getPrice(enchantment, level), "price"));
         }
 
         meta.setLore(lores);
-        tmp.setItemMeta(meta);
-        return tmp;
+        temp.setItemMeta(meta);
+        return temp;
     }
 
     private Inventory generateEnchantMenu(@NotNull Player p, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, config.getMenuName());
+        Inventory inv = p.getServer().createInventory(p, inventorySize, getMenuName());
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         List<ItemStack> itemList = new ArrayList<>();
 
         // Generate the correct items for the player.
         // Based on permissions or OP status.
-        String[] enchantLevels = config.getEnchantLevels(enchantment);
+        String[] enchantLevels = getEnchantLevels(enchantment);
         List<String> levels = new ArrayList<>();
 
         for (String enchantLevel : enchantLevels) {
@@ -119,17 +118,21 @@ public class DefaultMenuGenerator implements MenuGenerator {
         }
 
         // Put the generated item list in the inventory
-        inv.setContents(itemList.toArray(new ItemStack[itemList.size()]));
+        inv.setContents(itemList.toArray(new ItemStack[0]));
 
         // Generate and insert a back button
         inv.setItem(27, generateBackItem());
 
-        playerLevels.put(p.getName(), levels.toArray(new String[levels.size()]));
+        playerLevels.put(p.getName(), levels.toArray(new String[0]));
         return inv;
     }
 
     private ItemStack generateBackItem() {
         Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
+
+        if(material == null)
+            material = Material.EMERALD;
+
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();
         meta.setDisplayName("Go back");

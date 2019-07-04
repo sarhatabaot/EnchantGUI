@@ -34,12 +34,9 @@ public class EShopPermissionSys {
 
     public boolean hasUsePermission(Player p) {
         if (p.isOp()) return true;
-
-        String base = "eshop.";
-        String perm = base + "use";
-
-        return  p.hasPermission(perm);
+        return  p.hasPermission("eshop.use");
     }
+
     @RequiredArgsConstructor
     private final class TooManyEnchantmentsException extends RuntimeException {
         private static final long serialVersionUID = 1L;

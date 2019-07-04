@@ -50,7 +50,7 @@ public abstract class PlayerCommand extends Command {
     }
 
     protected void tell(String message) {
-        Common.tell(player, (prefix != null ? "&8[&7" + prefix + "&8] " : "") + "&7" + message);
+        Common.tell(player, (prefix != null ? prefix + " " : "")  + message);
     }
 
     @RequiredArgsConstructor

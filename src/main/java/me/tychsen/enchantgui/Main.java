@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
@@ -14,16 +15,23 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 public class Main extends JavaPlugin implements Listener {
-    @Setter
+    @Setter (AccessLevel.PRIVATE)
     @Getter
     private static Main instance;
+    @Setter (AccessLevel.PRIVATE)
     @Getter
-    @Setter
     private static Economy economy = null;
     @Getter
     @Setter
     private static MenuSystem menuSystem;
+    @Getter
+    @Setter (AccessLevel.PRIVATE)
+    private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
 
     @Override
@@ -45,7 +53,8 @@ public class Main extends JavaPlugin implements Listener {
         Common.registerCommand(new ShopCommand());
 
         // Enable Metrics
-        Metrics metrics = new Metrics(this);
+        if(!getConfig().getBoolean("opt-out"))
+            new Metrics(this);
 
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
     }
@@ -55,6 +64,7 @@ public class Main extends JavaPlugin implements Listener {
         setInstance(null);
         setEconomy(null);
         setMenuSystem(null);
+        setToggleRightClickPlayers(null);
         getLogger().info(getName() + " " + getDescription().getVersion() + " disabled!");
     }
 
@@ -63,7 +73,7 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     public static void debug(String msg) {
-        if (EShopConfig.getInstance().getDebug())
+        if (EShopConfig.getDebug())
             Main.getInstance().getLogger().warning(String.format("DEBUG %s", msg));
     }
 
@@ -80,5 +90,7 @@ public class Main extends JavaPlugin implements Listener {
         setEconomy(rsp.getProvider());
         return economy != null;
     }
+
+
 
 }
