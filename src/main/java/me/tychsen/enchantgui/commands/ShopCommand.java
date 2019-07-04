@@ -40,8 +40,10 @@ public class ShopCommand extends PlayerCommand {
         }
         LocalizationManager lm = LocalizationManager.getInstance();
         if(args.length > 0 && args[0].equalsIgnoreCase("toggle")){
-            if(!player.hasPermission("eshop.enchantingtable.toggle"))
+            if(!player.hasPermission("eshop.enchantingtable.toggle")) {
+                tell(lm.getString("no-permission"));
                 return;
+            }
 
             if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
                 Main.getToggleRightClickPlayers().remove(player.getUniqueId());
