@@ -1,4 +1,4 @@
-prefix: "[EnchantGUI]"
+prefix: "EnchantGUI"
 
 enchant:
   power: "Power"
@@ -38,7 +38,7 @@ enchant:
   multishot: "Multishot"
 
 command-from-console: "Can't use this command from console..."
-no-permission: "Sorry, you do not have permission for this."
+no-permission: "&cSorry, you do not have permission for this."
 config-reloaded: "Configuration file has been reloaded!"
 localization-reloaded: "Localization file has been reloaded!"
 shop-reloaded: "Shop file has been reloaded!"
@@ -46,5 +46,5 @@ cant-enchant: "You can't enchant that!"
 item-enchanted: "Your item was enchanted with"
 insufficient-funds: "Insufficient funds."
 item-cant-be-enchanted: "Enchant can't be applied to the item in your hand..."
-toggle-on: "Right click on enchanting table was turned &4on&f."
-toggle-off: "Right click on enchanting table was turned &aoff&f."
+toggle-on: "Right click on enchanting table was turned &aon&f."
+toggle-off: "Right click on enchanting table was turned &4off&f."
