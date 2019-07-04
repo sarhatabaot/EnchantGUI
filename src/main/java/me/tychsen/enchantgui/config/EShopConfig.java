@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui.config;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.economy.MoneyPayment;
@@ -9,12 +10,16 @@ import me.tychsen.enchantgui.economy.XPPayment;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 
 import java.util.Map;
 
+/**
+ * TODO: make this a static accessor class.
+ */
 public class EShopConfig {
     @Setter
     @Getter
@@ -69,9 +74,9 @@ public class EShopConfig {
             Main.getInstance().reloadConfig();
             setConfig(Main.getInstance().getConfig());
             economy = null;
-            sender.sendMessage(DefaultMenuSystem.START + lm.getString("config-reloaded"));
+            Common.tell(sender,DefaultMenuSystem.START + lm.getString("config-reloaded"));
         } else {
-            sender.sendMessage(DefaultMenuSystem.START + lm.getString("no-permission"));
+            Common.tell(sender,DefaultMenuSystem.START + lm.getString("no-permission"));
         }
     }
 
