@@ -6,6 +6,7 @@ import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -75,10 +76,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
 
     @NotNull
     private String format(int type, String name) {
-        EShopShop shop = EShopShop.getInstance();
-        String string = shop.getString("shop." + name);
-        string = ChatColor.translateAlternateColorCodes('&', string);
-        return MessageFormat.format(string, type);
+        String string = EShopShop.getInstance().getString("shop." + name);
+        return MessageFormat.format(Common.colorize(string), type);
     }
 
     private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
