@@ -33,7 +33,7 @@ public class DefaultMenuSystem implements MenuSystem {
         playerLevels = new HashMap<>();
         permsys = new EShopPermissionSys();
         config = new EShopConfig();
-        generator = new DefaultMenuGenerator(36, config, permsys);
+        generator = new DefaultMenuGenerator(36, permsys);
     }
 
     private void tell(Player player, String message){
