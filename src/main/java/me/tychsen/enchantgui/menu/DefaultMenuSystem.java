@@ -29,11 +29,14 @@ public class DefaultMenuSystem implements MenuSystem {
     private EShopConfig config;
     private MenuGenerator generator;
 
+    private LocalizationManager lm;
+
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
         permsys = new EShopPermissionSys();
         config = new EShopConfig();
         generator = new DefaultMenuGenerator(36, config, permsys);
+        lm = LocalizationManager.getInstance();
     }
 
     private void tell(Player player, String message){
@@ -42,7 +45,6 @@ public class DefaultMenuSystem implements MenuSystem {
 
     @Override
     public void showMainMenu(Player p) {
-        LocalizationManager lm = LocalizationManager.getInstance();
         playerLevels.remove(p.getName());
         if (permsys.hasUsePermission(p)) {
             p.openInventory(generator.mainMenu(p));
@@ -76,7 +78,6 @@ public class DefaultMenuSystem implements MenuSystem {
     }
 
     private void purchaseEnchant(Player p, InventoryClickEvent event) {
-        LocalizationManager lm = LocalizationManager.getInstance();
         ItemStack item = event.getCurrentItem();
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         ItemStack playerHand = p.getInventory().getItemInMainHand();

@@ -9,6 +9,7 @@ import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import me.tychsen.enchantgui.util.Common;
+import me.tychsen.enchantgui.util.UpdateChecker;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.event.Listener;
@@ -20,17 +21,17 @@ import java.util.Set;
 import java.util.UUID;
 
 public class Main extends JavaPlugin implements Listener {
-    @Setter (AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     private static Main instance;
-    @Setter (AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
     @Getter
     private static Economy economy = null;
     @Getter
     @Setter
     private static MenuSystem menuSystem;
     @Getter
-    @Setter (AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
 
@@ -53,10 +54,27 @@ public class Main extends JavaPlugin implements Listener {
         Common.registerCommand(new ShopCommand());
 
         // Enable Metrics
-        if(!getConfig().getBoolean("opt-out"))
+        if (!getConfig().getBoolean("opt-out"))
             new Metrics(this);
 
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
+
+        UpdateChecker.init(this, 63972).requestUpdateCheck().whenComplete((result, e) -> {
+                    if (result.requiresUpdate()) {
+                        getLogger().info(String.format("New version available! Download EnchantGUI v%s from SpigotMC", result.getNewestVersion()));
+                        return;
+                    }
+                    UpdateChecker.UpdateReason reason = result.getReason();
+
+                    if(reason == UpdateChecker.UpdateReason.UP_TO_DATE){
+                        getLogger().info(String.format("You are version of EnchantGUI (%s) is up to date.", result.getNewestVersion()));
+                    } else if (reason == UpdateChecker.UpdateReason.UNRELEASED_VERSION){
+                        getLogger().info(String.format("Your version of EnchantGUI (%s) is more recent than the one publicly available. Are you on a development build?", result.getNewestVersion()));
+                    } else {
+                        getLogger().warning("Could not check for a new version of EnchantGUI. Reason: "+reason);
+                    }
+                }
+        );
     }
 
     @Override
@@ -68,7 +86,7 @@ public class Main extends JavaPlugin implements Listener {
         getLogger().info(getName() + " " + getDescription().getVersion() + " disabled!");
     }
 
-    public static String getMinecraftVersion(){
+    public static String getMinecraftVersion() {
         return instance.getServer().getVersion();
     }
 
@@ -90,7 +108,6 @@ public class Main extends JavaPlugin implements Listener {
         setEconomy(rsp.getProvider());
         return economy != null;
     }
-
 
 
 }

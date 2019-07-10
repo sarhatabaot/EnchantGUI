@@ -58,14 +58,14 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return modifiedList;
     }
 
-    private void generateMainMenu(Player p, Inventory inv) {
+    private void generateMainMenu(Player player, Inventory inv) {
         List<ItemStack> enchantList = enchants.getEnchantList();
         List<ItemStack> itemList = new ArrayList<>();
 
         for (ItemStack item : enchantList) {
-            if (permSys.hasEnchantPermission(p, item)) {
+            if (permSys.hasEnchantPermission(player, item)) {
                 if (getShowPerItem()) {
-                    itemList = showPerItem(itemList, item, p);
+                    itemList = showPerItem(itemList, item, player);
                 } else {
                     itemList.add(item);
                 }
@@ -95,8 +95,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return temp;
     }
 
-    private Inventory generateEnchantMenu(@NotNull Player p, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, getMenuName());
+    private Inventory generateEnchantMenu(@NotNull Player player, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
+        Inventory inv = player.getServer().createInventory(player, inventorySize, getMenuName());
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         List<ItemStack> itemList = new ArrayList<>();
 
@@ -108,7 +108,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         for (String enchantLevel : enchantLevels) {
             enchantLevel = enchantLevel.substring(5);
             int level = Integer.parseInt(enchantLevel);
-            if (permSys.hasEnchantPermission(p, enchantment, level)) {
+            if (permSys.hasEnchantPermission(player, enchantment, level)) {
                 //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
 
                 itemList.add(generateItemWithMeta(item, level, enchantment));
@@ -123,7 +123,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         // Generate and insert a back button
         inv.setItem(27, generateBackItem());
 
-        playerLevels.put(p.getName(), levels.toArray(new String[0]));
+        playerLevels.put(player.getName(), levels.toArray(new String[0]));
         return inv;
     }
 
