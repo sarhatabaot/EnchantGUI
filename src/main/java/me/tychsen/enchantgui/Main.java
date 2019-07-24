@@ -6,12 +6,14 @@ import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.event.EventManager;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import me.tychsen.enchantgui.util.Common;
 import me.tychsen.enchantgui.util.UpdateChecker;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -108,6 +110,14 @@ public class Main extends JavaPlugin implements Listener {
         setEconomy(rsp.getProvider());
         return economy != null;
     }
+
+    public static void tell(final CommandSender toWhom,final String... messages) {
+        String prefix = LocalizationManager.getInstance().getString("prefix");
+        for (final String message : messages)
+            tell(toWhom, prefix+message);
+    }
+
+
 
 
 }

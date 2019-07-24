@@ -3,7 +3,6 @@ package me.tychsen.enchantgui.event;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
-import me.tychsen.enchantgui.util.Common;
 import me.tychsen.enchantgui.util.UpdateChecker;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -52,13 +51,13 @@ public class EventManager implements Listener{
         if(!(event.getPlayer().hasPermission("eshop.update"))) return;
         UpdateChecker.UpdateResult result = UpdateChecker.get().getLastResult();
         if(result.requiresUpdate()) {
-            Common.tell(event.getPlayer(), String.format("New version available! Download &aEnchantGUI&f v%s from https://www.spigotmc.org/resources/enchantgui.63972/", result.getNewestVersion()));
+            Main.tell(event.getPlayer(), String.format("New version available! Download &aEnchantGUI&f v%s from https://www.spigotmc.org/resources/enchantgui.63972/", result.getNewestVersion()));
             return;
         }
         if(result.getReason() == UpdateChecker.UpdateReason.UP_TO_DATE)
-            Common.tell(event.getPlayer(),String.format("You are running the latest version of &aEnchantGUI&r (%s)",result.getNewestVersion()));
+            Main.tell(event.getPlayer(),String.format("You are running the latest version of &aEnchantGUI&r (%s)",result.getNewestVersion()));
         else if(result.getReason() == UpdateChecker.UpdateReason.UNRELEASED_VERSION)
-            Common.tell(event.getPlayer(), String.format("You are running an unreleased version of &aEnchantGUI&r (%s).",result.getNewestVersion()));
+            Main.tell(event.getPlayer(), String.format("You are running an unreleased version of &aEnchantGUI&r (%s).",result.getNewestVersion()));
     }
 
     @EventHandler
