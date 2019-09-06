@@ -28,7 +28,12 @@ public class EventManager implements Listener{
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) {
-        String inventoryName = e.getView().getTitle().toLowerCase();
+        String inventoryName;
+        try {
+            inventoryName = e.getView().getTitle().toLowerCase();
+        } catch (IllegalStateException exception){
+            inventoryName = "";
+        }
         String configInventoryName = EShopConfig.getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
