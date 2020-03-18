@@ -38,7 +38,7 @@ public class EShopPermissionSys {
     }
 
     @RequiredArgsConstructor
-    private final class TooManyEnchantmentsException extends RuntimeException {
+    private static final class TooManyEnchantmentsException extends RuntimeException {
         private static final long serialVersionUID = 1L;
 
         private final String tellMessage;
