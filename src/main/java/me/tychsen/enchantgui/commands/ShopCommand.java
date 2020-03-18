@@ -19,8 +19,8 @@ public class ShopCommand extends BaseCommand {
 
 	private LocalizationManager lm = LocalizationManager.getInstance();
 
-	public ShopCommand(final String prefix) {
-		this.prefix = prefix;
+	public ShopCommand() {
+		this.prefix = lm.getString("prefix");
 		this.menuSystem = Main.getMenuSystem();
 	}
 
@@ -37,7 +37,6 @@ public class ShopCommand extends BaseCommand {
 			tell(player,lm.getString("disabled-feature"));
 			return;
 		}
-
 
 		if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
 			Main.getToggleRightClickPlayers().remove(player.getUniqueId());
