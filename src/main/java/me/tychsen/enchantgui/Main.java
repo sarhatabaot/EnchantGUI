@@ -7,7 +7,6 @@ import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.event.EventManager;
-import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import net.milkbowl.vault.economy.Economy;

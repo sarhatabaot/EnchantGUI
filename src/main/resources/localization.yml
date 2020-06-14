@@ -36,6 +36,7 @@ enchant:
   quick_charge: "Quick Charge"
   piercing: "Piercing"
   multishot: "Multishot"
+  soul_speed: "Soul Speed"
 
 command-from-console: "Can't use this command from console..."
 no-permission: "&cSorry, you do not have permission for this."

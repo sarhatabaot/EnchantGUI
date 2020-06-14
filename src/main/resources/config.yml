@@ -168,6 +168,10 @@ quick_charge:
     level1: 100
     level2: 200
     level3: 300
+soul_speed:
+    level1: 100
+    level2: 200
+    level3: 300
 
 # For Debugging only
 debug: false
