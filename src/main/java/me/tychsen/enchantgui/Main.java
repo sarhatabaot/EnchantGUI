@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui;
 
+import co.aikar.commands.BukkitCommandManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
-import me.tychsen.enchantgui.util.Common;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.event.Listener;
@@ -50,11 +50,12 @@ public class Main extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);
 
         // Register command
-        Common.registerCommand(new ShopCommand());
+        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+        commandManager.registerCommand(new ShopCommand());
 
         // Enable Metrics
         if(!getConfig().getBoolean("opt-out"))
-            new Metrics(this);
+            new Metrics(this, 3871);
 
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
     }

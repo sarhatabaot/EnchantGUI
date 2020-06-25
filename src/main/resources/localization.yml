@@ -36,6 +36,7 @@ enchant:
   quick_charge: "Quick Charge"
   piercing: "Piercing"
   multishot: "Multishot"
+  soul_speed: "Soul Speed"
 
 command-from-console: "Can't use this command from console..."
 no-permission: "&cSorry, you do not have permission for this."
@@ -48,3 +49,4 @@ insufficient-funds: "Insufficient funds."
 item-cant-be-enchanted: "Enchant can't be applied to the item in your hand..."
 toggle-on: "Right click on enchanting table was turned &aon&f."
 toggle-off: "Right click on enchanting table was turned &4off&f."
+disabled-feature: "This feature is disabled."

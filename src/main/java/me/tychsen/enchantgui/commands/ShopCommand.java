@@ -1,68 +1,63 @@
 package me.tychsen.enchantgui.commands;
 
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.*;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.MenuSystem;
+import me.tychsen.enchantgui.util.Common;
 import org.bukkit.entity.Player;
 
-import java.util.Collections;
+@CommandAlias("eshop|enchantgui")
+@CommandPermission("eshop.use")
+@Description("Command for the EnchantGUI plugin.")
+public class ShopCommand extends BaseCommand {
+	private String prefix;
+	private MenuSystem menuSystem;
 
-/**
- * @author sarhatabaot
- */
-public class ShopCommand extends PlayerCommand {
-    private MenuSystem menuSystem;
+	private LocalizationManager lm = LocalizationManager.getInstance();
 
-    public ShopCommand() {
-        super("eshop");
+	public ShopCommand() {
+		this.prefix = lm.getString("prefix");
+		this.menuSystem = Main.getMenuSystem();
+	}
 
-        setAliases(Collections.singletonList("enchantgui"));
-        setDescription("Command for the EnchantGUI plugin.");
-        setUsage("/eshop");
-        setPermission("eshop.use");
-        setPrefix(LocalizationManager.getInstance().getString("prefix"));
-        menuSystem = Main.getMenuSystem();
-    }
 
-    @Override
-    protected void run(final Player player, final String[] args) {
-        if(args.length > 1){
-            returnTell("&cToo many arguments.");
-        }
-        LocalizationManager lm = LocalizationManager.getInstance();
+	@Default
+	public void onGui(final Player player){
+		menuSystem.showMainMenu(player);
+	}
 
-        if(args.length > 0 && args[0].equalsIgnoreCase("reload")){
-            if(!player.hasPermission("eshop.reload")) {
-                tell(lm.getString("no-permission"));
-                return;
-            }
+	@CommandAlias("toggle")
+	@CommandPermission("eshop.enchantingtable.toggle")
+	public void onToggle(final Player player){
+		if(!EShopConfig.getBoolean("right-click-enchanting-table")){
+			tell(player,lm.getString("disabled-feature"));
+			return;
+		}
 
-            EShopConfig.reloadConfig(player);
-            LocalizationManager.getInstance().reload(player);
-            EShopShop.getInstance().reload(player);
-            return;
-        }
+		if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
+			Main.getToggleRightClickPlayers().remove(player.getUniqueId());
+			tell(player,lm.getString("toggle-on"));
+		}
+		else {
+			Main.getToggleRightClickPlayers().add(player.getUniqueId());
+			tell(player,lm.getString("toggle-off"));
+		}
+	}
 
-        if(args.length > 0 && args[0].equalsIgnoreCase("toggle")){
-            if(!player.hasPermission("eshop.enchantingtable.toggle")) {
-                tell(lm.getString("no-permission"));
-                return;
-            }
 
-            if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
-                Main.getToggleRightClickPlayers().remove(player.getUniqueId());
-                tell(lm.getString("toggle-on"));
-            }
-            else {
-                Main.getToggleRightClickPlayers().add(player.getUniqueId());
-                tell(lm.getString("toggle-off"));
-            }
-            return;
-        }
+	@CommandAlias("reload")
+	@CommandPermission("eshop.reload")
+	public void onReload(final Player player){
+		EShopConfig.reloadConfig(player);
+		LocalizationManager.getInstance().reload(player);
+		EShopShop.getInstance().reload(player);
+	}
 
-        menuSystem.showMainMenu(player);
-
-    }
+	private void tell(final Player player, final String message){
+		Common.tell(player,String.format("%s %s",prefix,message));
+	}
 }
