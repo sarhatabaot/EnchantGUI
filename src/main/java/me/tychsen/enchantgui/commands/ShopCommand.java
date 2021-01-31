@@ -2,7 +2,7 @@ package me.tychsen.enchantgui.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
@@ -14,14 +14,14 @@ import org.bukkit.entity.Player;
 @CommandPermission("eshop.use")
 @Description("Command for the EnchantGUI plugin.")
 public class ShopCommand extends BaseCommand {
-	private String prefix;
-	private MenuSystem menuSystem;
+	private final String prefix;
+	private final MenuSystem menuSystem;
 
-	private LocalizationManager lm = LocalizationManager.getInstance();
+	private final LocalizationManager lm = LocalizationManager.getInstance();
 
 	public ShopCommand() {
 		this.prefix = lm.getString("prefix");
-		this.menuSystem = Main.getMenuSystem();
+		this.menuSystem = EnchantGUI.getMenuSystem();
 	}
 
 
@@ -30,7 +30,7 @@ public class ShopCommand extends BaseCommand {
 		menuSystem.showMainMenu(player);
 	}
 
-	@CommandAlias("toggle")
+	@Subcommand("toggle")
 	@CommandPermission("eshop.enchantingtable.toggle")
 	public void onToggle(final Player player){
 		if(!EShopConfig.getBoolean("right-click-enchanting-table")){
@@ -38,18 +38,18 @@ public class ShopCommand extends BaseCommand {
 			return;
 		}
 
-		if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
-			Main.getToggleRightClickPlayers().remove(player.getUniqueId());
+		if(EnchantGUI.getToggleRightClickPlayers().contains(player.getUniqueId())){
+			EnchantGUI.getToggleRightClickPlayers().remove(player.getUniqueId());
 			tell(player,lm.getString("toggle-on"));
 		}
 		else {
-			Main.getToggleRightClickPlayers().add(player.getUniqueId());
+			EnchantGUI.getToggleRightClickPlayers().add(player.getUniqueId());
 			tell(player,lm.getString("toggle-off"));
 		}
 	}
 
 
-	@CommandAlias("reload")
+	@Subcommand("reload")
 	@CommandPermission("eshop.reload")
 	public void onReload(final Player player){
 		EShopConfig.reloadConfig(player);
