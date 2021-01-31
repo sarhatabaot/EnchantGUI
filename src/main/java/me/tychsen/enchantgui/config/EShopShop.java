@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.command.CommandSender;
 
@@ -11,7 +11,7 @@ public class EShopShop extends AConfig{
     private static EShopShop instance;
 
     private EShopShop(){
-        super("shop.yml", Main.getInstance());
+        super("shop.yml", EnchantGUI.getInstance());
         saveDefaultConfiguration();
     }
 

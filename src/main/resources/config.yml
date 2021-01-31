@@ -23,6 +23,10 @@ show-per-item: false
 # Right Click on Enchanting Table to show the gui
 right-click-enchanting-table: false
 
+# Change the language of the plugin.
+# Current options: en, he, pt-br
+language: "en"
+
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.

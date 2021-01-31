@@ -1,27 +1,30 @@
 package me.tychsen.enchantgui.localization;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.config.AConfig;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 public class LocalizationManager extends AConfig {
     private static LocalizationManager instance;
 
-    private LocalizationManager() {
-        super("localization.yml", Main.getInstance());
+    public LocalizationManager(@NotNull final String fileName) {
+        super(fileName, EnchantGUI.getInstance());
         saveDefaultConfiguration();
     }
 
     @Override
-    public String getString(String path) {
+    public String getString(@NotNull String path) {
         return Common.colorize(getConfig().getString(path));
     }
 
-    public void reload(CommandSender sender) {
+    public void reload(@NotNull CommandSender sender) {
         reloadConfig();
         Common.tell(sender,instance.getString("prefix") +" "+ instance.getString("localization-reloaded"));
     }
+
+
 
     /**
      * Get singleton instance of LocalizationManager.
@@ -30,7 +33,7 @@ public class LocalizationManager extends AConfig {
      */
     public static LocalizationManager getInstance() {
         if (instance == null)
-            instance = new LocalizationManager();
+            instance = new LocalizationManager("localization_en.yml"); //should never get here..
 
         return instance;
     }

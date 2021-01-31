@@ -1,7 +1,7 @@
 package me.tychsen.enchantgui.event;
 
 import me.tychsen.enchantgui.config.EShopConfig;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -44,7 +44,7 @@ public class EventManager implements Listener{
             try {
                 handleInventoryClickEvent(e);
             } catch (Exception ex) {
-                Main.getInstance().getLogger().severe("Inventory click event couldn't be handled. "+ex.getMessage());
+                EnchantGUI.getInstance().getLogger().severe("Inventory click event couldn't be handled. "+ex.getMessage());
             }
         }
     }
@@ -54,7 +54,7 @@ public class EventManager implements Listener{
         if (!EShopConfig.getBoolean("right-click-enchanting-table")) {
             return;
         }
-        if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
+        if (EnchantGUI.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
             return;
         if(!e.getPlayer().hasPermission("eshop.enchantingtable"))
             return;
@@ -76,7 +76,7 @@ public class EventManager implements Listener{
 
     private void handlePlayerInteractEvent(PlayerInteractEvent e) {
         if (e.getPlayer().hasPermission("eshop.enchantingtable")) {
-            if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
+            if (EnchantGUI.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
                 return;
             }
 

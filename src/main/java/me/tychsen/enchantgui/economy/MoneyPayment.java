@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.economy;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -11,7 +11,7 @@ public class MoneyPayment implements PaymentStrategy {
     private JavaPlugin plugin;
 
     public MoneyPayment() {
-        this.plugin = Main.getInstance();
+        this.plugin = EnchantGUI.getInstance();
 
         if (!setupEconomy()) {
             plugin.getLogger().severe("Dependency (Vault) not found. Disabling the plugin!");

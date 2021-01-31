@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -65,15 +65,15 @@ public class EShopEnchants {
         addItem(Enchantment.IMPALING,matchEnchant("impaling"),lm.getString("enchant.impaling"));
         addItem(Enchantment.LOYALTY,matchEnchant("loyalty"),lm.getString("enchant.loyalty"));
         addItem(Enchantment.RIPTIDE,matchEnchant("riptide"),lm.getString("enchant.riptide"));
-        if(!Main.getMinecraftVersion().contains("1.13")) {
+        if(!EnchantGUI.getMinecraftVersion().contains("1.13")) {
             addItem(Enchantment.PIERCING, matchEnchant("piercing"), lm.getString("enchant.piercing"));
             addItem(Enchantment.MULTISHOT, matchEnchant("multishot"), lm.getString("enchant.multishot"));
             addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
-            Main.getInstance().getLogger().info("Registered 1.14 enchantments.");
+            EnchantGUI.getInstance().getLogger().info("Registered 1.14 enchantments.");
         }
-        if(Main.getMinecraftVersion().contains("1.16")){
+        if(EnchantGUI.getMinecraftVersion().contains("1.16")){
             addItem(Enchantment.SOUL_SPEED,matchEnchant("soul_speed"), lm.getString("enchant.soul_speed"));
-            Main.getInstance().getLogger().info("Registered 1.16 enchantments.");
+            EnchantGUI.getInstance().getLogger().info("Registered 1.16 enchantments.");
         }
     }
 

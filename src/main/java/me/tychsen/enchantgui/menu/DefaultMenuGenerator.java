@@ -4,10 +4,9 @@ import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import me.tychsen.enchantgui.util.Common;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -112,7 +111,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
                 //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
 
                 itemList.add(generateItemWithMeta(item, level, enchantment));
-                Main.debug(item.toString());
+                EnchantGUI.debug(item.toString());
                 levels.add(enchantLevel);
             }
         }

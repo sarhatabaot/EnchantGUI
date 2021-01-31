@@ -8,17 +8,15 @@ import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.economy.XPPayment;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-/**
- * TODO: make this a static accessor class.
- */
 public class EShopConfig {
     @Setter
     @Getter
@@ -30,7 +28,7 @@ public class EShopConfig {
 
     public EShopConfig() {
         setInstance(this);
-        setConfig(Main.getInstance().getConfig());
+        setConfig(EnchantGUI.getInstance().getConfig());
     }
 
     public static boolean getIgnoreItemType(){
@@ -41,13 +39,22 @@ public class EShopConfig {
         return config.getBoolean("debug");
     }
 
+
+    public static String getLang(){
+        try {
+            return config.getString("language", "en");
+        } catch (NullPointerException e){
+            return "en";
+        }
+    }
+
     public static int getPrice(Enchantment enchantment, int level) {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
         return config.getInt(path);
     }
 
-    public static boolean getBoolean(String path){
+    public static boolean getBoolean(@NotNull String path){
         return config.getBoolean(path);
     }
 
@@ -71,8 +78,8 @@ public class EShopConfig {
     public static void reloadConfig(CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
-            Main.getInstance().reloadConfig();
-            setConfig(Main.getInstance().getConfig());
+            EnchantGUI.getInstance().reloadConfig();
+            setConfig(EnchantGUI.getInstance().getConfig());
             economy = null;
             Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
         } else {
@@ -83,7 +90,7 @@ public class EShopConfig {
     public static String[] getEnchantLevels(Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
-        Main.debug(path);
+        EnchantGUI.debug(path);
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 
@@ -99,7 +106,7 @@ public class EShopConfig {
     public static String getEconomyCurrency(){
         switch (config.getString("payment-currency").toLowerCase()) {
             case "money":
-                return Main.getEconomy().currencyNameSingular();
+                return EnchantGUI.getEconomy().currencyNameSingular();
             case "xp":
                 return "levels";
             default:

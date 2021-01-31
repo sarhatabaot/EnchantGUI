@@ -4,7 +4,7 @@ import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.Material;
@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,12 +37,12 @@ public class DefaultMenuSystem implements MenuSystem {
         generator = new DefaultMenuGenerator(36, config, permsys);
     }
 
-    private void tell(Player player, String message){
+    private void tell(@NotNull Player player,@NotNull String message){
         Common.tell(player, PREFIX +message);
     }
 
     @Override
-    public void showMainMenu(Player p) {
+    public void showMainMenu(@NotNull Player p) {
         LocalizationManager lm = LocalizationManager.getInstance();
         playerLevels.remove(p.getName());
         if (permsys.hasUsePermission(p)) {
@@ -51,13 +52,13 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
-    private boolean isGoBackItem(ItemStack item) {
+    private boolean isGoBackItem(@NotNull ItemStack item) {
         return item.getItemMeta().getDisplayName().equalsIgnoreCase("Go back")
                 && item.getType() == Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
     }
 
     @Override
-    public void handleMenuClick(Player p, InventoryClickEvent event) {
+    public void handleMenuClick(@NotNull Player p,@NotNull InventoryClickEvent event) {
         if (playerLevels.containsKey(p.getName())) {
             if (isGoBackItem(event.getCurrentItem())) {
                 playerLevels.remove(p.getName());
@@ -75,7 +76,7 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
-    private void purchaseEnchant(Player p, InventoryClickEvent event) {
+    private void purchaseEnchant(@NotNull Player p,@NotNull InventoryClickEvent event) {
         LocalizationManager lm = LocalizationManager.getInstance();
         ItemStack item = event.getCurrentItem();
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
@@ -84,7 +85,7 @@ public class DefaultMenuSystem implements MenuSystem {
         int level = Integer.parseInt(playerLevels.get(p.getName())[event.getSlot()]);
         int price = getPrice(enchantment, level);
 
-        Main.debug("Slot: " + event.getSlot() + " Level: " + level);
+        EnchantGUI.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
             tell(p,lm.getString("cant-enchant"));
@@ -109,7 +110,7 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
-    private void enchantItem(ItemStack playerHand, Enchantment enchantment, int level) {
+    private void enchantItem(@NotNull ItemStack playerHand,@NotNull Enchantment enchantment, int level) {
         if (level > enchantment.getMaxLevel() || !enchantment.canEnchantItem(playerHand)) {
             // Unsafe enchant
             playerHand.addUnsafeEnchantment(enchantment, level);
