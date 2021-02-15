@@ -37,20 +37,24 @@ public class EnchantGUI extends JavaPlugin implements Listener {
     @Setter (AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
+
     @Override
     public void onEnable() {
         setInstance(this);
+
+        saveDefaultConfig();
+        saveDefaultConfigs();
+        new EShopConfig();
         if (!setupEconomy()) {
             getLogger().severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
         // Generate config.yml if there is none
-        saveDefaultConfig();
-        saveDefaultConfigs();
+
         new LocalizationManager(
                 Common.prependLanguage(
-                        EShopConfig.getLang()));
+                        getConfig().getString("language")));
         // Register event manager
         setMenuSystem(new DefaultMenuSystem());
         getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);
@@ -80,16 +84,16 @@ public class EnchantGUI extends JavaPlugin implements Listener {
             saveResource("shop.yml", false);
         }
 
-        if (!new File("localization_en.yml").exists()) {
-            saveResource("localization_en.yml", false);
+        if (!new File("lang/localization_en.yml").exists()) {
+            saveResource("lang/localization_en.yml", false);
         }
 
-        if (!new File("localization_he.yml").exists()) {
-            saveResource("localization_he.yml", false);
+        if (!new File("lang/localization_he.yml").exists()) {
+            saveResource("lang/localization_he.yml", false);
         }
 
-        if (!new File("localization_pt-br.yml").exists()) {
-            saveResource("localization_pt-br.yml", false);
+        if (!new File("lang/localization_pt-br.yml").exists()) {
+            saveResource("lang/localization_pt-br.yml", false);
         }
     }
 

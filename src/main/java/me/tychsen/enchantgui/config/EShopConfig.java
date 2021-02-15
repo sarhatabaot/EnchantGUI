@@ -31,6 +31,7 @@ public class EShopConfig {
         setConfig(EnchantGUI.getInstance().getConfig());
     }
 
+
     public static boolean getIgnoreItemType(){
         return config.getBoolean("ignore-itemtype");
     }
@@ -41,11 +42,7 @@ public class EShopConfig {
 
 
     public static String getLang(){
-        try {
-            return config.getString("language", "en");
-        } catch (NullPointerException e){
-            return "en";
-        }
+        return config.getString("language");
     }
 
     public static int getPrice(Enchantment enchantment, int level) {

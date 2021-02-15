@@ -20,9 +20,9 @@ public abstract class AConfig {
     @Setter
     @Getter (AccessLevel.PROTECTED)
     private String fileName;
-    private File configFile;
+    protected File configFile;
     private JavaPlugin plugin;
-    private FileConfiguration config;
+    protected FileConfiguration config;
 
     /**
      *

@@ -6,6 +6,7 @@ import me.tychsen.enchantgui.EnchantGUI;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import me.tychsen.enchantgui.util.Common;
 import org.bukkit.entity.Player;
@@ -53,8 +54,21 @@ public class ShopCommand extends BaseCommand {
 	@CommandPermission("eshop.reload")
 	public void onReload(final Player player){
 		EShopConfig.reloadConfig(player);
-		LocalizationManager.getInstance().reload(player);
+		reloadLocalizationManager(player);
+		reloadMenuSystem();
 		EShopShop.getInstance().reload(player);
+	}
+
+	private void reloadMenuSystem(){
+		EnchantGUI.setMenuSystem(null);
+		EnchantGUI.setMenuSystem(new DefaultMenuSystem());
+	}
+
+	private void reloadLocalizationManager(final Player player){
+		LocalizationManager.setInstance(null);
+		new LocalizationManager(Common.prependLanguage(
+				EShopConfig.getLang()));
+		LocalizationManager.getInstance().reload(player);
 	}
 
 	private void tell(final Player player, final String message){

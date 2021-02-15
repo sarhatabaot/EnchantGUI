@@ -2,9 +2,7 @@ package me.tychsen.enchantgui.util;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-/**
- * @author kangarko
- */
+
 public class Common {
 
     public static void tell(CommandSender toWhom, String message) {
@@ -16,6 +14,6 @@ public class Common {
     }
 
     public static String prependLanguage(String language) {
-        return "localization_"+language+".yml";
+        return "lang/localization_"+language+".yml";
     }
 }

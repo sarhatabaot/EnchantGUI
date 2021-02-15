@@ -24,7 +24,7 @@ import static me.tychsen.enchantgui.config.EShopConfig.*;
 
 //TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
-    private int inventorySize;
+    private final int inventorySize;
     private EShopConfig config;
     private EShopEnchants enchants;
     private EShopPermissionSys permSys;
