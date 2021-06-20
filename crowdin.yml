@@ -3,4 +3,4 @@ files:
     ignore:
       - plugin.yml
       - config.yml
-    translation: '%original_path%/%file_name%_%two_letters_code%'
+    translation: '%original_path%/%file_name%_%two_letters_code%.%file_extension%'
