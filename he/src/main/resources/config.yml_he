@@ -1,0 +1,171 @@
+---
+#This plugin is gathering some basic info about how many players/servers is using it.
+#All data is collected anonymously and will not harm your server in any way.
+#If you wish to opt-out of this service, though, just change this setting to true.
+opt-out: false
+#The name of the Eshop menu.
+#Max 32 characters!
+menu-name: EnchantGUI
+#Payment currency can be one of two. Either 'money' for regular money (using Vault+Economy system)
+#or 'xp' for XP levels.
+#You can also put 'disable' to disable the economy-aspect of the plugin entirely.
+payment-currency: money
+#This allows enchantments to be applied to items that don't normally accept them,
+#i.e. elytra with protection
+ignore-itemtype: false
+#Shows only the available enchantments for the selected item
+#overrides ignore-itemtype
+show-per-item: false
+#Right Click on Enchanting Table to show the gui
+right-click-enchanting-table: false
+#Enchant prices
+#You can set a price for each individual level
+#You can also use all: <price> to set a price for all enchant levels.
+power:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+  level8: 800
+  level10: 1000
+flame:
+  level1: 100
+infinity:
+  level1: 100
+punch:
+  level1: 100
+  level2: 200
+sharpness:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+bane_of_arthropods:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+smite:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+depth_strider:
+  level1: 100
+  level2: 200
+  level3: 300
+efficiency:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+unbreaking:
+  level1: 100
+  level2: 200
+  level3: 300
+fire_aspect:
+  level1: 100
+  level2: 200
+knockback:
+  level1: 100
+  level2: 200
+looting:
+  level1: 100
+  level2: 200
+  level3: 300
+fortune:
+  level1: 100
+  level2: 200
+  level3: 300
+luck_of_the_sea:
+  level1: 100
+  level2: 200
+  level3: 300
+lure:
+  level1: 100
+  level2: 200
+  level3: 300
+respiration:
+  level1: 100
+  level2: 200
+  level3: 300
+protection:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+blast_protection:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+feather_falling:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+fire_protection:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+projectile_protection:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+silk_touch:
+  level1: 100
+thorns:
+  level1: 100
+  level2: 200
+  level3: 300
+aqua_affinity:
+  level1: 100
+frost_walker:
+  level1: 100
+  level2: 200
+mending:
+  level1: 100
+sweeping:
+  level1: 100
+  level2: 200
+  level3: 300
+channeling:
+  level1: 100
+impaling:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+  level5: 500
+loyalty:
+  level1: 100
+  level2: 200
+  level3: 300
+riptide:
+  level1: 100
+  level2: 200
+  level3: 300
+piercing:
+  level1: 100
+  level2: 200
+  level3: 300
+  level4: 400
+multishot:
+  level1: 100
+quick_charge:
+  level1: 100
+  level2: 200
+  level3: 300
+soul_speed:
+  level1: 100
+  level2: 200
+  level3: 300
+#For Debugging only
+debug: false
