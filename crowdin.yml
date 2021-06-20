@@ -1,3 +1,6 @@
 files:
   - source: /src/main/resources
+    ignore:
+      - plugin.yml
+      - config.yml
     translation: '%original_path%/%file_name%_%two_letters_code%'
