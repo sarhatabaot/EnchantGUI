@@ -6,7 +6,7 @@ import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
-import me.tychsen.enchantgui.util.Common;
+import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -37,7 +37,7 @@ public class DefaultMenuSystem implements MenuSystem {
     }
 
     private void tell(Player player, String message){
-        Common.tell(player, PREFIX +message);
+        ChatUtil.tell(player, PREFIX +message);
     }
 
     @Override

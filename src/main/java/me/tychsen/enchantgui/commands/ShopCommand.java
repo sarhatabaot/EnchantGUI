@@ -7,7 +7,7 @@ import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.MenuSystem;
-import me.tychsen.enchantgui.util.Common;
+import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.entity.Player;
 
 @CommandAlias("eshop|enchantgui")
@@ -58,6 +58,6 @@ public class ShopCommand extends BaseCommand {
 	}
 
 	private void tell(final Player player, final String message){
-		Common.tell(player,String.format("%s %s",prefix,message));
+		ChatUtil.tell(player,String.format("%s %s",prefix,message));
 	}
 }

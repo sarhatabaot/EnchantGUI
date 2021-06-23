@@ -6,8 +6,7 @@ import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
-import me.tychsen.enchantgui.util.Common;
-import org.bukkit.ChatColor;
+import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -25,10 +24,10 @@ import static me.tychsen.enchantgui.config.EShopConfig.*;
 
 //TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
-    private int inventorySize;
-    private EShopConfig config;
-    private EShopEnchants enchants;
-    private EShopPermissionSys permSys;
+    private final int inventorySize;
+    private final EShopConfig config;
+    private final EShopEnchants enchants;
+    private final EShopPermissionSys permSys;
 
     public DefaultMenuGenerator(int inventorySize, EShopConfig config, EShopPermissionSys permSys) {
         this.inventorySize = inventorySize;
@@ -77,7 +76,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
     @NotNull
     private String format(int type, String name) {
         String string = EShopShop.getInstance().getString("shop." + name);
-        return MessageFormat.format(Common.colorize(string), type);
+        return MessageFormat.format(ChatUtil.colorize(string), type);
     }
 
     private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
