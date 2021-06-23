@@ -1,11 +1,10 @@
 package me.tychsen.enchantgui.localization;
 
+import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.AConfig;
-import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.config.EShopConfig;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.Nullable;
 
 public class LocalizationManager extends AConfig {
     private static LocalizationManager instance;
@@ -15,16 +14,19 @@ public class LocalizationManager extends AConfig {
         saveDefaultConfiguration();
     }
 
+
     @Override
     public String getString(String path) {
         return ChatUtil.colorize(getConfig().getString(path));
     }
 
     public void reload(CommandSender sender) {
+        Main.debug(EShopConfig.getLanguage());
+        setFileName("localization_" + EShopConfig.getLanguage() + ".yml");
+        saveDefaultConfiguration();
         reloadConfig();
         ChatUtil.tell(sender, instance.getString("prefix") + " " + instance.getString("localization-reloaded"));
     }
-
     /**
      * Get singleton instance of LocalizationManager.
      *

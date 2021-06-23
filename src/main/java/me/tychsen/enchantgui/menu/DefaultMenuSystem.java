@@ -1,5 +1,6 @@
 package me.tychsen.enchantgui.menu;
 
+import lombok.Getter;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
@@ -21,12 +22,13 @@ import static me.tychsen.enchantgui.config.EShopConfig.getIgnoreItemType;
 import static me.tychsen.enchantgui.config.EShopConfig.getPrice;
 
 public class DefaultMenuSystem implements MenuSystem {
-    public static final String PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
+    public static String PREFIX;
 
     private Map<String, String[]> playerLevels;
 
     private EShopPermissionSys permsys;
     private EShopConfig config;
+
     private MenuGenerator generator;
 
     public DefaultMenuSystem() {
@@ -34,6 +36,7 @@ public class DefaultMenuSystem implements MenuSystem {
         permsys = new EShopPermissionSys();
         config = new EShopConfig();
         generator = new DefaultMenuGenerator(36, config, permsys);
+        DefaultMenuSystem.PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
     }
 
     private void tell(Player player, String message){
@@ -73,6 +76,11 @@ public class DefaultMenuSystem implements MenuSystem {
             Inventory inv = generator.enchantMenu(p, event.getCurrentItem(), playerLevels);
             p.openInventory(inv);
         }
+    }
+
+    @Override
+    public MenuGenerator getMenuGenerator() {
+        return generator;
     }
 
     private void purchaseEnchant(Player p, InventoryClickEvent event) {

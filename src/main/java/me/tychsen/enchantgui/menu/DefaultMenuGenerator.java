@@ -1,5 +1,7 @@
 package me.tychsen.enchantgui.menu;
 
+import lombok.Getter;
+import lombok.Setter;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
@@ -26,7 +28,7 @@ import static me.tychsen.enchantgui.config.EShopConfig.*;
 public class DefaultMenuGenerator implements MenuGenerator {
     private final int inventorySize;
     private final EShopConfig config;
-    private final EShopEnchants enchants;
+    private EShopEnchants enchants;
     private final EShopPermissionSys permSys;
 
     public DefaultMenuGenerator(int inventorySize, EShopConfig config, EShopPermissionSys permSys) {
@@ -137,5 +139,15 @@ public class DefaultMenuGenerator implements MenuGenerator {
         meta.setDisplayName("Go back");
         backItem.setItemMeta(meta);
         return backItem;
+    }
+
+    @Override
+    public EShopEnchants getShopEnchants() {
+        return enchants;
+    }
+
+    @Override
+    public void setShopEnchants(final EShopEnchants enchants) {
+        this.enchants = enchants;
     }
 }

@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EShopEnchants {
-    private List<ItemStack> enchantList = new ArrayList<>();
-    private EShopShop shop;
+    private final List<ItemStack> enchantList = new ArrayList<>();
+    private final EShopShop shop;
 
     public EShopEnchants() {
         shop = EShopShop.getInstance();
