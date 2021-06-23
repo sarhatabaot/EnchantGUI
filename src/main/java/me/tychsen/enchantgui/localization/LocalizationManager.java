@@ -1,8 +1,17 @@
 package me.tychsen.enchantgui.localization;
 
+<<<<<<< Updated upstream
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.AConfig;
 import me.tychsen.enchantgui.util.Common;
+=======
+import de.themoep.minedown.MineDown;
+import me.tychsen.enchantgui.ChatUtil;
+import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.config.AConfig;
+import me.tychsen.enchantgui.config.EShopConfig;
+import net.md_5.bungee.api.chat.BaseComponent;
+>>>>>>> Stashed changes
 import org.bukkit.command.CommandSender;
 
 public class LocalizationManager extends AConfig {
@@ -16,6 +25,10 @@ public class LocalizationManager extends AConfig {
     @Override
     public String getString(String path) {
         return Common.colorize(getConfig().getString(path));
+    }
+
+    public BaseComponent[] parseString(String path) {
+        return MineDown.parse(getConfig().getString(path) );
     }
 
     public void reload(CommandSender sender) {

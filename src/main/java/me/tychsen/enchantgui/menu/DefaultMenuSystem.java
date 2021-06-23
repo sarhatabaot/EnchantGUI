@@ -87,7 +87,7 @@ public class DefaultMenuSystem implements MenuSystem {
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            tell(p,lm.getString("cant-enchant"));
+            p.spigot().sendMessage(lm.parseString("cant-enchant"));
             p.closeInventory();
             return;
         }
