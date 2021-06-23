@@ -19,18 +19,14 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Main extends JavaPlugin implements Listener {
-    @Setter (AccessLevel.PRIVATE)
-    @Getter
+public class Main extends JavaPlugin {
+    @Setter (AccessLevel.PRIVATE) @Getter
     private static Main instance;
-    @Setter (AccessLevel.PRIVATE)
-    @Getter
+    @Setter (AccessLevel.PRIVATE) @Getter
     private static Economy economy = null;
-    @Getter
-    @Setter
+    @Getter @Setter
     private static MenuSystem menuSystem;
-    @Getter
-    @Setter (AccessLevel.PRIVATE)
+    @Getter @Setter (AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
 

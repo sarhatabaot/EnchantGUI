@@ -38,7 +38,7 @@ public abstract class AConfig {
      * Reloads the file
      */
     protected void reloadConfig(){
-        if (configFile == null) {
+        if (configFile == null || !configFile.getName().equalsIgnoreCase(getFileName())) {
             configFile = new File(plugin.getDataFolder(), getFileName());
         }
         config = YamlConfiguration.loadConfiguration(configFile);
@@ -54,6 +54,7 @@ public abstract class AConfig {
 
         plugin.getLogger().info(getFileName()+" reloaded.");
     }
+
 
     /**
      * Saves the default configuration from the jar.

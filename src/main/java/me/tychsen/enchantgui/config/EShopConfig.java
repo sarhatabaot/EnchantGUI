@@ -9,7 +9,7 @@ import me.tychsen.enchantgui.economy.XPPayment;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.util.Common;
+import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -74,9 +74,9 @@ public class EShopConfig {
             Main.getInstance().reloadConfig();
             setConfig(Main.getInstance().getConfig());
             economy = null;
-            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
+            ChatUtil.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
         } else {
-            Common.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("no-permission"));
+            ChatUtil.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("no-permission"));
         }
     }
 
@@ -122,6 +122,10 @@ public class EShopConfig {
             }
         }
         return economy;
+    }
+
+    public static String getLanguage() {
+        return config.getString("language","en");
     }
 
 }
