@@ -4,8 +4,10 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.EShopConfig;
+import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.localization.LocalizationManager;
+import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.entity.Player;
@@ -30,7 +32,7 @@ public class ShopCommand extends BaseCommand {
 		menuSystem.showMainMenu(player);
 	}
 
-	@CommandAlias("toggle")
+	@Subcommand("toggle")
 	@CommandPermission("eshop.enchantingtable.toggle")
 	public void onToggle(final Player player){
 		if(!EShopConfig.getBoolean("right-click-enchanting-table")){
@@ -49,11 +51,12 @@ public class ShopCommand extends BaseCommand {
 	}
 
 
-	@CommandAlias("reload")
+	@Subcommand("reload")
 	@CommandPermission("eshop.reload")
 	public void onReload(final Player player){
 		EShopConfig.reloadConfig(player);
 		LocalizationManager.getInstance().reload(player);
+		Main.getMenuSystem().getMenuGenerator().setShopEnchants(new EShopEnchants());
 		EShopShop.getInstance().reload(player);
 	}
 
