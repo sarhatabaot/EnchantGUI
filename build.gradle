@@ -7,8 +7,8 @@ plugins {
 group = 'me.tychsen'
 version  = '1.5.12'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = 1.8
+
 
 repositories {
     mavenCentral()
