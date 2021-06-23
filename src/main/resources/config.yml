@@ -23,6 +23,9 @@ show-per-item: false
 # Right Click on Enchanting Table to show the gui
 right-click-enchanting-table: false
 
+# Currently available, en, he, pt
+language: en
+
 # Enchant prices
 # You can set a price for each individual level
 # You can also use all: <price> to set a price for all enchant levels.
