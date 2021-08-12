@@ -8,7 +8,7 @@ This is a 1.13+ fork of EnchantGUI.
 For versions up to 1.12.2 use [https://www.spigotmc.org/resources/enchantgui.11701/](https://www.spigotmc.org/resources/enchantgui.11701/)
 
 ## Dependencies
-
+* Java 11
 * BuildTools.jar for Bukkit API
   * [https://hub.spigotmc.org/jenkins/job/BuildTools/](https://hub.spigotmc.org/jenkins/job/BuildTools/)
 * Vault API
