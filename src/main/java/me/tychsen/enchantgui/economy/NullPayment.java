@@ -7,6 +7,11 @@ import org.bukkit.entity.Player;
  */
 public class NullPayment implements PaymentStrategy {
     @Override
+    public String name() {
+        return "NullPayment";
+    }
+
+    @Override
     public boolean withdraw(Player p, int amount) {
         return true;
     }

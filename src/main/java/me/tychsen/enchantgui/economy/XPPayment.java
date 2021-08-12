@@ -7,6 +7,11 @@ import org.bukkit.entity.Player;
  */
 public class XPPayment implements PaymentStrategy {
     @Override
+    public String name() {
+        return "XPPayment";
+    }
+
+    @Override
     public boolean withdraw(Player p, int amount) {
         if (p.getLevel() >= amount) {
             p.giveExpLevels(-amount);

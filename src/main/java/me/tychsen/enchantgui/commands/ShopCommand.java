@@ -10,16 +10,18 @@ import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import me.tychsen.enchantgui.ChatUtil;
+import me.tychsen.enchantgui.permissions.EShopPermissionSys;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandAlias("eshop|enchantgui")
-@CommandPermission("eshop.use")
+@CommandPermission(EShopPermissionSys.USE)
 @Description("Command for the EnchantGUI plugin.")
 public class ShopCommand extends BaseCommand {
-	private String prefix;
-	private MenuSystem menuSystem;
+	private final String prefix;
+	private final MenuSystem menuSystem;
 
-	private LocalizationManager lm = LocalizationManager.getInstance();
+	private final LocalizationManager lm = LocalizationManager.getInstance();
 
 	public ShopCommand() {
 		this.prefix = lm.getString("prefix");
@@ -33,7 +35,7 @@ public class ShopCommand extends BaseCommand {
 	}
 
 	@Subcommand("toggle")
-	@CommandPermission("eshop.enchantingtable.toggle")
+	@CommandPermission(EShopPermissionSys.TOGGLE)
 	public void onToggle(final Player player){
 		if(!EShopConfig.getBoolean("right-click-enchanting-table")){
 			tell(player,lm.getString("disabled-feature"));
@@ -52,12 +54,14 @@ public class ShopCommand extends BaseCommand {
 
 
 	@Subcommand("reload")
-	@CommandPermission("eshop.reload")
-	public void onReload(final Player player){
+	@CommandPermission(EShopPermissionSys.RELOAD)
+	public void onReload(final CommandSender player){
 		EShopConfig.reloadConfig(player);
 		LocalizationManager.getInstance().reload(player);
+		Main.setMenuSystem(new DefaultMenuSystem());
 		Main.getMenuSystem().getMenuGenerator().setShopEnchants(new EShopEnchants());
 		EShopShop.getInstance().reload(player);
+		Main.getInstance().getLogger().info(getName() + " " + Main.getInstance().getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
 	}
 
 	private void tell(final Player player, final String message){

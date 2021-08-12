@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Main extends JavaPlugin {
     @Setter (AccessLevel.PRIVATE) @Getter
     private static Main instance;
-    @Setter (AccessLevel.PRIVATE) @Getter
+    @Setter @Getter
     private static Economy economy = null;
     @Getter @Setter
     private static MenuSystem menuSystem;
@@ -33,11 +33,11 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
-        if (!setupEconomy()) {
+        /*if (!setupEconomy()) {
             getLogger().severe("Disabled due to no Vault dependency found!");
             getServer().getPluginManager().disablePlugin(this);
             return;
-        }
+        }*/
         // Generate config.yml if there is none
         saveDefaultConfig();
 
@@ -54,6 +54,7 @@ public class Main extends JavaPlugin {
             new Metrics(this, 3871);
 
         getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
+        getLogger().info(getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
     }
 
     @Override

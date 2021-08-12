@@ -16,9 +16,6 @@ import org.bukkit.enchantments.Enchantment;
 
 import java.util.Map;
 
-/**
- * TODO: make this a static accessor class.
- */
 public class EShopConfig {
     @Setter
     @Getter
@@ -52,7 +49,7 @@ public class EShopConfig {
     }
 
     public static String getMenuName() {
-        String path = "menu-name";
+        var path = "menu-name";
         if (config.contains(path) && config.isSet(path) && config.isString(path)) {
             if (config.getString(path).length() > 32) {
                 return config.getString(path).substring(0, 32);
@@ -87,7 +84,7 @@ public class EShopConfig {
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 
-        int position = 0;
+        var position = 0;
         for (Map.Entry<String, Object> entry : enchantMap.entrySet()) {
             enchantLevels[position] = entry.getKey();
             position++;
@@ -107,7 +104,7 @@ public class EShopConfig {
         }
     }
 
-    public PaymentStrategy getEconomy() {
+    public static PaymentStrategy getEconomy() {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
                 case "money":

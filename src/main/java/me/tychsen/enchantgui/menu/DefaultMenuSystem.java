@@ -1,13 +1,12 @@
 package me.tychsen.enchantgui.menu;
 
-import lombok.Getter;
+import me.tychsen.enchantgui.ChatUtil;
+import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
-import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

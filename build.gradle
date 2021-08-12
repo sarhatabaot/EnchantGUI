@@ -7,7 +7,7 @@ plugins {
 group = 'me.tychsen'
 version  = '1.6.0-SNAPSHOT'
 
-sourceCompatibility = targetCompatibility = 1.8
+sourceCompatibility = targetCompatibility = 11
 
 
 repositories {
@@ -21,7 +21,7 @@ repositories {
     }
     maven {
         name = "vault-repo"
-        url = "http://nexus.hc.to/content/repositories/pub_releases"
+        url = "https://nexus.hc.to/content/repositories/pub_releases"
     }
     maven {
         name = "bungeecord-chat"
@@ -34,11 +34,11 @@ repositories {
 }
 
 dependencies {
-    implementation "org.spigotmc:spigot-api:1.16.1-R0.1-SNAPSHOT"
+    implementation "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT"
     implementation "net.milkbowl.vault:VaultAPI:1.7"
     compile "co.aikar:acf-bukkit:0.5.0-SNAPSHOT"
-    compile "org.bstats:bstats-bukkit:1.7"
-    compile group: 'org.jetbrains', name: 'annotations', version: '19.0.0'
+    compile "org.bstats:bstats-bukkit:2.2.1"
+    compile group: 'org.jetbrains', name: 'annotations', version: '21.0.0'
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
