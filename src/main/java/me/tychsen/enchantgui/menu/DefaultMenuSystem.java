@@ -103,7 +103,7 @@ public class DefaultMenuSystem implements MenuSystem {
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s &d%s %d &ffor &6%d %s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
+                String message = String.format("%s &d%s %d &ffor &6%d%s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
                 tell(p,message);
                 p.closeInventory();
             } else {
