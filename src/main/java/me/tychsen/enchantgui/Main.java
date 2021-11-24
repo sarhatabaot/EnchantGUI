@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui;
 
 import co.aikar.commands.BukkitCommandManager;
+import co.aikar.commands.PaperCommandManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,7 +42,8 @@ public class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);
 
         // Register command
-        BukkitCommandManager commandManager = new BukkitCommandManager(this);
+        PaperCommandManager commandManager = new PaperCommandManager(this);
+        commandManager.enableUnstableAPI("brigadier");
         commandManager.registerCommand(new ShopCommand());
 
         // Enable Metrics
