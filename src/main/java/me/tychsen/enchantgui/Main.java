@@ -1,6 +1,5 @@
 package me.tychsen.enchantgui;
 
-import co.aikar.commands.BukkitCommandManager;
 import co.aikar.commands.PaperCommandManager;
 import lombok.AccessLevel;
 import lombok.Getter;

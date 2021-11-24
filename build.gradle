@@ -31,17 +31,19 @@ repositories {
         name = "codemc-repo"
         url = "https://repo.codemc.org/repository/maven-public"
     }
+    maven {
+        name = "jitpack"
+        url = "https://jitpack.io"
+    }
 }
 
 dependencies {
-    implementation "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT"
-    implementation "net.milkbowl.vault:VaultAPI:1.7"
-    compileOnly "co.aikar:acf-paper:0.5.0-SNAPSHOT"
-    compileOnly "org.bstats:bstats-bukkit:2.2.1"
-    compileOnly group: 'org.jetbrains', name: 'annotations', version: '22.0.0'
+    compileOnly "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT"
+    compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
+    api "co.aikar:acf-paper:0.5.0-SNAPSHOT"
+    api "org.bstats:bstats-bukkit:2.2.1"
+    api group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
 }
-
-import org.apache.tools.ant.filters.ReplaceTokens
 
 rootProject.tasks.named("processResources") {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
