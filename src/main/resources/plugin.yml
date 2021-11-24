@@ -1,5 +1,5 @@
 name: EnchantGUI
-version: @version@
+version: ${version}
 main: me.tychsen.enchantgui.Main
 api-version: "1.13"
 
