@@ -27,6 +27,7 @@ public class LocalizationManager extends AConfig {
         reloadConfig();
         ChatUtil.tell(sender, instance.getString("prefix") + " " + instance.getString("localization-reloaded"));
     }
+
     /**
      * Get singleton instance of LocalizationManager.
      *

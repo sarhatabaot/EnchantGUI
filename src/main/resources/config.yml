@@ -24,6 +24,7 @@ show-per-item: false
 right-click-enchanting-table: false
 
 # Currently available, en, he, pt
+# To enable a different language, you must restart the server.
 language: en
 
 # Enchant prices
