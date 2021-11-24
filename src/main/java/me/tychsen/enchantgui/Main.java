@@ -11,7 +11,6 @@ import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,11 +32,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
         setInstance(this);
-        /*if (!setupEconomy()) {
-            getLogger().severe("Disabled due to no Vault dependency found!");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }*/
+        setupEconomy();
         // Generate config.yml if there is none
         saveDefaultConfig();
 
@@ -75,18 +70,17 @@ public class Main extends JavaPlugin {
             Main.getInstance().getLogger().warning(String.format("DEBUG %s", msg));
     }
 
-    private boolean setupEconomy() {
+    private void setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe("could not find vault");
-            return false;
+            return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             getLogger().severe("could not find Economy.class");
-            return false;
+            return;
         }
         setEconomy(rsp.getProvider());
-        return economy != null;
     }
 
 

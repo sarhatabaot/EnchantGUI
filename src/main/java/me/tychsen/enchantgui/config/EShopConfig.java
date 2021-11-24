@@ -94,28 +94,19 @@ public class EShopConfig {
     }
 
     public static String getEconomyCurrency(){
-        switch (config.getString("payment-currency").toLowerCase()) {
-            case "money":
-                return Main.getEconomy().currencyNameSingular();
-            case "xp":
-                return "levels";
-            default:
-                return "";
-        }
+        return switch (config.getString("payment-currency").toLowerCase()) {
+            case "money" -> Main.getEconomy().currencyNameSingular();
+            case "xp" -> "levels";
+            default -> "";
+        };
     }
 
     public static PaymentStrategy getEconomy() {
         if (economy == null) {
             switch (config.getString("payment-currency").toLowerCase()) {
-                case "money":
-                    setEconomy(new MoneyPayment());
-                    break;
-                case "xp":
-                    setEconomy(new XPPayment());
-                    break;
-                default:
-                    setEconomy(new NullPayment());
-                    break;
+                case "money" -> setEconomy(new MoneyPayment());
+                case "xp" -> setEconomy(new XPPayment());
+                default -> setEconomy(new NullPayment());
             }
         }
         return economy;

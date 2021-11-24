@@ -21,7 +21,7 @@ public abstract class AConfig {
     @Getter (AccessLevel.PROTECTED)
     private String fileName;
     private File configFile;
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
     private FileConfiguration config;
 
     /**

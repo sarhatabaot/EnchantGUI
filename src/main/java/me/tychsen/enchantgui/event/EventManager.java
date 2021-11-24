@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 
 public class EventManager implements Listener{
-    private MenuSystem system;
+    private final MenuSystem system;
 
     public EventManager(MenuSystem system) {
         this.system = system;

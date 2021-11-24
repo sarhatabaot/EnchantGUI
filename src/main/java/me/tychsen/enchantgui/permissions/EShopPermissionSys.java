@@ -5,6 +5,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import java.io.Serial;
 import java.util.Map;
 
 public class EShopPermissionSys {
@@ -41,6 +42,7 @@ public class EShopPermissionSys {
 
     @RequiredArgsConstructor
     private static final class TooManyEnchantmentsException extends RuntimeException {
+        @Serial
         private static final long serialVersionUID = 1L;
 
         private final String tellMessage;

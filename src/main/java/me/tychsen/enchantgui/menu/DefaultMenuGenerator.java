@@ -1,14 +1,11 @@
 package me.tychsen.enchantgui.menu;
 
-import lombok.Getter;
-import lombok.Setter;
-import me.tychsen.enchantgui.config.EShopConfig;
+import me.tychsen.enchantgui.ChatUtil;
+import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
-import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
-import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -27,13 +24,11 @@ import static me.tychsen.enchantgui.config.EShopConfig.*;
 //TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
     private final int inventorySize;
-    private final EShopConfig config;
     private EShopEnchants enchants;
     private final EShopPermissionSys permSys;
 
-    public DefaultMenuGenerator(int inventorySize, EShopConfig config, EShopPermissionSys permSys) {
+    public DefaultMenuGenerator(int inventorySize, EShopPermissionSys permSys) {
         this.inventorySize = inventorySize;
-        this.config = config;
         this.enchants = new EShopEnchants();
         this.permSys = permSys;
     }
@@ -84,14 +79,14 @@ public class DefaultMenuGenerator implements MenuGenerator {
     private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
         ItemStack temp = item.clone();
         ItemMeta meta = temp.getItemMeta();
-        List<String> lores = new ArrayList<>();
-        lores.add(format(level, "level"));
+        List<String> lore = new ArrayList<>();
+        lore.add(format(level, "level"));
 
-        if (!(config.getEconomy() instanceof NullPayment)) {
-            lores.add(format(getPrice(enchantment, level), "price"));
+        if (!(getEconomy() instanceof NullPayment)) {
+            lore.add(format(getPrice(enchantment, level), "price"));
         }
 
-        meta.setLore(lores);
+        meta.setLore(lore);
         temp.setItemMeta(meta);
         return temp;
     }

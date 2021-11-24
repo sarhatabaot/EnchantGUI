@@ -23,18 +23,17 @@ import static me.tychsen.enchantgui.config.EShopConfig.getPrice;
 public class DefaultMenuSystem implements MenuSystem {
     public static String PREFIX;
 
-    private Map<String, String[]> playerLevels;
+    private final Map<String, String[]> playerLevels;
 
-    private EShopPermissionSys permsys;
-    private EShopConfig config;
+    private final EShopPermissionSys permsys;
 
-    private MenuGenerator generator;
+    private final MenuGenerator generator;
 
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
         permsys = new EShopPermissionSys();
-        config = new EShopConfig();
-        generator = new DefaultMenuGenerator(36, config, permsys);
+        new EShopConfig();
+        generator = new DefaultMenuGenerator(36, permsys);
         DefaultMenuSystem.PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
     }
 
@@ -100,7 +99,7 @@ public class DefaultMenuSystem implements MenuSystem {
         }
 
         if (enchantment.canEnchantItem(playerHand) || getIgnoreItemType()) {
-            PaymentStrategy payment = config.getEconomy();
+            PaymentStrategy payment = EShopConfig.getEconomy();
 
             if (payment.withdraw(p, price)) {
                 enchantItem(playerHand, enchantment, level);
