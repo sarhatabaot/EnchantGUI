@@ -1,6 +1,5 @@
 package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -21,10 +20,12 @@ public class EShopEnchants {
         createEnchantList();
     }
 
-    public List<ItemStack> getEnchantList() { return enchantList; }
+    public List<ItemStack> getEnchantList() {
+        return enchantList;
+    }
 
-    private Material matchEnchant(@NotNull String enchantment){
-        return Material.matchMaterial(shop.getString("shop.enchants."+enchantment));
+    private Material matchEnchant(@NotNull String enchantment) {
+        return Material.matchMaterial(shop.getString("shop.enchants." + enchantment));
     }
 
     /**
@@ -60,25 +61,21 @@ public class EShopEnchants {
         addItem(Enchantment.WATER_WORKER, matchEnchant("aqua_affinity"), lm.getString("enchant.aqua_affinity"));
         addItem(Enchantment.FROST_WALKER, matchEnchant("frost_walker"), lm.getString("enchant.frost_walker"));
         addItem(Enchantment.MENDING, matchEnchant("mending"), lm.getString("enchant.mending"));
-        addItem(Enchantment.SWEEPING_EDGE,matchEnchant("sweeping"),lm.getString("enchant.sweeping"));
-        addItem(Enchantment.CHANNELING,matchEnchant("channeling"),lm.getString("enchant.channeling"));
-        addItem(Enchantment.IMPALING,matchEnchant("impaling"),lm.getString("enchant.impaling"));
-        addItem(Enchantment.LOYALTY,matchEnchant("loyalty"),lm.getString("enchant.loyalty"));
-        addItem(Enchantment.RIPTIDE,matchEnchant("riptide"),lm.getString("enchant.riptide"));
-        if(!Main.getMinecraftVersion().contains("1.13")) {
-            addItem(Enchantment.PIERCING, matchEnchant("piercing"), lm.getString("enchant.piercing"));
-            addItem(Enchantment.MULTISHOT, matchEnchant("multishot"), lm.getString("enchant.multishot"));
-            addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
-            Main.getInstance().getLogger().info("Registered 1.14 enchantments.");
-        }
-        if(Main.getMinecraftVersion().contains("1.16") | Main.getMinecraftVersion().contains("1.17") | Main.getMinecraftVersion().contains("1.18")){
-            addItem(Enchantment.SOUL_SPEED,matchEnchant("soul_speed"), lm.getString("enchant.soul_speed"));
-            Main.getInstance().getLogger().info("Registered 1.16 enchantments.");
-        }
+        addItem(Enchantment.SWEEPING_EDGE, matchEnchant("sweeping"), lm.getString("enchant.sweeping"));
+        addItem(Enchantment.CHANNELING, matchEnchant("channeling"), lm.getString("enchant.channeling"));
+        addItem(Enchantment.IMPALING, matchEnchant("impaling"), lm.getString("enchant.impaling"));
+        addItem(Enchantment.LOYALTY, matchEnchant("loyalty"), lm.getString("enchant.loyalty"));
+        addItem(Enchantment.RIPTIDE, matchEnchant("riptide"), lm.getString("enchant.riptide"));
+
+        addItem(Enchantment.PIERCING, matchEnchant("piercing"), lm.getString("enchant.piercing"));
+        addItem(Enchantment.MULTISHOT, matchEnchant("multishot"), lm.getString("enchant.multishot"));
+        addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
+
+        addItem(Enchantment.SOUL_SPEED, matchEnchant("soul_speed"), lm.getString("enchant.soul_speed"));
     }
 
     /**
-     * Add item to the enchant list
+     * Add item to enchant list
      */
     private void addItem(Enchantment type, Material mat, String displayName) {
         ItemStack item = new ItemStack(mat);
