@@ -4,7 +4,8 @@ main: me.tychsen.enchantgui.Main
 api-version: "1.17"
 
 authors: [Dentych, sarhatabaot]
-dependency: Vault
+softdepend:
+    - Vault
 
 permissions:
     eshop.use:

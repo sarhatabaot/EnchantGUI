@@ -62,10 +62,6 @@ public class Main extends JavaPlugin {
         getLogger().info(getName() + " " + getDescription().getVersion() + " disabled!");
     }
 
-    public static String getMinecraftVersion(){
-        return instance.getServer().getVersion();
-    }
-
     public static void debug(String msg) {
         if (EShopConfig.getDebug())
             Main.getInstance().getLogger().warning(String.format("DEBUG %s", msg));
