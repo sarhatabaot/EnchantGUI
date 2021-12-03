@@ -1,7 +1,7 @@
 name: EnchantGUI
 version: ${version}
 main: me.tychsen.enchantgui.Main
-api-version: "1.13"
+api-version: "1.17"
 
 authors: [Dentych, sarhatabaot]
 dependency: Vault
