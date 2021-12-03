@@ -71,7 +71,7 @@ public class EShopEnchants {
             addItem(Enchantment.QUICK_CHARGE, matchEnchant("quick_charge"), lm.getString("enchant.quick_charge"));
             Main.getInstance().getLogger().info("Registered 1.14 enchantments.");
         }
-        if(Main.getMinecraftVersion().contains("1.16")){
+        if(Main.getMinecraftVersion().contains("1.16") | Main.getMinecraftVersion().contains("1.17") | Main.getMinecraftVersion().contains("1.18")){
             addItem(Enchantment.SOUL_SPEED,matchEnchant("soul_speed"), lm.getString("enchant.soul_speed"));
             Main.getInstance().getLogger().info("Registered 1.16 enchantments.");
         }
