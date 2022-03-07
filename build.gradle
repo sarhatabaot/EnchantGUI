@@ -39,8 +39,8 @@ repositories {
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT"
     compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
-    api "co.aikar:acf-paper:0.5.0-SNAPSHOT"
-    api "org.bstats:bstats-bukkit:2.2.1"
+    api "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+    api 'org.bstats:bstats-bukkit:3.0.0'
     api group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
 }
 
