@@ -21,7 +21,6 @@ import java.util.Map;
 
 import static me.tychsen.enchantgui.config.EShopConfig.*;
 
-//TODO: Cache itemstacks
 public class DefaultMenuGenerator implements MenuGenerator {
     private final int inventorySize;
     private EShopEnchants enchants;
@@ -44,7 +43,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return generateEnchantMenu(p, item, playerLevels);
     }
 
-    private List<ItemStack> showPerItem(List<ItemStack> itemList, @NotNull ItemStack item, Player p) {
+    private @NotNull List<ItemStack> showPerItem(List<ItemStack> itemList, @NotNull ItemStack item, Player p) {
         List<ItemStack> modifiedList = new ArrayList<>(itemList);
         for (Enchantment enchantment : item.getEnchantments().keySet()) {
             if (enchantment.canEnchantItem(p.getInventory().getItemInMainHand())) {
@@ -76,7 +75,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return MessageFormat.format(ChatUtil.colorize(string), type);
     }
 
-    private ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
+    private @NotNull ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
         ItemStack temp = item.clone();
         ItemMeta meta = temp.getItemMeta();
         List<String> lore = new ArrayList<>();
@@ -91,8 +90,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return temp;
     }
 
-    private Inventory generateEnchantMenu(@NotNull Player p, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, getMenuName());
+    private @NotNull Inventory generateEnchantMenu(@NotNull Player player, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
+        Inventory inv = player.getServer().createInventory(player, inventorySize, getMenuName());
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         List<ItemStack> itemList = new ArrayList<>();
 
@@ -104,7 +103,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         for (String enchantLevel : enchantLevels) {
             enchantLevel = enchantLevel.substring(5);
             int level = Integer.parseInt(enchantLevel);
-            if (permSys.hasEnchantPermission(p, enchantment, level)) {
+            if (permSys.hasEnchantPermission(player, enchantment, level)) {
                 //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
 
                 itemList.add(generateItemWithMeta(item, level, enchantment));
@@ -119,11 +118,11 @@ public class DefaultMenuGenerator implements MenuGenerator {
         // Generate and insert a back button
         inv.setItem(27, generateBackItem());
 
-        playerLevels.put(p.getName(), levels.toArray(new String[0]));
+        playerLevels.put(player.getName(), levels.toArray(new String[0]));
         return inv;
     }
 
-    private ItemStack generateBackItem() {
+    private @NotNull ItemStack generateBackItem() {
         Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
 
         if(material == null)

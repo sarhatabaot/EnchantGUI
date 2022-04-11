@@ -13,6 +13,7 @@ import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -30,6 +31,7 @@ public class EShopConfig {
         setConfig(Main.getInstance().getConfig());
     }
 
+
     public static boolean getIgnoreItemType(){
         return config.getBoolean("ignore-itemtype");
     }
@@ -38,7 +40,7 @@ public class EShopConfig {
         return config.getBoolean("debug");
     }
 
-    public static int getPrice(Enchantment enchantment, int level) {
+    public static int getPrice(@NotNull Enchantment enchantment, int level) {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
         return config.getInt(path);
@@ -65,7 +67,7 @@ public class EShopConfig {
         return config.getBoolean("show-per-item");
     }
 
-    public static void reloadConfig(CommandSender sender) {
+    public static void reloadConfig(@NotNull CommandSender sender) {
         LocalizationManager lm = LocalizationManager.getInstance();
         if (sender.isOp() || sender.hasPermission("eshop.admin")) {
             Main.getInstance().reloadConfig();
@@ -77,7 +79,7 @@ public class EShopConfig {
         }
     }
 
-    public static String[] getEnchantLevels(Enchantment enchantment) {
+    public static String @NotNull [] getEnchantLevels(@NotNull Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
         Main.debug(path);

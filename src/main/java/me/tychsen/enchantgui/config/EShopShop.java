@@ -3,6 +3,7 @@ package me.tychsen.enchantgui.config;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sarhatabaot
@@ -15,7 +16,7 @@ public class EShopShop extends AConfig{
         saveDefaultConfiguration();
     }
 
-    public void reload(CommandSender sender) {
+    public void reload(@NotNull CommandSender sender) {
         reloadConfig();
         sender.sendMessage(LocalizationManager.getInstance().getString("prefix") +" "+ LocalizationManager.getInstance().getString("shop-reloaded"));
     }

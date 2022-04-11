@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.Serial;
 import java.util.Map;
@@ -14,7 +15,7 @@ public class EShopPermissionSys {
     public static final String RELOAD = "eshop.reload";
 
     private static final String BASE = "eshop.enchants.";
-    public boolean hasEnchantPermission(final Player player,final ItemStack item) {
+    public boolean hasEnchantPermission(final @NotNull Player player, final ItemStack item) {
         if (player.isOp()) return true;
 
         Map<Enchantment, Integer> enchants = item.getEnchantments();
@@ -27,7 +28,7 @@ public class EShopPermissionSys {
         return player.hasPermission(perm) || player.hasPermission(BASE + "all");
     }
 
-    public boolean hasEnchantPermission(final Player player,final Enchantment enchantment, int level) {
+    public boolean hasEnchantPermission(final @NotNull Player player, final Enchantment enchantment, int level) {
         if (player.isOp()) return true;
         String enchantmentName = (enchantment.getKey().toString().toLowerCase()).split(":")[1];
         String perm = BASE + enchantmentName + "." + level;
@@ -35,9 +36,9 @@ public class EShopPermissionSys {
         return player.hasPermission(perm) || player.hasPermission(BASE + enchantmentName + ".all") || player.hasPermission(BASE + "all");
     }
 
-    public boolean hasUsePermission(Player p) {
-        if (p.isOp()) return true;
-        return  p.hasPermission(EShopPermissionSys.USE);
+    public boolean hasUsePermission(@NotNull Player player) {
+        if (player.isOp()) return true;
+        return  player.hasPermission(EShopPermissionSys.USE);
     }
 
     @RequiredArgsConstructor

@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCreativeEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.jetbrains.annotations.NotNull;
 
 
 public class EventManager implements Listener{
@@ -27,7 +28,7 @@ public class EventManager implements Listener{
     }
 
     @EventHandler
-    public void onInventoryClickEvent(InventoryClickEvent e) {
+    public void onInventoryClickEvent(@NotNull InventoryClickEvent e) {
         String inventoryName;
         try {
             inventoryName = e.getView().getTitle().toLowerCase();
@@ -65,22 +66,22 @@ public class EventManager implements Listener{
         }
     }
 
-    private void handleInventoryClickEvent(InventoryClickEvent e) {
-        if (e.getCurrentItem() == null) return;
-        if (e.getCurrentItem().getType() == Material.AIR) return;
-        if (e.getInventory().getType() != InventoryType.CHEST) return;
+    private void handleInventoryClickEvent(@NotNull InventoryClickEvent event) {
+        if (event.getCurrentItem() == null) return;
+        if (event.getCurrentItem().getType() == Material.AIR) return;
+        if (event.getInventory().getType() != InventoryType.CHEST) return;
 
-        Player p = (Player) e.getWhoClicked();
-        system.handleMenuClick(p, e);
+        Player p = (Player) event.getWhoClicked();
+        system.handleMenuClick(p, event);
     }
 
-    private void handlePlayerInteractEvent(PlayerInteractEvent e) {
-        if (e.getPlayer().hasPermission("eshop.enchantingtable")) {
-            if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
+    private void handlePlayerInteractEvent(@NotNull PlayerInteractEvent event) {
+        if (event.getPlayer().hasPermission("eshop.enchantingtable")) {
+            if (Main.getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
                 return;
             }
 
-            system.showMainMenu(e.getPlayer());
+            system.showMainMenu(event.getPlayer());
         }
     }
 

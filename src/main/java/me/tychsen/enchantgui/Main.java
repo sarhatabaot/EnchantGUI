@@ -49,8 +49,8 @@ public class Main extends JavaPlugin {
         if(!getConfig().getBoolean("opt-out"))
             new Metrics(this, 3871);
 
-        getLogger().info(getName() + " " + getDescription().getVersion() + " enabled!");
-        getLogger().info(getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " enabled!");
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
     }
 
     @Override
@@ -59,22 +59,22 @@ public class Main extends JavaPlugin {
         setEconomy(null);
         setMenuSystem(null);
         setToggleRightClickPlayers(null);
-        getLogger().info(getName() + " " + getDescription().getVersion() + " disabled!");
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " disabled!");
     }
 
     public static void debug(String msg) {
         if (EShopConfig.getDebug())
-            Main.getInstance().getLogger().warning(String.format("DEBUG %s", msg));
+            Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
     }
 
     private void setupEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            getLogger().severe("could not find vault");
+            getLogger().severe(() -> "could not find vault");
             return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            getLogger().severe("could not find Economy.class");
+            getLogger().severe(() -> "could not find Economy.class");
             return;
         }
         setEconomy(rsp.getProvider());

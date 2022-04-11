@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class DefaultMenuSystem implements MenuSystem {
     }
 
     @Override
-    public void showMainMenu(Player p) {
+    public void showMainMenu(@NotNull Player p) {
         LocalizationManager lm = LocalizationManager.getInstance();
         playerLevels.remove(p.getName());
         if (permsys.hasUsePermission(p)) {
@@ -52,13 +53,13 @@ public class DefaultMenuSystem implements MenuSystem {
         }
     }
 
-    private boolean isGoBackItem(ItemStack item) {
+    private boolean isGoBackItem(@NotNull ItemStack item) {
         return item.getItemMeta().getDisplayName().equalsIgnoreCase("Go back")
                 && item.getType() == Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
     }
 
     @Override
-    public void handleMenuClick(Player p, InventoryClickEvent event) {
+    public void handleMenuClick(@NotNull Player p, InventoryClickEvent event) {
         if (playerLevels.containsKey(p.getName())) {
             if (isGoBackItem(event.getCurrentItem())) {
                 playerLevels.remove(p.getName());
@@ -81,41 +82,41 @@ public class DefaultMenuSystem implements MenuSystem {
         return generator;
     }
 
-    private void purchaseEnchant(Player p, InventoryClickEvent event) {
+    private void purchaseEnchant(@NotNull Player player, @NotNull InventoryClickEvent event) {
         LocalizationManager lm = LocalizationManager.getInstance();
         ItemStack item = event.getCurrentItem();
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
-        ItemStack playerHand = p.getInventory().getItemInMainHand();
+        ItemStack playerHand = player.getInventory().getItemInMainHand();
 
-        int level = Integer.parseInt(playerLevels.get(p.getName())[event.getSlot()]);
+        int level = Integer.parseInt(playerLevels.get(player.getName())[event.getSlot()]);
         int price = getPrice(enchantment, level);
 
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            tell(p,lm.getString("cant-enchant"));
-            p.closeInventory();
+            tell(player,lm.getString("cant-enchant"));
+            player.closeInventory();
             return;
         }
 
         if (enchantment.canEnchantItem(playerHand) || getIgnoreItemType()) {
             PaymentStrategy payment = EShopConfig.getEconomy();
 
-            if (payment.withdraw(p, price)) {
+            if (payment.withdraw(player, price)) {
                 enchantItem(playerHand, enchantment, level);
                 String message = String.format("%s &d%s %d &ffor &6%d%s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
-                tell(p,message);
-                p.closeInventory();
+                tell(player,message);
+                player.closeInventory();
             } else {
-                tell(p,lm.getString("insufficient-funds"));
+                tell(player,lm.getString("insufficient-funds"));
             }
         } else {
-            tell(p,lm.getString("item-cant-be-enchanted"));
+            tell(player,lm.getString("item-cant-be-enchanted"));
             //TODO p.closeInventory(); add option for this
         }
     }
 
-    private void enchantItem(ItemStack playerHand, Enchantment enchantment, int level) {
+    private void enchantItem(ItemStack playerHand, @NotNull Enchantment enchantment, int level) {
         if (level > enchantment.getMaxLevel() || !enchantment.canEnchantItem(playerHand)) {
             // Unsafe enchant
             playerHand.addUnsafeEnchantment(enchantment, level);
