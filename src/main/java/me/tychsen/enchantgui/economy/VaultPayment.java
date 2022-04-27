@@ -4,6 +4,7 @@ import me.tychsen.enchantgui.Main;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.jetbrains.annotations.NotNull;
 
 public class VaultPayment implements PaymentStrategy {
     private final Economy econ;
@@ -24,7 +25,7 @@ public class VaultPayment implements PaymentStrategy {
         this.econ = Main.getEconomy();
     }
 
-    public boolean withdraw(Player player, int amount) {
+    public boolean withdraw(@NotNull Player player, int amount) {
         return econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 
@@ -43,7 +44,7 @@ public class VaultPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean hasSufficientFunds(Player player, int amount) {
+    public boolean hasSufficientFunds(@NotNull Player player, int amount) {
         return econ.has(player, amount);
     }
 }
