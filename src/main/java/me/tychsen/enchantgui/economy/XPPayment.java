@@ -14,7 +14,7 @@ public class XPPayment implements PaymentStrategy {
 
     @Override
     public boolean withdraw(@NotNull Player player, int amount) {
-        if (player.getLevel() >= amount) {
+        if (hasSufficientFunds(player,amount)) {
             player.giveExpLevels(-amount);
             return true;
         }
