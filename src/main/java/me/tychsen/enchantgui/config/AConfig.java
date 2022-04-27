@@ -80,5 +80,5 @@ public abstract class AConfig {
 
     public abstract String getString(String path);
 
-
+    public abstract String getString(String path, String def);
 }

@@ -22,7 +22,12 @@ public class EShopShop extends AConfig{
     }
 
     @Override
-    public String getString(String path){
+    public String getString(String path, String def){
+        return getConfig().getString(path,def);
+    }
+
+    @Override
+    public String getString(final String path) {
         return getConfig().getString(path);
     }
 

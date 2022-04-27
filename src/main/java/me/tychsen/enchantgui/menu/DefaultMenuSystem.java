@@ -1,7 +1,9 @@
 package me.tychsen.enchantgui.menu;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.NbtUtils;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
@@ -55,8 +57,7 @@ public class DefaultMenuSystem implements MenuSystem {
     }
 
     private boolean isGoBackItem(@NotNull ItemStack item) {
-        return item.getItemMeta().getDisplayName().equalsIgnoreCase("Go back")
-                && item.getType() == Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
+        return new NBTItem(item).getBoolean(NbtUtils.BACK_BUTTON);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class DefaultMenuSystem implements MenuSystem {
         ItemStack playerHand = player.getInventory().getItemInMainHand();
 
         int level = Integer.parseInt(playerLevels.get(player.getName())[event.getSlot()]);
-        int price = getPrice(enchantment, level);
+        int price = (int) getPrice(enchantment, level);
 
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 

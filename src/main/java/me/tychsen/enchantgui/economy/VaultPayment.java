@@ -26,6 +26,8 @@ public class VaultPayment implements PaymentStrategy {
     }
 
     public boolean withdraw(@NotNull Player player, int amount) {
+        if(!hasSufficientFunds(player,amount))
+            return false;
         return econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 

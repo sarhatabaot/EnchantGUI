@@ -1,7 +1,9 @@
 package me.tychsen.enchantgui.menu;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.NbtUtils;
 import me.tychsen.enchantgui.config.EShopEnchants;
 import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.NullPayment;
@@ -75,19 +77,31 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return MessageFormat.format(ChatUtil.colorize(string), type);
     }
 
+    @NotNull
+    private String format(double type, String name) {
+        String string = EShopShop.getInstance().getString("shop." + name);
+        return MessageFormat.format(ChatUtil.colorize(string), type);
+    }
+
     private @NotNull ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
-        ItemStack temp = item.clone();
-        ItemMeta meta = temp.getItemMeta();
+        ItemStack tempItem = item.clone();
+        ItemMeta meta = tempItem.getItemMeta();
         List<String> lore = new ArrayList<>();
         lore.add(format(level, "level"));
 
+        double price = getPrice(enchantment, level);
         if (!(getPaymentStrategy() instanceof NullPayment)) {
-            lore.add(format(getPrice(enchantment, level), "price"));
+            lore.add(format(price, "price"));
         }
 
         meta.setLore(lore);
-        temp.setItemMeta(meta);
-        return temp;
+        tempItem.setItemMeta(meta);
+        NBTItem nbtItem = new NBTItem(tempItem);
+        nbtItem.setInteger(NbtUtils.LEVEL,level);
+        if (!(getPaymentStrategy() instanceof NullPayment)) {
+            nbtItem.setDouble(NbtUtils.PRICE,price);
+        }
+        return nbtItem.getItem();
     }
 
     private @NotNull Inventory generateEnchantMenu(@NotNull Player player, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
@@ -123,16 +137,18 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     private @NotNull ItemStack generateBackItem() {
-        Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item"));
+        Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item.material", "EMERALD"));
 
         if(material == null)
             material = Material.EMERALD;
 
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();
-        meta.setDisplayName("Go back");
+        meta.setDisplayName(EShopShop.getInstance().getString("shop.back-item.display-name","Go back"));
         backItem.setItemMeta(meta);
-        return backItem;
+        NBTItem nbtItem = new NBTItem(backItem);
+        nbtItem.setBoolean(NbtUtils.BACK_BUTTON,true);
+        return nbtItem.getItem();
     }
 
     @Override

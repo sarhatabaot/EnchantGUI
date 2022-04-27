@@ -41,10 +41,10 @@ public class EShopConfig {
         return config.getBoolean("debug");
     }
 
-    public static int getPrice(@NotNull Enchantment enchantment, int level) {
+    public static double getPrice(@NotNull Enchantment enchantment, int level) {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
-        return config.getInt(path);
+        return config.getDouble(path);
     }
 
     public static boolean getBoolean(String path){
