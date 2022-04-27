@@ -5,7 +5,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-public class MoneyPayment implements PaymentStrategy {
+public class VaultPayment implements PaymentStrategy {
     private final Economy econ;
     private final Main plugin;
 
@@ -14,7 +14,7 @@ public class MoneyPayment implements PaymentStrategy {
         return "MoneyPayment";
     }
 
-    public MoneyPayment() {
+    public VaultPayment() {
         this.plugin = Main.getInstance();
         if (!setupEconomy()) {
             plugin.getLogger().severe("Dependency (Vault) not found. Disabling the plugin!");
