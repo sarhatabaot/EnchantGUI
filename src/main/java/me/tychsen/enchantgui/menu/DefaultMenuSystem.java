@@ -38,19 +38,20 @@ public class DefaultMenuSystem implements MenuSystem {
         DefaultMenuSystem.PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
     }
 
-    private void tell(Player player, String message){
-        ChatUtil.tell(player, PREFIX +message);
+    private void tell(Player player, String message) {
+        ChatUtil.tell(player, PREFIX + message);
     }
 
     @Override
-    public void showMainMenu(@NotNull Player p) {
+    public void showMainMenu(@NotNull Player player) {
         LocalizationManager lm = LocalizationManager.getInstance();
-        playerLevels.remove(p.getName());
-        if (permsys.hasUsePermission(p)) {
-            p.openInventory(generator.mainMenu(p));
-        } else {
-            tell(p,lm.getString("no-permission"));
+        playerLevels.remove(player.getName());
+        if (!permsys.hasUsePermission(player)) {
+            tell(player, lm.getString("no-permission"));
+            return;
         }
+
+        player.openInventory(generator.mainMenu(player));
     }
 
     private boolean isGoBackItem(@NotNull ItemStack item) {
@@ -65,13 +66,9 @@ public class DefaultMenuSystem implements MenuSystem {
                 playerLevels.remove(p.getName());
                 showMainMenu(p);
             } else if (event.getCurrentItem().getType() != Material.AIR) {
-                // FIXME: Figure out better way of purchasing enchants.
-                //  For example a seperate class to call purchaseEnchant on.
-                //  Required to enable Enchanting Table menu opener..
                 purchaseEnchant(p, event);
             }
         } else {
-            // TODO: Better implementation of the "player levels".. enchantMenu should not modify playerLevels.
             Inventory inv = generator.enchantMenu(p, event.getCurrentItem(), playerLevels);
             p.openInventory(inv);
         }
@@ -94,7 +91,7 @@ public class DefaultMenuSystem implements MenuSystem {
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            tell(player,lm.getString("cant-enchant"));
+            tell(player, lm.getString("cant-enchant"));
             player.closeInventory();
             return;
         }
@@ -105,14 +102,13 @@ public class DefaultMenuSystem implements MenuSystem {
             if (payment.withdraw(player, price)) {
                 enchantItem(playerHand, enchantment, level);
                 String message = String.format("%s &d%s %d &ffor &6%d%s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
-                tell(player,message);
+                tell(player, message);
                 player.closeInventory();
             } else {
-                tell(player,lm.getString("insufficient-funds"));
+                tell(player, lm.getString("insufficient-funds"));
             }
         } else {
-            tell(player,lm.getString("item-cant-be-enchanted"));
-            //TODO p.closeInventory(); add option for this
+            tell(player, lm.getString("item-cant-be-enchanted"));
         }
     }
 
