@@ -20,6 +20,11 @@ public class LocalizationManager extends AConfig {
         return ChatUtil.colorize(getConfig().getString(path));
     }
 
+    @Override
+    public String getString(final String path, final String def) {
+        return ChatUtil.colorize(getConfig().getString(path,def));
+    }
+
     public void reload(CommandSender sender) {
         Main.debug(EShopConfig.getLanguage());
         setFileName("localization_" + EShopConfig.getLanguage() + ".yml");

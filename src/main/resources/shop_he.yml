@@ -6,7 +6,9 @@
 shop:
   level: "&eLevel: {0}"
   price: "&aPrice: {0}$"
-  back-item: "EMERALD"
+  back-item:
+    material: "EMERALD"
+    display-name: "Go back"
   display-name: ""
   #You can only set items that support the enchantment.
   enchants:
