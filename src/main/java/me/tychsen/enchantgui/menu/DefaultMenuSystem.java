@@ -100,7 +100,7 @@ public class DefaultMenuSystem implements MenuSystem {
         }
 
         if (enchantment.canEnchantItem(playerHand) || getIgnoreItemType()) {
-            PaymentStrategy payment = EShopConfig.getEconomy();
+            PaymentStrategy payment = EShopConfig.getPaymentStrategy();
 
             if (payment.withdraw(player, price)) {
                 enchantItem(playerHand, enchantment, level);

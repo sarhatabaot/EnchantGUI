@@ -81,7 +81,7 @@ public class DefaultMenuGenerator implements MenuGenerator {
         List<String> lore = new ArrayList<>();
         lore.add(format(level, "level"));
 
-        if (!(getEconomy() instanceof NullPayment)) {
+        if (!(getPaymentStrategy() instanceof NullPayment)) {
             lore.add(format(getPrice(enchantment, level), "price"));
         }
 
