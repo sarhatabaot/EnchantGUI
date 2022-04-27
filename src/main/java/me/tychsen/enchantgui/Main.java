@@ -10,7 +10,10 @@ import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import net.milkbowl.vault.economy.Economy;
+import org.black_ixx.playerpoints.PlayerPoints;
+import org.black_ixx.playerpoints.PlayerPointsAPI;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,11 +31,13 @@ public class Main extends JavaPlugin {
     @Getter @Setter (AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
+    @Getter
+    private PlayerPointsAPI ppApi;
 
     @Override
     public void onEnable() {
         setInstance(this);
-        setupEconomy();
+        hookVaultEconomy();
         // Generate config.yml if there is none
         saveDefaultConfig();
 
@@ -67,7 +72,7 @@ public class Main extends JavaPlugin {
             Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
     }
 
-    private void setupEconomy() {
+    private void hookVaultEconomy() {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe(() -> "could not find vault");
             return;
@@ -78,6 +83,12 @@ public class Main extends JavaPlugin {
             return;
         }
         setEconomy(rsp.getProvider());
+    }
+
+    private void hookPlayerPoints() {
+        if (Bukkit.getPluginManager().isPluginEnabled("PlayerPoints")) {
+            this.ppApi = PlayerPoints.getInstance().getAPI();
+        }
     }
 
 

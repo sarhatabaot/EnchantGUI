@@ -2,7 +2,8 @@ package me.tychsen.enchantgui.config;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.tychsen.enchantgui.economy.MoneyPayment;
+import me.tychsen.enchantgui.economy.PlayerPointsPayment;
+import me.tychsen.enchantgui.economy.VaultPayment;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.economy.XPPayment;
@@ -96,7 +97,7 @@ public class EShopConfig {
     }
 
     public static String getEconomyCurrency(){
-        return switch (config.getString("payment-currency").toLowerCase()) {
+        return switch (config.getString("payment-currency", "xp").toLowerCase()) {
             case "money" -> Main.getEconomy().currencyNameSingular();
             case "xp" -> "levels";
             default -> "";
@@ -105,9 +106,10 @@ public class EShopConfig {
 
     public static PaymentStrategy getEconomy() {
         if (economy == null) {
-            switch (config.getString("payment-currency").toLowerCase()) {
-                case "money" -> setEconomy(new MoneyPayment());
+            switch (config.getString("payment-currency", "xp").toLowerCase()) {
+                case "money" -> setEconomy(new VaultPayment());
                 case "xp" -> setEconomy(new XPPayment());
+                case "playerpoints" -> setEconomy(new PlayerPointsPayment());
                 default -> setEconomy(new NullPayment());
             }
         }
