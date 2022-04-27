@@ -63,7 +63,7 @@ processResources {
 }
 
 shadowJar {
-    classifier = ""
+    archiveClassifier.set("")
     relocate 'org.bstats', 'me.tychsen.enchantgui.util'
     relocate 'co.aikar.commands', 'me.tychsen.enchantgui.acf'
     relocate 'co.aikar.locales', 'me.tychsen.enchantgui.locales'

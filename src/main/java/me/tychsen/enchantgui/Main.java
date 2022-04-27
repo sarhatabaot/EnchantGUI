@@ -55,7 +55,7 @@ public class Main extends JavaPlugin {
             new Metrics(this, 3871);
 
         getLogger().info(() -> getName() + " " + getDescription().getVersion() + " enabled!");
-        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getPaymentStrategy().name());
     }
 
     @Override
@@ -67,12 +67,20 @@ public class Main extends JavaPlugin {
         getLogger().info(() -> getName() + " " + getDescription().getVersion() + " disabled!");
     }
 
+    public void onReload(){
+        hookVaultEconomy();
+        hookPlayerPoints();
+    }
+
     public static void debug(String msg) {
         if (EShopConfig.getDebug())
             Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
     }
 
     private void hookVaultEconomy() {
+        if(!EShopConfig.getPaymentType().equalsIgnoreCase("money")) {
+            return;
+        }
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             getLogger().severe(() -> "could not find vault");
             return;
@@ -86,6 +94,9 @@ public class Main extends JavaPlugin {
     }
 
     private void hookPlayerPoints() {
+        if(!EShopConfig.getPaymentType().equalsIgnoreCase("playerpoints")) {
+            return;
+        }
         if (Bukkit.getPluginManager().isPluginEnabled("PlayerPoints")) {
             this.ppApi = PlayerPoints.getInstance().getAPI();
         }

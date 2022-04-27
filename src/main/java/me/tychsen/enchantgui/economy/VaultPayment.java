@@ -24,8 +24,8 @@ public class VaultPayment implements PaymentStrategy {
         this.econ = Main.getEconomy();
     }
 
-    public boolean withdraw(Player p, int amount) {
-        return econ.withdrawPlayer(p, amount).transactionSuccess();
+    public boolean withdraw(Player player, int amount) {
+        return econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 
     private boolean setupEconomy() {
@@ -43,7 +43,7 @@ public class VaultPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean hasSufficientFunds(Player p, int amount) {
-        return econ.has(p, amount);
+    public boolean hasSufficientFunds(Player player, int amount) {
+        return econ.has(player, amount);
     }
 }

@@ -61,7 +61,8 @@ public class ShopCommand extends BaseCommand {
 		Main.setMenuSystem(new DefaultMenuSystem());
 		Main.getMenuSystem().getMenuGenerator().setShopEnchants(new EShopEnchants());
 		EShopShop.getInstance().reload(player);
-		Main.getInstance().getLogger().info(getName() + " " + Main.getInstance().getDescription().getVersion() + " using: "+ EShopConfig.getEconomy().name());
+		Main.getInstance().onReload();
+		Main.getInstance().getLogger().info(getName() + " " + Main.getInstance().getDescription().getVersion() + " using: "+ EShopConfig.getPaymentStrategy().name());
 	}
 
 	private void tell(final Player player, final String message){

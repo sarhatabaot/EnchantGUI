@@ -97,16 +97,20 @@ public class EShopConfig {
     }
 
     public static String getEconomyCurrency(){
-        return switch (config.getString("payment-currency", "xp").toLowerCase()) {
+        return switch (getPaymentType().toLowerCase()) {
             case "money" -> Main.getEconomy().currencyNameSingular();
             case "xp" -> "levels";
             default -> "";
         };
     }
 
-    public static PaymentStrategy getEconomy() {
+    public static String getPaymentType() {
+        return config.getString(config.getString("payment-currency", "xp"));
+    }
+
+    public static PaymentStrategy getPaymentStrategy() {
         if (economy == null) {
-            switch (config.getString("payment-currency", "xp").toLowerCase()) {
+            switch (getPaymentType().toLowerCase()) {
                 case "money" -> setEconomy(new VaultPayment());
                 case "xp" -> setEconomy(new XPPayment());
                 case "playerpoints" -> setEconomy(new PlayerPointsPayment());

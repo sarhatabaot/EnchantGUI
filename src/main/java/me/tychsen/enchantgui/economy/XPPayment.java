@@ -13,9 +13,9 @@ public class XPPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean withdraw(@NotNull Player p, int amount) {
-        if (p.getLevel() >= amount) {
-            p.giveExpLevels(-amount);
+    public boolean withdraw(@NotNull Player player, int amount) {
+        if (player.getLevel() >= amount) {
+            player.giveExpLevels(-amount);
             return true;
         }
 
@@ -23,7 +23,7 @@ public class XPPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean hasSufficientFunds(@NotNull Player p, int amount) {
-        return (p.getLevel() >= amount);
+    public boolean hasSufficientFunds(@NotNull Player player, int amount) {
+        return (player.getLevel() >= amount);
     }
 }
