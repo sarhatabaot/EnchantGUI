@@ -4,8 +4,9 @@ import me.tychsen.enchantgui.Main;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import org.jetbrains.annotations.NotNull;
 
-public class MoneyPayment implements PaymentStrategy {
+public class VaultPayment implements PaymentStrategy {
     private final Economy econ;
     private final Main plugin;
 
@@ -14,7 +15,7 @@ public class MoneyPayment implements PaymentStrategy {
         return "MoneyPayment";
     }
 
-    public MoneyPayment() {
+    public VaultPayment() {
         this.plugin = Main.getInstance();
         if (!setupEconomy()) {
             plugin.getLogger().severe("Dependency (Vault) not found. Disabling the plugin!");
@@ -24,8 +25,8 @@ public class MoneyPayment implements PaymentStrategy {
         this.econ = Main.getEconomy();
     }
 
-    public boolean withdraw(Player p, int amount) {
-        return econ.withdrawPlayer(p, amount).transactionSuccess();
+    public boolean withdraw(@NotNull Player player, int amount) {
+        return econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 
     private boolean setupEconomy() {
@@ -43,7 +44,7 @@ public class MoneyPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean hasSufficientFunds(Player p, int amount) {
-        return econ.has(p, amount);
+    public boolean hasSufficientFunds(@NotNull Player player, int amount) {
+        return econ.has(player, amount);
     }
 }
