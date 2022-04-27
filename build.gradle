@@ -2,6 +2,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.0'
     id "io.freefair.lombok" version "6.3.0"
     id 'java-library'
+    id 'org.sonarqube' version '3.3'
 }
 
 group = 'me.tychsen'
@@ -71,6 +72,13 @@ shadowJar {
 
 wrapper {
     gradleVersion = "7.4.2"
-    
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "sarhatabaot_EnchantGUI"
+        property "sonar.organization", "sarhatabaot-github"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
 }
 
