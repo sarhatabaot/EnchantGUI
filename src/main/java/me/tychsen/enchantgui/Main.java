@@ -41,6 +41,7 @@ public class Main extends JavaPlugin {
         // Generate config.yml if there is none
         saveDefaultConfig();
 
+        
         // Register event manager
         setMenuSystem(new DefaultMenuSystem());
         getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);

@@ -39,12 +39,17 @@ repositories {
         name = "playerpoints"
         url = 'https://repo.rosewooddev.io/repository/public/'
     }
+    maven {
+        name = "triumph-gui"
+        url = "https://repo.mattstudios.me/artifactory/public/"
+    }
 }
 
 dependencies {
     compileOnly "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT"
     compileOnly "com.github.MilkBowl:VaultAPI:1.7.1"
     compileOnly 'org.black_ixx:playerpoints:3.2.3'
+    api "dev.triumphteam:triumph-gui:3.1.2" // Replace version here
     api 'de.tr7zw:item-nbt-api:2.9.2'
     api "co.aikar:acf-paper:0.5.1-SNAPSHOT"
     api 'org.bstats:bstats-bukkit:3.0.0'
@@ -70,6 +75,7 @@ shadowJar {
     relocate 'co.aikar.commands', 'me.tychsen.enchantgui.acf'
     relocate 'co.aikar.locales', 'me.tychsen.enchantgui.locales'
     relocate 'de.tr7zw', 'me.tychsen.enchantgui.nbt'
+    relocate 'dev.triumphteam.gui', 'me.tychsen.enchantguigui'
 }
 
 wrapper {
