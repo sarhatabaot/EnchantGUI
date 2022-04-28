@@ -8,22 +8,22 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author sarhatabaot
  */
-public class EShopShop extends AConfig{
+public class EShopShop extends AConfig {
     private static EShopShop instance;
 
-    private EShopShop(){
-        super("shop.yml", Main.getInstance());
+    private EShopShop() {
+        super("languages/"+EShopConfig.getLanguage()+"/shop.yml", Main.getInstance());
         saveDefaultConfiguration();
     }
 
     public void reload(@NotNull CommandSender sender) {
         reloadConfig();
-        sender.sendMessage(LocalizationManager.getInstance().getString("prefix") +" "+ LocalizationManager.getInstance().getString("shop-reloaded"));
+        sender.sendMessage(LocalizationManager.getInstance().getString("prefix") + " " + LocalizationManager.getInstance().getString("shop-reloaded"));
     }
 
     @Override
-    public String getString(String path, String def){
-        return getConfig().getString(path,def);
+    public String getString(String path, String def) {
+        return getConfig().getString(path, def);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class EShopShop extends AConfig{
         return getConfig().getString(path);
     }
 
-    public static EShopShop getInstance(){
-        if(instance == null){
+    public static EShopShop getInstance() {
+        if (instance == null) {
             instance = new EShopShop();
         }
         return instance;

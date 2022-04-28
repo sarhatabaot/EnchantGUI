@@ -10,7 +10,7 @@ public class LocalizationManager extends AConfig {
     private static LocalizationManager instance;
 
     private LocalizationManager() {
-        super("localization_" + EShopConfig.getLanguage() + ".yml", Main.getInstance());
+        super("localization/" + EShopConfig.getLanguage() + "/localization.yml", Main.getInstance());
         saveDefaultConfiguration();
     }
 
@@ -27,7 +27,7 @@ public class LocalizationManager extends AConfig {
 
     public void reload(CommandSender sender) {
         Main.debug(EShopConfig.getLanguage());
-        setFileName("localization_" + EShopConfig.getLanguage() + ".yml");
+        setFileName("localization/" + EShopConfig.getLanguage() + "/localization.yml");
         saveDefaultConfiguration();
         reloadConfig();
         ChatUtil.tell(sender, instance.getString("prefix") + " " + instance.getString("localization-reloaded"));
