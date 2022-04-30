@@ -1,86 +1,73 @@
 package me.tychsen.enchantgui.config;
 
-import lombok.Getter;
+import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
+import com.github.sarhatabaot.kraken.core.config.ConfigFile;
 import lombok.Setter;
-import me.tychsen.enchantgui.economy.PlayerPointsPayment;
-import me.tychsen.enchantgui.economy.VaultPayment;
+import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
+import me.tychsen.enchantgui.economy.PlayerPointsPayment;
+import me.tychsen.enchantgui.economy.VaultPayment;
 import me.tychsen.enchantgui.economy.XPPayment;
-import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.menu.DefaultMenuSystem;
-import me.tychsen.enchantgui.Main;
-import me.tychsen.enchantgui.ChatUtil;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class EShopConfig {
-    @Setter
-    @Getter
-    private static EShopConfig instance;
-    @Setter
-    private static FileConfiguration config;
+public class EShopConfig extends ConfigFile<Main> {
+
     @Setter
     private static PaymentStrategy economy;
 
     public EShopConfig() {
-        setInstance(this);
-        setConfig(Main.getInstance().getConfig());
+        super(Main.getInstance(), "", "config.yml", "");
+        saveDefaultConfig();
     }
 
 
-    public static boolean getIgnoreItemType(){
+    public boolean getIgnoreItemType() {
         return config.getBoolean("ignore-itemtype");
     }
 
-    public static boolean getDebug(){
+    public boolean getDebug() {
         return config.getBoolean("debug");
     }
 
-    public static double getPrice(@NotNull Enchantment enchantment, int level) {
+    public double getPrice(@NotNull Enchantment enchantment, int level) {
         String path = enchantment.getKey().toString().toLowerCase() + ".level" + level;
         path = path.split(":")[1];
         return config.getDouble(path);
     }
 
-    public static boolean getBoolean(String path){
+    public boolean getBoolean(String path) {
         return config.getBoolean(path);
     }
 
-    public static String getMenuName() {
+    public String getMenuName() {
         var path = "menu-name";
-        if (config.contains(path) && config.isSet(path) && config.isString(path)) {
-            if (config.getString(path).length() > 32) {
-                return config.getString(path).substring(0, 32);
-            } else {
-                return config.getString(path);
-            }
-        } else {
-            return "EnchantGUI";
+        final String defaultName = "EnchantGUI";
+
+        if (config.getString(path, defaultName).length() > 32) {
+            return config.getString(path, defaultName).substring(0, 32);
         }
+
+        return config.getString(path, defaultName);
+
+
     }
 
-    public static boolean getShowPerItem(){
+    public boolean getShowPerItem() {
         return config.getBoolean("show-per-item");
     }
 
-    public static void reloadConfig(@NotNull CommandSender sender) {
-        LocalizationManager lm = LocalizationManager.getInstance();
-        if (sender.isOp() || sender.hasPermission("eshop.admin")) {
-            Main.getInstance().reloadConfig();
-            setConfig(Main.getInstance().getConfig());
-            economy = null;
-            ChatUtil.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("config-reloaded"));
-        } else {
-            ChatUtil.tell(sender,DefaultMenuSystem.PREFIX + lm.getString("no-permission"));
-        }
+    public void reloadConfig(@NotNull CommandSender sender) {
+        reloadConfig();
+        ChatUtil.sendMessage(sender,  Main.getInstance().getLm().getPrefix() + " " + Main.getInstance().getLm().getLanguageString("config-reloaded"));
     }
 
-    public static String @NotNull [] getEnchantLevels(@NotNull Enchantment enchantment) {
+
+    public @NotNull String[] getEnchantLevels(@NotNull Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
         Main.debug(path);
@@ -96,7 +83,7 @@ public class EShopConfig {
         return enchantLevels;
     }
 
-    public static String getEconomyCurrency(){
+    public String getEconomyCurrency() {
         return switch (getPaymentType().toLowerCase()) {
             case "money" -> Main.getEconomy().currencyNameSingular();
             case "xp" -> "levels";
@@ -104,11 +91,11 @@ public class EShopConfig {
         };
     }
 
-    public static String getPaymentType() {
-        return config.getString(config.getString("payment-currency", "xp"));
+    public String getPaymentType() {
+        return config.getString("payment-currency", "xp");
     }
 
-    public static PaymentStrategy getPaymentStrategy() {
+    public PaymentStrategy getPaymentStrategy() {
         if (economy == null) {
             switch (getPaymentType().toLowerCase()) {
                 case "money" -> setEconomy(new VaultPayment());
@@ -120,8 +107,8 @@ public class EShopConfig {
         return economy;
     }
 
-    public static String getLanguage() {
-        return config.getString("language","en");
+    public String getLanguage() {
+        return config.getString("language", "en");
     }
 
 }

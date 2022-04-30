@@ -1,11 +1,10 @@
 package me.tychsen.enchantgui.menu;
 
+import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.NbtUtils;
-import me.tychsen.enchantgui.config.EShopEnchants;
-import me.tychsen.enchantgui.config.EShopShop;
+import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.Material;
@@ -21,24 +20,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static me.tychsen.enchantgui.config.EShopConfig.*;
-
 public class DefaultMenuGenerator implements MenuGenerator {
     private final int inventorySize;
-    private EShopEnchants enchants;
-    private final EShopPermissionSys permSys;
 
-    public DefaultMenuGenerator(int inventorySize, EShopPermissionSys permSys) {
+    private Enchants enchants;
+
+    public DefaultMenuGenerator(int inventorySize) {
         this.inventorySize = inventorySize;
-        this.enchants = new EShopEnchants();
-        this.permSys = permSys;
+        this.enchants = new Enchants();
     }
 
     public Inventory mainMenu(@NotNull Player p) {
-        Inventory inv = p.getServer().createInventory(p, inventorySize, getMenuName());
+        Inventory inv = p.getServer().createInventory(p, inventorySize, Main.getInstance().getMainConfig().getMenuName());
         generateMainMenu(p, inv);
 
         return inv;
+    }
+
+    public void reload() {
+        this.enchants.reload();
     }
 
     public Inventory enchantMenu(Player p, ItemStack item, Map<String, String[]> playerLevels) {
@@ -60,8 +60,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
         List<ItemStack> itemList = new ArrayList<>();
 
         for (ItemStack item : enchantList) {
-            if (permSys.hasEnchantPermission(p, item)) {
-                if (getShowPerItem()) {
+            if (EShopPermissionSys.hasEnchantPermission(p, item)) {
+                if (Main.getInstance().getMainConfig().getShowPerItem()) {
                     itemList = showPerItem(itemList, item, p);
                 } else {
                     itemList.add(item);
@@ -73,14 +73,14 @@ public class DefaultMenuGenerator implements MenuGenerator {
 
     @NotNull
     private String format(int type, String name) {
-        String string = EShopShop.getInstance().getString("shop." + name);
-        return MessageFormat.format(ChatUtil.colorize(string), type);
+        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop."+name);
+        return MessageFormat.format(ChatUtil.color(string), type);
     }
 
     @NotNull
     private String format(double type, String name) {
-        String string = EShopShop.getInstance().getString("shop." + name);
-        return MessageFormat.format(ChatUtil.colorize(string), type);
+        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop."+name);
+        return MessageFormat.format(ChatUtil.color(string), type);
     }
 
     private @NotNull ItemStack generateItemWithMeta(@NotNull ItemStack item, int level, Enchantment enchantment) {
@@ -89,8 +89,8 @@ public class DefaultMenuGenerator implements MenuGenerator {
         List<String> lore = new ArrayList<>();
         lore.add(format(level, "level"));
 
-        double price = getPrice(enchantment, level);
-        if (!(getPaymentStrategy() instanceof NullPayment)) {
+        double price = Main.getInstance().getMainConfig().getPrice(enchantment, level);
+        if (!(Main.getInstance().getMainConfig().getPaymentStrategy() instanceof NullPayment)) {
             lore.add(format(price, "price"));
         }
 
@@ -98,26 +98,26 @@ public class DefaultMenuGenerator implements MenuGenerator {
         tempItem.setItemMeta(meta);
         NBTItem nbtItem = new NBTItem(tempItem);
         nbtItem.setInteger(NbtUtils.LEVEL,level);
-        if (!(getPaymentStrategy() instanceof NullPayment)) {
+        if (!(Main.getInstance().getMainConfig().getPaymentStrategy() instanceof NullPayment)) {
             nbtItem.setDouble(NbtUtils.PRICE,price);
         }
         return nbtItem.getItem();
     }
 
     private @NotNull Inventory generateEnchantMenu(@NotNull Player player, @NotNull ItemStack item, Map<String, String[]> playerLevels) {
-        Inventory inv = player.getServer().createInventory(player, inventorySize, getMenuName());
+        Inventory inv = player.getServer().createInventory(player, inventorySize, Main.getInstance().getMainConfig().getMenuName());
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         List<ItemStack> itemList = new ArrayList<>();
 
         // Generate the correct items for the player.
         // Based on permissions or OP status.
-        String[] enchantLevels = getEnchantLevels(enchantment);
+        String[] enchantLevels = Main.getInstance().getMainConfig().getEnchantLevels(enchantment);
         List<String> levels = new ArrayList<>();
 
         for (String enchantLevel : enchantLevels) {
             enchantLevel = enchantLevel.substring(5);
             int level = Integer.parseInt(enchantLevel);
-            if (permSys.hasEnchantPermission(player, enchantment, level)) {
+            if (EShopPermissionSys.hasEnchantPermission(player, enchantment, level)) {
                 //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
 
                 itemList.add(generateItemWithMeta(item, level, enchantment));
@@ -137,14 +137,14 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     private @NotNull ItemStack generateBackItem() {
-        Material material = Material.matchMaterial(EShopShop.getInstance().getString("shop.back-item.material", "EMERALD"));
+        Material material = Material.matchMaterial(Main.getInstance().getLm().getActiveShopFile().getString("shop.back-item.material", "EMERALD"));
 
         if(material == null)
             material = Material.EMERALD;
 
         ItemStack backItem = new ItemStack(material);
         ItemMeta meta = backItem.getItemMeta();
-        meta.setDisplayName(EShopShop.getInstance().getString("shop.back-item.display-name","Go back"));
+        meta.setDisplayName(Main.getInstance().getLm().getActiveShopFile().getString("shop.back-item.display-name","Go back"));
         backItem.setItemMeta(meta);
         NBTItem nbtItem = new NBTItem(backItem);
         nbtItem.setBoolean(NbtUtils.BACK_BUTTON,true);
@@ -152,12 +152,12 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     @Override
-    public EShopEnchants getShopEnchants() {
+    public Enchants getShopEnchants() {
         return enchants;
     }
 
     @Override
-    public void setShopEnchants(final EShopEnchants enchants) {
+    public void setShopEnchants(final Enchants enchants) {
         this.enchants = enchants;
     }
 }

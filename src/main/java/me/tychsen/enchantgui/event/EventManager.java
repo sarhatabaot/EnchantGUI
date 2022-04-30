@@ -1,8 +1,8 @@
 package me.tychsen.enchantgui.event;
 
-import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.menu.MenuSystem;
+import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +35,8 @@ public class EventManager implements Listener{
         } catch (IllegalStateException exception){
             inventoryName = "";
         }
-        String configInventoryName = EShopConfig.getMenuName().toLowerCase();
+        //todo, this could cause problems if our inventory name is not unique
+        String configInventoryName = Main.getInstance().getMainConfig().getMenuName().toLowerCase();
         boolean correctEvent = inventoryName.startsWith(configInventoryName);
 
         if (correctEvent) {
@@ -52,12 +53,12 @@ public class EventManager implements Listener{
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
-        if (!EShopConfig.getBoolean("right-click-enchanting-table")) {
+        if (!Main.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")) {
             return;
         }
         if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
             return;
-        if(!e.getPlayer().hasPermission("eshop.enchantingtable"))
+        if(!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE))
             return;
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
@@ -76,7 +77,7 @@ public class EventManager implements Listener{
     }
 
     private void handlePlayerInteractEvent(@NotNull PlayerInteractEvent event) {
-        if (event.getPlayer().hasPermission("eshop.enchantingtable")) {
+        if (event.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE)) {
             if (Main.getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
                 return;
             }
