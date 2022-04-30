@@ -1,11 +1,9 @@
 package me.tychsen.enchantgui.menu;
 
+import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import me.tychsen.enchantgui.ChatUtil;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.NbtUtils;
-import me.tychsen.enchantgui.config.EShopConfig;
-import me.tychsen.enchantgui.config.EShopShop;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
@@ -20,36 +18,34 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import static me.tychsen.enchantgui.config.EShopConfig.getIgnoreItemType;
-import static me.tychsen.enchantgui.config.EShopConfig.getPrice;
 
 public class DefaultMenuSystem implements MenuSystem {
-    public static String PREFIX;
+    private final String prefix;
 
     private final Map<String, String[]> playerLevels;
-
-    private final EShopPermissionSys permsys;
 
     private final MenuGenerator generator;
 
     public DefaultMenuSystem() {
         playerLevels = new HashMap<>();
-        permsys = new EShopPermissionSys();
-        new EShopConfig();
-        generator = new DefaultMenuGenerator(36, permsys);
-        DefaultMenuSystem.PREFIX = LocalizationManager.getInstance().getString("prefix") + " ";
+        generator = new DefaultMenuGenerator(36);
+        prefix = Main.getInstance().getLm().getPrefix() + " ";
+    }
+
+    public void reload() {
+        generator.reload();
     }
 
     private void tell(Player player, String message) {
-        ChatUtil.tell(player, PREFIX + message);
+        ChatUtil.sendMessage(player, prefix + message);
     }
 
     @Override
     public void showMainMenu(@NotNull Player player) {
-        LocalizationManager lm = LocalizationManager.getInstance();
+        LocalizationManager lm = Main.getInstance().getLm();
         playerLevels.remove(player.getName());
-        if (!permsys.hasUsePermission(player)) {
-            tell(player, lm.getString("no-permission"));
+        if (!EShopPermissionSys.hasUsePermission(player)) {
+            tell(player, lm.getLanguageString("no-permission"));
             return;
         }
 
@@ -81,35 +77,35 @@ public class DefaultMenuSystem implements MenuSystem {
     }
 
     private void purchaseEnchant(@NotNull Player player, @NotNull InventoryClickEvent event) {
-        LocalizationManager lm = LocalizationManager.getInstance();
+        LocalizationManager lm = Main.getInstance().getLm();
         ItemStack item = event.getCurrentItem();
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         ItemStack playerHand = player.getInventory().getItemInMainHand();
 
         int level = Integer.parseInt(playerLevels.get(player.getName())[event.getSlot()]);
-        int price = (int) getPrice(enchantment, level);
+        int price = (int) Main.getInstance().getMainConfig().getPrice(enchantment, level);
 
         Main.debug("Slot: " + event.getSlot() + " Level: " + level);
 
         if (playerHand.getType() == Material.AIR) {
-            tell(player, lm.getString("cant-enchant"));
+            tell(player, lm.getLanguageString("cant-enchant"));
             player.closeInventory();
             return;
         }
 
-        if (enchantment.canEnchantItem(playerHand) || getIgnoreItemType()) {
-            PaymentStrategy payment = EShopConfig.getPaymentStrategy();
+        if (enchantment.canEnchantItem(playerHand) || Main.getInstance().getMainConfig().getIgnoreItemType()) {
+            PaymentStrategy payment = Main.getInstance().getMainConfig().getPaymentStrategy();
 
             if (payment.withdraw(player, price)) {
                 enchantItem(playerHand, enchantment, level);
-                String message = String.format("%s &d%s %d &ffor &6%d%s", lm.getString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EShopConfig.getEconomyCurrency());
+                String message = String.format("%s &d%s %d &ffor &6%d%s", lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, Main.getInstance().getMainConfig().getEconomyCurrency());
                 tell(player, message);
                 player.closeInventory();
             } else {
-                tell(player, lm.getString("insufficient-funds"));
+                tell(player, lm.getLanguageString("insufficient-funds"));
             }
         } else {
-            tell(player, lm.getString("item-cant-be-enchanted"));
+            tell(player, lm.getLanguageString("item-cant-be-enchanted"));
         }
     }
 

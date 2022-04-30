@@ -10,4 +10,5 @@ public interface MenuSystem {
     void showMainMenu(Player p);
     void handleMenuClick(Player p, InventoryClickEvent event);
     MenuGenerator getMenuGenerator();
+    void reload();
 }

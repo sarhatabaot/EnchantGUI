@@ -1,6 +1,6 @@
 files:
-  - source: /src/main/resources
+  - source: /src/main/resources/languages/en/*.yml
     ignore:
       - plugin.yml
       - config.yml
-    translation: /src/main/resources/%file_name%_%two_letters_code%.%file_extension%
+    translation: /src/main/resources/languages/%osx_locale%/%original_file_name%

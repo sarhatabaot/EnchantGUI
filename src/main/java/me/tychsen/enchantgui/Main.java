@@ -7,6 +7,7 @@ import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.event.EventManager;
+import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.DefaultMenuSystem;
 import me.tychsen.enchantgui.menu.MenuSystem;
 import net.milkbowl.vault.economy.Economy;
@@ -16,6 +17,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,15 +33,19 @@ public class Main extends JavaPlugin {
     @Getter @Setter (AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
+    private EShopConfig config;
+    private LocalizationManager lm;
+
     @Getter
     private PlayerPointsAPI ppApi;
 
     @Override
     public void onEnable() {
         setInstance(this);
+        config = new EShopConfig();
+        lm = new LocalizationManager();
         hookVaultEconomy();
-        // Generate config.yml if there is none
-        saveDefaultConfig();
+
 
         
         // Register event manager
@@ -56,7 +62,7 @@ public class Main extends JavaPlugin {
             new Metrics(this, 3871);
 
         getLogger().info(() -> getName() + " " + getDescription().getVersion() + " enabled!");
-        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ EShopConfig.getPaymentStrategy().name());
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ Main.getInstance().getMainConfig().getPaymentStrategy().name());
     }
 
     @Override
@@ -69,17 +75,19 @@ public class Main extends JavaPlugin {
     }
 
     public void onReload(){
+        config.reloadConfig();
+
         hookVaultEconomy();
         hookPlayerPoints();
     }
 
     public static void debug(String msg) {
-        if (EShopConfig.getDebug())
+        if (Main.getInstance().getMainConfig().getDebug())
             Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
     }
 
     private void hookVaultEconomy() {
-        if(!EShopConfig.getPaymentType().equalsIgnoreCase("money")) {
+        if(!Main.getInstance().getMainConfig().getPaymentType().equalsIgnoreCase("money")) {
             return;
         }
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
@@ -95,7 +103,7 @@ public class Main extends JavaPlugin {
     }
 
     private void hookPlayerPoints() {
-        if(!EShopConfig.getPaymentType().equalsIgnoreCase("playerpoints")) {
+        if(!config.getPaymentType().equalsIgnoreCase("playerpoints")) {
             return;
         }
         if (Bukkit.getPluginManager().isPluginEnabled("PlayerPoints")) {
@@ -103,6 +111,14 @@ public class Main extends JavaPlugin {
         }
     }
 
+    @NotNull
+    public EShopConfig getMainConfig() {
+        return config;
+    }
+
+    public LocalizationManager getLm() {
+        return lm;
+    }
 
 
 }
