@@ -2,11 +2,15 @@ package me.tychsen.enchantgui.menu;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import dev.triumphteam.gui.components.GuiType;
+import dev.triumphteam.gui.guis.Gui;
+import dev.triumphteam.gui.guis.GuiItem;
 import me.tychsen.enchantgui.Main;
 import me.tychsen.enchantgui.NbtUtils;
 import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -29,7 +33,19 @@ public class DefaultMenuGenerator implements MenuGenerator {
         this.inventorySize = inventorySize;
         this.enchants = new Enchants();
     }
+    public void showMenu(Player player) {
+        Gui gui = Gui.gui(GuiType.CHEST)
+                .rows(4)
+                .title(Component.text(Main.getInstance().getMainConfig().getMenuName()))
+                .create();
 
+        List<ItemStack> enchantList = enchants.getEnchantList();
+        for(ItemStack itemStack:enchantList) {
+            GuiItem guiItem = new GuiItem(itemStack);
+            gui.addItem(guiItem);
+        }
+
+    }
     public Inventory mainMenu(@NotNull Player p) {
         Inventory inv = p.getServer().createInventory(p, inventorySize, Main.getInstance().getMainConfig().getMenuName());
         generateMainMenu(p, inv);
@@ -45,10 +61,10 @@ public class DefaultMenuGenerator implements MenuGenerator {
         return generateEnchantMenu(p, item, playerLevels);
     }
 
-    private @NotNull List<ItemStack> showPerItem(List<ItemStack> itemList, @NotNull ItemStack item, Player p) {
+    private @NotNull List<ItemStack> showPerItem(List<ItemStack> itemList, @NotNull ItemStack item, Player player) {
         List<ItemStack> modifiedList = new ArrayList<>(itemList);
         for (Enchantment enchantment : item.getEnchantments().keySet()) {
-            if (enchantment.canEnchantItem(p.getInventory().getItemInMainHand())) {
+            if (enchantment.canEnchantItem(player.getInventory().getItemInMainHand())) {
                 modifiedList.add(item);
             }
         }
