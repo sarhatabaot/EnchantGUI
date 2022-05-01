@@ -1,13 +1,11 @@
 package me.tychsen.enchantgui.permissions;
 
-import lombok.RequiredArgsConstructor;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serial;
 import java.util.Map;
 
 public class EShopPermissionSys {

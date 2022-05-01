@@ -88,14 +88,14 @@ public class DefaultMenuGenerator implements MenuGenerator {
     }
 
     @NotNull
-    private String format(int type, String name) {
-        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop."+name);
+    private String formatLevel(int type) {
+        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop.level");
         return MessageFormat.format(ChatUtil.color(string), type);
     }
 
     @NotNull
-    private String format(double type, String name) {
-        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop."+name);
+    private String formatPrice(double type) {
+        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop.price");
         return MessageFormat.format(ChatUtil.color(string), type);
     }
 
@@ -103,11 +103,11 @@ public class DefaultMenuGenerator implements MenuGenerator {
         ItemStack tempItem = item.clone();
         ItemMeta meta = tempItem.getItemMeta();
         List<String> lore = new ArrayList<>();
-        lore.add(format(level, "level"));
+        lore.add(formatLevel(level));
 
         double price = Main.getInstance().getMainConfig().getPrice(enchantment, level);
         if (!(Main.getInstance().getMainConfig().getPaymentStrategy() instanceof NullPayment)) {
-            lore.add(format(price, "price"));
+            lore.add(formatPrice(price));
         }
 
         meta.setLore(lore);
