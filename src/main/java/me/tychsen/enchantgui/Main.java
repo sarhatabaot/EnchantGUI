@@ -26,8 +26,7 @@ import java.util.UUID;
 public class Main extends JavaPlugin {
     @Setter (AccessLevel.PRIVATE) @Getter
     private static Main instance;
-    @Setter @Getter
-    private static Economy economy = null;
+    
     @Getter @Setter
     private static MenuSystem menuSystem;
     @Getter @Setter (AccessLevel.PRIVATE)
@@ -44,7 +43,6 @@ public class Main extends JavaPlugin {
         setInstance(this);
         config = new EShopConfig();
         lm = new LocalizationManager();
-        hookVaultEconomy();
 
 
         // Register event manager
@@ -67,8 +65,6 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         setInstance(null);
-        setEconomy(null);
-        setMenuSystem(null);
         setToggleRightClickPlayers(null);
         getLogger().info(() -> getName() + " " + getDescription().getVersion() + " disabled!");
     }
@@ -76,7 +72,6 @@ public class Main extends JavaPlugin {
     public void onReload(){
         config.reloadConfig();
 
-        hookVaultEconomy();
         hookPlayerPoints();
     }
 
@@ -85,21 +80,6 @@ public class Main extends JavaPlugin {
             Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
     }
 
-    private void hookVaultEconomy() {
-        if(!Main.getInstance().getMainConfig().getPaymentType().equalsIgnoreCase("money")) {
-            return;
-        }
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            getLogger().severe(() -> "could not find vault");
-            return;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            getLogger().severe(() -> "could not find Economy.class");
-            return;
-        }
-        setEconomy(rsp.getProvider());
-    }
 
     private void hookPlayerPoints() {
         if(!config.getPaymentType().equalsIgnoreCase("playerpoints")) {

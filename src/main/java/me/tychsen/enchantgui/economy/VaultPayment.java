@@ -7,7 +7,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.jetbrains.annotations.NotNull;
 
 public class VaultPayment implements PaymentStrategy {
-    private final Economy econ;
+    private Economy econ;
     private final Main plugin;
 
     @Override
@@ -22,7 +22,6 @@ public class VaultPayment implements PaymentStrategy {
             plugin.getServer().getPluginManager().disablePlugin(plugin);
         }
 
-        this.econ = Main.getEconomy();
     }
 
     public boolean withdraw(@NotNull Player player, int amount) {
@@ -36,17 +35,29 @@ public class VaultPayment implements PaymentStrategy {
             plugin.getLogger().severe("could not find vault");
             return false;
         }
+
         RegisteredServiceProvider<Economy> rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             plugin.getLogger().severe("could not find Economy.class");
             return false;
         }
-        Main.setEconomy(rsp.getProvider());
-        return Main.getEconomy() != null;
+
+        econ = rsp.getProvider();
+        return true;
     }
 
     @Override
     public boolean hasSufficientFunds(@NotNull Player player, int amount) {
         return econ.has(player, amount);
+    }
+
+    @Override
+    public boolean hasSufficientFunds(@NotNull final Player player, final double amount) {
+        return econ.has(player, amount);
+    }
+
+    @Override
+    public String getCurrency() {
+        return econ.currencyNameSingular().isEmpty() ? "$" : econ.currencyNameSingular();
     }
 }

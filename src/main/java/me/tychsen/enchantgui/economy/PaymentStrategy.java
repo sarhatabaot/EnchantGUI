@@ -22,4 +22,6 @@ public interface PaymentStrategy {
      * @return The name of the PaymentStrategy
      */
     String name();
+
+    String getCurrency();
 }

@@ -26,4 +26,9 @@ public class XPPayment implements PaymentStrategy {
     public boolean hasSufficientFunds(@NotNull Player player, int amount) {
         return (player.getLevel() >= amount);
     }
+
+    @Override
+    public String getCurrency() {
+        return "levels";
+    }
 }

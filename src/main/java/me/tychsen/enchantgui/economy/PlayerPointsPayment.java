@@ -32,4 +32,9 @@ public class PlayerPointsPayment implements PaymentStrategy{
     public String name() {
         return "PlayerPointsPayment";
     }
+
+    @Override
+    public String getCurrency() {
+        return "pp";
+    }
 }
