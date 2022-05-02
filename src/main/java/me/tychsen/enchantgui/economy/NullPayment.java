@@ -21,4 +21,14 @@ public class NullPayment implements PaymentStrategy {
     public boolean hasSufficientFunds(@NotNull Player player, int amount) {
         return true;
     }
+
+    @Override
+    public boolean withdraw(@NotNull final Player player, final double amount) {
+        return true;
+    }
+
+    @Override
+    public boolean hasSufficientFunds(@NotNull final Player player, final double amount) {
+        return true;
+    }
 }

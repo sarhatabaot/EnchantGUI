@@ -74,7 +74,7 @@ public class LocalizationManager {
     }
 
     public String getShopReloaded() {
-        return getActiveLanguageFile().getShopReloaded();
+        return ChatUtil.color(getActiveLanguageFile().getShopReloaded());
     }
 
 
