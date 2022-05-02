@@ -23,6 +23,16 @@ public class XPPayment implements PaymentStrategy {
     }
 
     @Override
+    public boolean withdraw(@NotNull final Player player, final double amount) {
+        return withdraw(player,(int) amount);
+    }
+
+    @Override
+    public boolean hasSufficientFunds(@NotNull final Player player, final double amount) {
+        return hasSufficientFunds(player,(int) amount);
+    }
+
+    @Override
     public boolean hasSufficientFunds(@NotNull Player player, int amount) {
         return (player.getLevel() >= amount);
     }

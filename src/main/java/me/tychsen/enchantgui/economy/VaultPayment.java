@@ -30,6 +30,13 @@ public class VaultPayment implements PaymentStrategy {
         return econ.withdrawPlayer(player, amount).transactionSuccess();
     }
 
+    @Override
+    public boolean withdraw(@NotNull final Player player, final double amount) {
+        if(!hasSufficientFunds(player, amount))
+            return false;
+        return econ.withdrawPlayer(player, amount).transactionSuccess();
+    }
+
     private boolean setupEconomy() {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") == null) {
             plugin.getLogger().severe("could not find vault");

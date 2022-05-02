@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EShopConfig;
+import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.menu.DefaultMenuSystem;
-import me.tychsen.enchantgui.menu.MenuSystem;
+import me.tychsen.enchantgui.menu.ShopMenu;
 import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.black_ixx.playerpoints.PlayerPointsAPI;
@@ -28,7 +28,8 @@ public class Main extends JavaPlugin {
     private static Main instance;
     
     @Getter @Setter
-    private static MenuSystem menuSystem;
+    private ShopMenu shopMenu;
+
     @Getter @Setter (AccessLevel.PRIVATE)
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
@@ -45,9 +46,10 @@ public class Main extends JavaPlugin {
         lm = new LocalizationManager();
 
 
+        this.shopMenu = new ShopMenu(new Enchants());
         // Register event manager
-        setMenuSystem(new DefaultMenuSystem());
-        getServer().getPluginManager().registerEvents(new EventManager(getMenuSystem()), this);
+        //setMenuSystem(new DefaultMenuSystem());
+        getServer().getPluginManager().registerEvents(new EventManager(),this);
 
         // Register command
         PaperCommandManager commandManager = new PaperCommandManager(this);
@@ -77,7 +79,7 @@ public class Main extends JavaPlugin {
 
     public static void debug(String msg) {
         if (Main.getInstance().getMainConfig().getDebug())
-            Main.getInstance().getLogger().warning(() -> String.format("DEBUG %s", msg));
+            Main.getInstance().getLogger().info(() -> String.format("DEBUG %s", msg));
     }
 
 
