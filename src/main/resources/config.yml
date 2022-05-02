@@ -5,7 +5,7 @@ opt-out: false
 
 # The name of the Eshop menu.
 # Max 32 characters!
-menu-name: EnchantGUI
+menu-name: "EnchantGUI"
 
 # Payment currency can be one of two. Either 'money' for regular money (using Vault+Economy system)
 # or 'xp' for XP levels.

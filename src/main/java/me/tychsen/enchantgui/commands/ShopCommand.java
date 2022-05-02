@@ -4,8 +4,9 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.menu.MenuSystem;
+import me.tychsen.enchantgui.menu.ShopMenu;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -15,19 +16,19 @@ import org.bukkit.entity.Player;
 @Description("Command for the EnchantGUI plugin.")
 public class ShopCommand extends BaseCommand {
 	private final String prefix;
-	private final MenuSystem menuSystem;
+	private final ShopMenu shopMenu;
 
 	private final LocalizationManager lm = Main.getInstance().getLm();
 
 	public ShopCommand() {
 		this.prefix = lm.getLanguageString("prefix");
-		this.menuSystem = Main.getMenuSystem();
+		this.shopMenu = new ShopMenu(new Enchants());
 	}
 
 
 	@Default
 	public void onGui(final Player player){
-		menuSystem.showMainMenu(player);
+		shopMenu.showMainMenu(player);
 	}
 
 	@Subcommand("toggle")
@@ -54,7 +55,7 @@ public class ShopCommand extends BaseCommand {
 	public void onReload(final CommandSender player){
 		Main.getInstance().onReload();
 		Main.getInstance().getLm().reload(player);
-		Main.getMenuSystem().reload();
+		this.shopMenu.reload();
 		Main.getInstance().getLogger().info(() -> "%s %s using: %s".formatted(getName(),Main.getInstance().getDescription().getVersion(),Main.getInstance().getMainConfig().getPaymentStrategy().name()));
 	}
 
