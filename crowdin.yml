@@ -1,5 +1,5 @@
 files:
-  - source: /src/main/resources
+  - source: /src/main/resources/languages/en/*.yml
     ignore:
       - plugin.yml
       - config.yml
