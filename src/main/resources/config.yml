@@ -5,7 +5,7 @@ opt-out: false
 
 # The name of the Eshop menu.
 # Max 32 characters!
-menu-name: EnchantGUI
+menu-name: "EnchantGUI"
 
 # Payment currency can be one of two. Either 'money' for regular money (using Vault+Economy system)
 # or 'xp' for XP levels.
@@ -22,6 +22,10 @@ show-per-item: false
 
 # Right Click on Enchanting Table to show the gui
 right-click-enchanting-table: false
+
+# Currently available, en, he, pt
+# To enable a different language, you must restart the server.
+language: en
 
 # Enchant prices
 # You can set a price for each individual level

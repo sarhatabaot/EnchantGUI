@@ -1,10 +1,12 @@
 name: EnchantGUI
-version: @version@
+version: ${version}
 main: me.tychsen.enchantgui.Main
-api-version: "1.13"
+api-version: "1.17"
 
 authors: [Dentych, sarhatabaot]
-dependency: Vault
+softdepend:
+    - Vault
+    - PlayerPoints
 
 permissions:
     eshop.use:
@@ -15,3 +17,6 @@ permissions:
         description: Gives access to all enchants and all levels of the enchants.
     eshop.enchanting-table:
         description: Gives access to the right click on enchanting table feature.
+
+libraries:
+    - net.kyori:adventure-api:4.9.2

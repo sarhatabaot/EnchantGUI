@@ -1,15 +1,21 @@
 package me.tychsen.enchantgui.economy;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by denni on 26/01/2016.
  */
 public class XPPayment implements PaymentStrategy {
     @Override
-    public boolean withdraw(Player p, int amount) {
-        if (p.getLevel() >= amount) {
-            p.giveExpLevels(-amount);
+    public String name() {
+        return "XPPayment";
+    }
+
+    @Override
+    public boolean withdraw(@NotNull Player player, int amount) {
+        if (hasSufficientFunds(player,amount)) {
+            player.giveExpLevels(-amount);
             return true;
         }
 
@@ -17,7 +23,22 @@ public class XPPayment implements PaymentStrategy {
     }
 
     @Override
-    public boolean hasSufficientFunds(Player p, int amount) {
-        return (p.getLevel() >= amount);
+    public boolean withdraw(@NotNull final Player player, final double amount) {
+        return withdraw(player,(int) amount);
+    }
+
+    @Override
+    public boolean hasSufficientFunds(@NotNull final Player player, final double amount) {
+        return hasSufficientFunds(player,(int) amount);
+    }
+
+    @Override
+    public boolean hasSufficientFunds(@NotNull Player player, int amount) {
+        return (player.getLevel() >= amount);
+    }
+
+    @Override
+    public String getCurrency() {
+        return "levels";
     }
 }
