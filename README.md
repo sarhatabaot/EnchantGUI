@@ -1,14 +1,15 @@
 EnchantGUI
 ==========
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/9812659fb1f94001a5dad453171d0b55)](https://www.codacy.com/app/sarhatabaot/EnchantGUI?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sarhatabaot/EnchantGUI&amp;utm_campaign=Badge_Grade)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=sarhatabaot_EnchantGUI&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=sarhatabaot_EnchantGUI)
 [![Build Status](https://travis-ci.org/sarhatabaot/EnchantGUI.svg?branch=dev%2F1.13)](https://travis-ci.org/sarhatabaot/EnchantGUI)
+[![Crowdin](https://badges.crowdin.net/enchantgui/localized.svg)](https://crowdin.com/project/enchantgui)
 
 This is a 1.13+ fork of EnchantGUI. 
 
 For versions up to 1.12.2 use [https://www.spigotmc.org/resources/enchantgui.11701/](https://www.spigotmc.org/resources/enchantgui.11701/)
 
 ## Dependencies
-
+* Java 11
 * BuildTools.jar for Bukkit API
   * [https://hub.spigotmc.org/jenkins/job/BuildTools/](https://hub.spigotmc.org/jenkins/job/BuildTools/)
 * Vault API

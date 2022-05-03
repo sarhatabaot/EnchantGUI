@@ -1,0 +1,50 @@
+---
+########################################################
+#EnchantGUI Shop.yml                #
+########################################################
+#Important: Make sure to not remove '{0}'.
+shop:
+  level: "&eLevel: {0}"
+  price: "&aPrice: {0}$"
+  back-item:
+    material: "EMERALD"
+    display-name: "Go back"
+  display-name: ""
+  #You can only set items that support the enchantment.
+  enchants:
+    power: "BOW"
+    flame: "BOW"
+    infinity: "BOW"
+    punch: "BOW"
+    sharpness: "DIAMOND_SWORD"
+    bane_of_arthropods: "DIAMOND_SWORD"
+    smite: "DIAMOND_SWORD"
+    depth_strider: "DIAMOND_BOOTS"
+    efficiency: "DIAMOND_PICKAXE"
+    unbreaking: "DIAMOND_PICKAXE"
+    fire_aspect: "DIAMOND_SWORD"
+    knockback: "DIAMOND_SWORD"
+    fortune: "DIAMOND_PICKAXE"
+    looting: "DIAMOND_SWORD"
+    luck_of_the_sea: "FISHING_ROD"
+    lure: "FISHING_ROD"
+    respiration: "DIAMOND_HELMET"
+    protection: "DIAMOND_CHESTPLATE"
+    blast_protection: "DIAMOND_CHESTPLATE"
+    feather_falling: "DIAMOND_BOOTS"
+    fire_protection: "DIAMOND_CHESTPLATE"
+    projectile_protection: "DIAMOND_CHESTPLATE"
+    silk_touch: "DIAMOND_PICKAXE"
+    thorns: "DIAMOND_CHESTPLATE"
+    aqua_affinity: "DIAMOND_HELMET"
+    frost_walker: "DIAMOND_BOOTS"
+    mending: "DIAMOND_PICKAXE"
+    sweeping: "DIAMOND_SWORD"
+    channeling: "TRIDENT"
+    impaling: "TRIDENT"
+    loyalty: "TRIDENT"
+    riptide: "TRIDENT"
+    quick_charge: "CROSSBOW"
+    piercing: "CROSSBOW"
+    multishot: "CROSSBOW"
+    soul_speed: "NETHERITE_BOOTS"
