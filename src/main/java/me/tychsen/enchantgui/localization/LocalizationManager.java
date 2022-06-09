@@ -66,7 +66,7 @@ public class LocalizationManager {
     @Contract(pure = true)
     //TODO We need to get this automatically... Perhaps a json file we can update using crowdin or something
     private @Unmodifiable List<String> getSupportedLanguages() {
-        return List.of("en","he","pt_BR");
+        return List.of("en","he","pt-br");
     }
 
     public String getPrefix() {
