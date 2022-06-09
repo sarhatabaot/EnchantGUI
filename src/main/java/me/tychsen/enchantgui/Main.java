@@ -48,7 +48,6 @@ public class Main extends JavaPlugin {
 
         this.shopMenu = new ShopMenu(new Enchants());
         // Register event manager
-        //setMenuSystem(new DefaultMenuSystem());
         getServer().getPluginManager().registerEvents(new EventManager(),this);
 
         // Register command

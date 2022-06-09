@@ -83,14 +83,6 @@ public class EShopConfig extends ConfigFile<Main> {
         return enchantLevels;
     }
 
-    public String getEconomyCurrency() {
-        return switch (getPaymentType().toLowerCase()) {
-            case "money" -> Main.getEconomy().currencyNameSingular();
-            case "xp" -> "levels";
-            default -> "";
-        };
-    }
-
     public String getPaymentType() {
         return config.getString("payment-currency", "xp");
     }

@@ -19,6 +19,7 @@ public class VaultPayment implements PaymentStrategy {
         this.plugin = Main.getInstance();
         if (!setupEconomy()) {
             plugin.getLogger().severe("Dependency (Vault) not found. Disabling the plugin!");
+            plugin.getLogger().warning("Please install vault and restart your server.");
             plugin.getServer().getPluginManager().disablePlugin(plugin);
         }
 

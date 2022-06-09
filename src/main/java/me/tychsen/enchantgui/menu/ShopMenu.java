@@ -29,7 +29,7 @@ import java.util.List;
  * @author sarhatabaot
  */
 public class ShopMenu {
-    private Enchants enchants;
+    private final Enchants enchants;
 
     public ShopMenu(final Enchants enchants) {
         this.enchants = enchants;
@@ -125,7 +125,7 @@ public class ShopMenu {
         }
 
         enchantItem(playerHand, enchantment, level);
-        tell(player, "%s &d%s %d &ffor &6%.2f%s".formatted(lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, Main.getInstance().getMainConfig().getEconomyCurrency()));
+        tell(player, "%s &d%s %d &ffor &6%.2f%s".formatted(lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, Main.getInstance().getMainConfig().getPaymentStrategy().getCurrency()));
     }
 
     private void enchantItem(ItemStack playerHand, @NotNull Enchantment enchantment, int level) {
