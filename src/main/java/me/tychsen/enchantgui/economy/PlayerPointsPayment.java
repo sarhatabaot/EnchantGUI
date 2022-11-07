@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.economy;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import org.black_ixx.playerpoints.PlayerPointsAPI;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -12,7 +12,7 @@ public class PlayerPointsPayment implements PaymentStrategy{
     private final PlayerPointsAPI ppApi;
 
     public PlayerPointsPayment() {
-        this.ppApi = Main.getInstance().getPpApi();
+        this.ppApi = EnchantGUIPlugin.getInstance().getPpApi();
     }
 
     @Override

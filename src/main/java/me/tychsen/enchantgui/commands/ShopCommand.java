@@ -3,7 +3,7 @@ package me.tychsen.enchantgui.commands;
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.ShopMenu;
@@ -18,7 +18,7 @@ public class ShopCommand extends BaseCommand {
 	private final String prefix;
 	private final ShopMenu shopMenu;
 
-	private final LocalizationManager lm = Main.getInstance().getLm();
+	private final LocalizationManager lm = EnchantGUIPlugin.getInstance().getLm();
 
 	public ShopCommand() {
 		this.prefix = lm.getLanguageString("prefix");
@@ -34,17 +34,17 @@ public class ShopCommand extends BaseCommand {
 	@Subcommand("toggle")
 	@CommandPermission(EShopPermissionSys.TOGGLE)
 	public void onToggle(final Player player){
-		if(!Main.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")){
+		if(!EnchantGUIPlugin.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")){
 			tell(player,lm.getLanguageString("disabled-feature"));
 			return;
 		}
 
-		if(Main.getToggleRightClickPlayers().contains(player.getUniqueId())){
-			Main.getToggleRightClickPlayers().remove(player.getUniqueId());
+		if(EnchantGUIPlugin.getToggleRightClickPlayers().contains(player.getUniqueId())){
+			EnchantGUIPlugin.getToggleRightClickPlayers().remove(player.getUniqueId());
 			tell(player,lm.getLanguageString("toggle-on"));
 		}
 		else {
-			Main.getToggleRightClickPlayers().add(player.getUniqueId());
+			EnchantGUIPlugin.getToggleRightClickPlayers().add(player.getUniqueId());
 			tell(player,lm.getLanguageString("toggle-off"));
 		}
 	}
@@ -53,10 +53,10 @@ public class ShopCommand extends BaseCommand {
 	@Subcommand("reload")
 	@CommandPermission(EShopPermissionSys.RELOAD)
 	public void onReload(final CommandSender player){
-		Main.getInstance().onReload();
-		Main.getInstance().getLm().reload(player);
+		EnchantGUIPlugin.getInstance().onReload();
+		EnchantGUIPlugin.getInstance().getLm().reload(player);
 		this.shopMenu.reload();
-		Main.getInstance().getLogger().info(() -> "%s %s using: %s".formatted(getName(),Main.getInstance().getDescription().getVersion(),Main.getInstance().getMainConfig().getPaymentStrategy().name()));
+		EnchantGUIPlugin.getInstance().getLogger().info(() -> "%s %s using: %s".formatted(getName(), EnchantGUIPlugin.getInstance().getDescription().getVersion(), EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy().name()));
 	}
 
 	private void tell(final Player player, final String message){

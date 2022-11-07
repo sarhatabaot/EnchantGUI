@@ -3,7 +3,7 @@ package me.tychsen.enchantgui.config;
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
 import lombok.Setter;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.economy.NullPayment;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
 import me.tychsen.enchantgui.economy.PlayerPointsPayment;
@@ -15,13 +15,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class EShopConfig extends ConfigFile<Main> {
+public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
 
     @Setter
     private static PaymentStrategy economy;
 
     public EShopConfig() {
-        super(Main.getInstance(), "", "config.yml", "");
+        super(EnchantGUIPlugin.getInstance(), "", "config.yml", "");
         saveDefaultConfig();
     }
 
@@ -63,14 +63,14 @@ public class EShopConfig extends ConfigFile<Main> {
 
     public void reloadConfig(@NotNull CommandSender sender) {
         reloadConfig();
-        ChatUtil.sendMessage(sender,  Main.getInstance().getLm().getPrefix() + " " + Main.getInstance().getLm().getLanguageString("config-reloaded"));
+        ChatUtil.sendMessage(sender,  EnchantGUIPlugin.getInstance().getLm().getPrefix() + " " + EnchantGUIPlugin.getInstance().getLm().getLanguageString("config-reloaded"));
     }
 
 
     public @NotNull String[] getEnchantLevels(@NotNull Enchantment enchantment) {
         String path = enchantment.getKey().toString().toLowerCase();
         path = path.split(":")[1];
-        Main.debug(path);
+        EnchantGUIPlugin.debug(path);
         Map<String, Object> enchantMap = config.getConfigurationSection(path).getValues(false);
         String[] enchantLevels = new String[enchantMap.size()];
 

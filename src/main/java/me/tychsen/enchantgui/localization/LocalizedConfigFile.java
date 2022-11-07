@@ -1,16 +1,16 @@
 package me.tychsen.enchantgui.localization;
 
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 
 import java.io.File;
 
 /**
  * @author sarhatabaot
  */
-public class LocalizedConfigFile extends ConfigFile<Main> {
+public class LocalizedConfigFile extends ConfigFile<EnchantGUIPlugin> {
     public LocalizedConfigFile(final String lang, final String fileName) {
-        super(Main.getInstance(), "languages"+ File.separator+lang+File.separator, fileName, "languages"+File.separator+lang);
+        super(EnchantGUIPlugin.getInstance(), "languages"+ File.separator+lang+File.separator, fileName, "languages"+File.separator+lang);
     }
 
     public String getString(final String path) {

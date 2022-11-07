@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.config;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -30,7 +30,7 @@ public class Enchants {
     }
 
     private Material matchEnchant(@NotNull String enchantment) {
-        return Material.matchMaterial(Main.getInstance().getLm().getActiveShopFile().getString("shop.enchants." + enchantment));
+        return Material.matchMaterial(EnchantGUIPlugin.getInstance().getLm().getActiveShopFile().getString("shop.enchants." + enchantment));
     }
 
     /**
@@ -38,7 +38,7 @@ public class Enchants {
      * Material and a display name.
      */
     private void createEnchantList() {
-        LocalizationManager lm = Main.getInstance().getLm();
+        LocalizationManager lm = EnchantGUIPlugin.getInstance().getLm();
         addItem(Enchantment.ARROW_DAMAGE, matchEnchant("power"), lm.getLanguageString("enchant.power"));
         addItem(Enchantment.ARROW_FIRE, matchEnchant("flame"), lm.getLanguageString("enchant.flame"));
         addItem(Enchantment.ARROW_INFINITE, matchEnchant("infinity"), lm.getLanguageString("enchant.infinity"));

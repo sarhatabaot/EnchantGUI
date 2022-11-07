@@ -10,12 +10,10 @@ import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.event.EventManager;
 import me.tychsen.enchantgui.localization.LocalizationManager;
 import me.tychsen.enchantgui.menu.ShopMenu;
-import net.milkbowl.vault.economy.Economy;
 import org.black_ixx.playerpoints.PlayerPoints;
 import org.black_ixx.playerpoints.PlayerPointsAPI;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,9 +21,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-public class Main extends JavaPlugin {
+public class EnchantGUIPlugin extends JavaPlugin {
     @Setter (AccessLevel.PRIVATE) @Getter
-    private static Main instance;
+    private static EnchantGUIPlugin instance;
     
     @Getter @Setter
     private ShopMenu shopMenu;
@@ -60,7 +58,7 @@ public class Main extends JavaPlugin {
             new Metrics(this, 3871);
 
         getLogger().info(() -> getName() + " " + getDescription().getVersion() + " enabled!");
-        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ Main.getInstance().getMainConfig().getPaymentStrategy().name());
+        getLogger().info(() -> getName() + " " + getDescription().getVersion() + " using: "+ EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy().name());
     }
 
     @Override
@@ -77,8 +75,8 @@ public class Main extends JavaPlugin {
     }
 
     public static void debug(String msg) {
-        if (Main.getInstance().getMainConfig().getDebug())
-            Main.getInstance().getLogger().info(() -> String.format("DEBUG %s", msg));
+        if (EnchantGUIPlugin.getInstance().getMainConfig().getDebug())
+            EnchantGUIPlugin.getInstance().getLogger().info(() -> String.format("DEBUG %s", msg));
     }
 
 

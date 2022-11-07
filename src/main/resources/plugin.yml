@@ -1,6 +1,6 @@
 name: EnchantGUI
 version: ${version}
-main: me.tychsen.enchantgui.Main
+main: me.tychsen.enchantgui.EnchantGUIPlugin
 api-version: "1.17"
 
 authors: [Dentych, sarhatabaot]

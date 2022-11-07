@@ -1,6 +1,6 @@
 package me.tychsen.enchantgui.event;
 
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -14,10 +14,10 @@ public class EventManager implements Listener{
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
-        if (!Main.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")) {
+        if (!EnchantGUIPlugin.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")) {
             return;
         }
-        if (Main.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
+        if (EnchantGUIPlugin.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
             return;
         if(!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE))
             return;
@@ -31,11 +31,11 @@ public class EventManager implements Listener{
 
     private void handlePlayerInteractEvent(@NotNull PlayerInteractEvent event) {
         if (event.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE)) {
-            if (Main.getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
+            if (EnchantGUIPlugin.getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
                 return;
             }
 
-            Main.getInstance().getShopMenu().showMainMenu(event.getPlayer());
+            EnchantGUIPlugin.getInstance().getShopMenu().showMainMenu(event.getPlayer());
         }
     }
 

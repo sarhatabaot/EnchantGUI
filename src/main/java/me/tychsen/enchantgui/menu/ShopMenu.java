@@ -6,7 +6,7 @@ import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.components.GuiType;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
-import me.tychsen.enchantgui.Main;
+import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.NbtUtils;
 import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.economy.PaymentStrategy;
@@ -38,7 +38,7 @@ public class ShopMenu {
     public void showMainMenu(Player player) {
         Gui gui = Gui.gui(GuiType.CHEST)
                 .rows(4)
-                .title(Component.text(Main.getInstance().getMainConfig().getMenuName()))
+                .title(Component.text(EnchantGUIPlugin.getInstance().getMainConfig().getMenuName()))
                 .create();
 
         List<ItemStack> enchantList = enchants.getEnchantList();
@@ -46,17 +46,17 @@ public class ShopMenu {
             GuiItem guiItem = new GuiItem(itemStack);
             guiItem.setAction(event -> generateEnchantMenu(gui, itemStack, player).open(player));
 
-            if (!Main.getInstance().getMainConfig().getShowPerItem()) {
+            if (!EnchantGUIPlugin.getInstance().getMainConfig().getShowPerItem()) {
                 gui.addItem(guiItem);
             }
 
             if (isShowPerItem(itemStack, player.getInventory().getItemInMainHand()))
                 gui.addItem(guiItem);
 
-            Main.debug("ShowPerItem= %b".formatted(Main.getInstance().getMainConfig().getShowPerItem()));
-            Main.debug("IsShowPerItem= %b".formatted(isShowPerItem(itemStack, player.getInventory().getItemInMainHand())));
-            Main.debug("ShopItem= %s".formatted(itemStack.toString()));
-            Main.debug("HeldItem= %s".formatted(player.getInventory().getItemInMainHand().toString()));
+            EnchantGUIPlugin.debug("ShowPerItem= %b".formatted(EnchantGUIPlugin.getInstance().getMainConfig().getShowPerItem()));
+            EnchantGUIPlugin.debug("IsShowPerItem= %b".formatted(isShowPerItem(itemStack, player.getInventory().getItemInMainHand())));
+            EnchantGUIPlugin.debug("ShopItem= %s".formatted(itemStack.toString()));
+            EnchantGUIPlugin.debug("HeldItem= %s".formatted(player.getInventory().getItemInMainHand().toString()));
         }
 
         gui.open(player);
@@ -74,7 +74,7 @@ public class ShopMenu {
     private @NotNull Gui generateEnchantMenu(final Gui sourceGui, final @NotNull ItemStack item, final Player player) {
         Gui gui = Gui.gui(GuiType.CHEST)
                 .rows(4)
-                .title(Component.text(Main.getInstance().getMainConfig().getMenuName()))
+                .title(Component.text(EnchantGUIPlugin.getInstance().getMainConfig().getMenuName()))
                 .create();
 
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
@@ -88,8 +88,8 @@ public class ShopMenu {
             gui.addItem(guiItem);
         }
 
-        final String material = Main.getInstance().getLm().getActiveShopFile().getString("shop.back-item.material", "EMERALD");
-        final String displayName = Main.getInstance().getLm().getActiveShopFile().getString("shop.back-item.display-name", "Go back");
+        final String material = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile().getString("shop.back-item.material", "EMERALD");
+        final String displayName = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile().getString("shop.back-item.display-name", "Go back");
         final int slot = (gui.getRows() * 9) - 9;
         gui.setItem(slot, ItemBuilder
                 .from(Material.matchMaterial(material))
@@ -101,7 +101,7 @@ public class ShopMenu {
     private void purchaseEnchant(@NotNull Player player, final ItemStack item) {
         if (item == null)
             return;
-        LocalizationManager lm = Main.getInstance().getLm();
+        LocalizationManager lm = EnchantGUIPlugin.getInstance().getLm();
         Enchantment enchantment = item.getEnchantments().keySet().toArray(new Enchantment[1])[0];
         ItemStack playerHand = player.getInventory().getItemInMainHand();
         int level = new NBTItem(item).getInteger(NbtUtils.LEVEL);
@@ -112,20 +112,20 @@ public class ShopMenu {
             tell(player, lm.getLanguageString("cant-enchant"));
             return;
         }
-        if (!enchantment.canEnchantItem(playerHand) && !Main.getInstance().getMainConfig().getIgnoreItemType()) {
+        if (!enchantment.canEnchantItem(playerHand) && !EnchantGUIPlugin.getInstance().getMainConfig().getIgnoreItemType()) {
             tell(player, lm.getLanguageString("item-cant-be-enchanted"));
             return;
         }
 
 
-        PaymentStrategy payment = Main.getInstance().getMainConfig().getPaymentStrategy();
+        PaymentStrategy payment = EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy();
         if (!payment.hasSufficientFunds(player, price)) {
             tell(player, lm.getLanguageString("insufficient-funds"));
             return;
         }
 
         enchantItem(playerHand, enchantment, level);
-        tell(player, "%s &d%s %d &ffor &6%.2f%s".formatted(lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, Main.getInstance().getMainConfig().getPaymentStrategy().getCurrency()));
+        tell(player, "%s &d%s %d &ffor &6%.2f%s".formatted(lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy().getCurrency()));
     }
 
     private void enchantItem(ItemStack playerHand, @NotNull Enchantment enchantment, int level) {
@@ -144,7 +144,7 @@ public class ShopMenu {
 
     private @NotNull List<ItemStack> generatePurchaseMenuItems(final Player player, final ItemStack item, final Enchantment enchantment) {
         List<ItemStack> itemList = new ArrayList<>();
-        String[] enchantLevels = Main.getInstance().getMainConfig().getEnchantLevels(enchantment);
+        String[] enchantLevels = EnchantGUIPlugin.getInstance().getMainConfig().getEnchantLevels(enchantment);
 
         if (item == null)
             return Collections.emptyList();
@@ -158,7 +158,7 @@ public class ShopMenu {
 
             itemList.add(generateItemWithMeta(item, level, enchantment));
             //TODO: Upgrade option, pass the original item as an object and compare the enchantments. Make sure to account for negative price.
-            Main.debug(item.toString());
+            EnchantGUIPlugin.debug(item.toString());
         }
         return itemList;
     }
@@ -167,7 +167,7 @@ public class ShopMenu {
         ItemStack tempItem = item.clone();
         ItemMeta meta = tempItem.getItemMeta();
 
-        double price = Main.getInstance().getMainConfig().getPrice(enchantment, level);
+        double price = EnchantGUIPlugin.getInstance().getMainConfig().getPrice(enchantment, level);
 
         List<String> lore = new ArrayList<>();
         lore.add(formatLevel(level));
@@ -185,17 +185,17 @@ public class ShopMenu {
 
     @NotNull
     private String formatLevel(int type) {
-        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop.level");
+        String string = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile().getString("shop.level");
         return MessageFormat.format(ChatUtil.color(string), type);
     }
 
     @NotNull
     private String formatPrice(double type) {
-        String string = Main.getInstance().getLm().getActiveShopFile().getString("shop.price");
+        String string = EnchantGUIPlugin.getInstance().getLm().getActiveShopFile().getString("shop.price");
         return MessageFormat.format(ChatUtil.color(string), type);
     }
 
     private void tell(Player player, String message) {
-        ChatUtil.sendMessage(player, Main.getInstance().getLm().getPrefix() + message);
+        ChatUtil.sendMessage(player, EnchantGUIPlugin.getInstance().getLm().getPrefix() + message);
     }
 }
