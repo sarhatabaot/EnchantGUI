@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 
-public class EventManager implements Listener{
+public class EventManager implements Listener {
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
@@ -19,7 +19,7 @@ public class EventManager implements Listener{
         }
         if (EnchantGUIPlugin.getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
             return;
-        if(!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE))
+        if (!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE))
             return;
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {

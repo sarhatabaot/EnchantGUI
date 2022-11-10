@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui.localization;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
+import com.github.sarhatabaot.kraken.core.file.FileUtil;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.Contract;
@@ -12,28 +13,29 @@ import java.util.List;
 import java.util.Map;
 
 public class LocalizationManager {
+    private List<String> supportedLanguages;
     private final Map<String, Map<String, LocalizedConfigFile>> languages;
 
     public LocalizationManager() {
         languages = new HashMap<>();
-        for(String lang: getSupportedLanguages()) {
-            languages.putIfAbsent(lang,new HashMap<>());
+        for (String lang : getSupportedLanguages()) {
+            languages.putIfAbsent(lang, new HashMap<>());
             languages.get(lang).put("localization", new LocalLanguageConfigFile(lang));
             languages.get(lang).put("shop", new ShopLanguageConfigFile(lang));
         }
-        final File languagesFolder = new File(EnchantGUIPlugin.getInstance().getDataFolder(),"languages");
-        if(!languagesFolder.exists()) {
+        final File languagesFolder = new File(EnchantGUIPlugin.getInstance().getDataFolder(), "languages");
+        if (!languagesFolder.exists()) {
             boolean made = languagesFolder.mkdirs();
             EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: languages= %b".formatted(made));
         }
 
-        for(Map.Entry<String, Map<String, LocalizedConfigFile>> entry: languages.entrySet()) {
-            final File langFolder = new File(languagesFolder,entry.getKey());
-            if(!langFolder.exists()) {
+        for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {
+            final File langFolder = new File(languagesFolder, entry.getKey());
+            if (!langFolder.exists()) {
                 boolean made = langFolder.mkdirs();
-                EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: %s= %b".formatted(entry.getKey(),made));
+                EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: %s= %b".formatted(entry.getKey(), made));
             }
-            for(Map.Entry<String,LocalizedConfigFile> localizedConfigFileEntry: entry.getValue().entrySet()) {
+            for (Map.Entry<String, LocalizedConfigFile> localizedConfigFileEntry : entry.getValue().entrySet()) {
                 localizedConfigFileEntry.getValue().saveDefaultConfig();
             }
 
@@ -46,13 +48,12 @@ public class LocalizationManager {
     }
 
     public void reload(CommandSender sender) {
-        for(Map.Entry<String, Map<String,LocalizedConfigFile>> entry: languages.entrySet()){
+        for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {
             //reload the files (if you changed your local setup)
             entry.getValue().forEach((key, value) -> value.reloadConfig());
         }
         ChatUtil.sendMessage(sender, getPrefix() + " " + getActiveLanguageFile().getConfig().getString("localization-reloaded"));
     }
-
 
 
     public LocalLanguageConfigFile getActiveLanguageFile() {
@@ -64,9 +65,10 @@ public class LocalizationManager {
     }
 
     @Contract(pure = true)
-    //TODO We need to get this automatically... Perhaps a json file we can update using crowdin or something, see krakencore
     private @Unmodifiable List<String> getSupportedLanguages() {
-        return List.of("en","he","pt-br");
+        if(supportedLanguages == null)
+            this.supportedLanguages = FileUtil.getFileNamesInJar(EnchantGUIPlugin.getInstance(), p -> p.getName().startsWith("languages") && p.isDirectory());
+        return supportedLanguages;
     }
 
     public String getPrefix() {
@@ -76,7 +78,6 @@ public class LocalizationManager {
     public String getShopReloaded() {
         return ChatUtil.color(getActiveLanguageFile().getShopReloaded());
     }
-
 
 
 }
