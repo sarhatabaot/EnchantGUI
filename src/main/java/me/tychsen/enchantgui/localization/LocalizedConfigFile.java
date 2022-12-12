@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class LocalizedConfigFile extends ConfigFile<EnchantGUIPlugin> {
     public LocalizedConfigFile(final String lang, final String fileName) {
-        super(EnchantGUIPlugin.getInstance(), "languages"+ File.separator+lang+File.separator, fileName, "languages"+File.separator+lang);
+        super(EnchantGUIPlugin.getInstance(), "languages" + File.separator + lang + File.separator, fileName, "languages" + File.separator + lang);
     }
 
     public String getString(final String path) {
@@ -18,6 +18,6 @@ public class LocalizedConfigFile extends ConfigFile<EnchantGUIPlugin> {
     }
 
     public String getString(final String path, final String def) {
-        return getConfig().getString(path,def);
+        return getConfig().getString(path, def);
     }
 }

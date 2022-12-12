@@ -34,7 +34,7 @@ public class EShopPermissionSys {
     public static boolean hasEnchantPermission(final @NotNull Player player, final Enchantment enchantment, int level) {
         if (player.isOp()) return true;
         String enchantmentName = (enchantment.getKey().toString().toLowerCase()).split(":")[1];
-        String perm = getEnchantmentLevelPermission(enchantmentName,level);
+        String perm = getEnchantmentLevelPermission(enchantmentName, level);
 
         return player.hasPermission(perm) || player.hasPermission(BASE + enchantmentName + ".all") || player.hasPermission(BASE + "all");
     }
@@ -51,7 +51,7 @@ public class EShopPermissionSys {
 
     @Contract(pure = true)
     private static @NotNull String getEnchantmentLevelPermission(final String name, int level) {
-        return getEnchantmentPermission(name) + "."+level;
+        return getEnchantmentPermission(name) + "." + level;
     }
 
 }
