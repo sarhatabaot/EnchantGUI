@@ -11,13 +11,15 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LocalizationManager {
     private List<String> supportedLanguages;
     private final Map<String, Map<String, LocalizedConfigFile>> languages;
-
+    
     public LocalizationManager() {
         languages = new HashMap<>();
+        EnchantGUIPlugin.debug(getSupportedLanguages().toString());
         for (String lang : getSupportedLanguages()) {
             languages.putIfAbsent(lang, new HashMap<>());
             languages.get(lang).put("localization", new LocalLanguageConfigFile(lang));
@@ -28,25 +30,25 @@ public class LocalizationManager {
             boolean made = languagesFolder.mkdirs();
             EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: languages= %b".formatted(made));
         }
-
+        
         for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {
             final File langFolder = new File(languagesFolder, entry.getKey());
             if (!langFolder.exists()) {
                 boolean made = langFolder.mkdirs();
-                EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: %s= %b".formatted(entry.getKey(), made));
+                EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: %s = %b".formatted(entry.getKey(), made));
             }
             for (Map.Entry<String, LocalizedConfigFile> localizedConfigFileEntry : entry.getValue().entrySet()) {
                 localizedConfigFileEntry.getValue().saveDefaultConfig();
             }
-
+            
         }
-
+        
     }
-
+    
     public String getLanguageString(String path) {
         return ChatUtil.color(getActiveLanguageFile().getConfig().getString(path));
     }
-
+    
     public void reload(CommandSender sender) {
         for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {
             //reload the files (if you changed your local setup)
@@ -54,30 +56,38 @@ public class LocalizationManager {
         }
         ChatUtil.sendMessage(sender, getPrefix() + " " + getActiveLanguageFile().getConfig().getString("localization-reloaded"));
     }
-
-
+    
+    
     public LocalLanguageConfigFile getActiveLanguageFile() {
         return (LocalLanguageConfigFile) languages.get(EnchantGUIPlugin.getInstance().getMainConfig().getLanguage()).get("localization");
     }
-
+    
     public ShopLanguageConfigFile getActiveShopFile() {
         return (ShopLanguageConfigFile) languages.get(EnchantGUIPlugin.getInstance().getMainConfig().getLanguage()).get("shop");
     }
-
+    
     @Contract(pure = true)
     private @Unmodifiable List<String> getSupportedLanguages() {
-        if(supportedLanguages == null)
-            this.supportedLanguages = FileUtil.getFileNamesInJar(EnchantGUIPlugin.getInstance(), p -> p.getName().startsWith("languages") && p.isDirectory());
+        if (supportedLanguages == null)
+            this.supportedLanguages = FileUtil.getFileNamesInJar(EnchantGUIPlugin.getInstance(), entry ->
+                entry.getName().startsWith("languages")
+                    && entry.isDirectory()
+                    && !entry.getName().equalsIgnoreCase("languages/")
+            ).stream().map(s -> s
+                .replace("languages", "")
+                .replace(File.separator, "")
+                .replace("/", "")
+            ).toList();
         return supportedLanguages;
     }
-
+    
     public String getPrefix() {
         return ChatUtil.color(getActiveLanguageFile().getPrefix());
     }
-
+    
     public String getShopReloaded() {
         return ChatUtil.color(getActiveLanguageFile().getShopReloaded());
     }
-
-
+    
+    
 }

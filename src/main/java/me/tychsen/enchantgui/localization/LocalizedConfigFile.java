@@ -9,8 +9,9 @@ import java.io.File;
  * @author sarhatabaot
  */
 public class LocalizedConfigFile extends ConfigFile<EnchantGUIPlugin> {
-    public LocalizedConfigFile(final String lang, final String fileName) {
-        super(EnchantGUIPlugin.getInstance(), "languages" + File.separator + lang + File.separator, fileName, "languages" + File.separator + lang);
+    // langFolder = en / he / pt-br etc
+    public LocalizedConfigFile(final String langFolder, final String fileName) {
+        super(EnchantGUIPlugin.getInstance(), "languages" + File.separator + langFolder + File.separator, fileName, "languages" + File.separator + langFolder);
     }
 
     public String getString(final String path) {
