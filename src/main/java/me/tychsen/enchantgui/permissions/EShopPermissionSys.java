@@ -9,6 +9,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 public class EShopPermissionSys {
+    private EShopPermissionSys() {
+        throw new UnsupportedOperationException();
+    }
     public static final String USE = "eshop.use";
     public static final String ENCHANTING_TABLE = "eshop.enchantingtable";
     public static final String TOGGLE = "eshop.enchantingtable.toggle";
