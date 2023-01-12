@@ -11,6 +11,7 @@ import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings("unused")
 @CommandAlias("eshop|enchantgui")
 @CommandPermission(EShopPermissionSys.USE)
 @Description("Command for the EnchantGUI plugin.")

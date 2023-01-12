@@ -40,6 +40,7 @@ public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
         return config.getDouble(path);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean getBoolean(String path) {
         return config.getBoolean(path);
     }
