@@ -48,7 +48,8 @@ dependencies {
     api("de.tr7zw:item-nbt-api:2.11.1")
     api("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     api("org.bstats:bstats-bukkit:3.0.0")
-    api("org.jetbrains:annotations:24.0.1")
+    
+    library("org.jetbrains:annotations:24.0.1")
 }
 
 bukkit {
