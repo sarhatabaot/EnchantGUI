@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.tychsen"
-version  = "1.7.3"
+version  = "1.7.4"
 
 repositories {
     mavenCentral()
@@ -41,13 +41,13 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("org.black_ixx:playerpoints:3.2.3")
     
-    library("dev.triumphteam:triumph-gui:3.1.4")
-    library("net.kyori:adventure-api:4.9.2")
+    implementation("dev.triumphteam:triumph-gui:3.1.4")
+    library("net.kyori:adventure-api:4.13.0")
     
-    api("com.github.sarhatabaot:krakencore:1.6.3")
-    api("de.tr7zw:item-nbt-api:2.11.1")
-    api("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    api("org.bstats:bstats-bukkit:3.0.0")
+    implementation("com.github.sarhatabaot:krakencore:1.6.3")
+    implementation("de.tr7zw:item-nbt-api:2.11.2")
+    implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
+    implementation("org.bstats:bstats-bukkit:3.0.1")
     
     library("org.jetbrains:annotations:24.0.1")
 }
@@ -93,6 +93,7 @@ tasks {
         relocate ("co.aikar.locales", "me.tychsen.enchantgui.locales")
         relocate ("de.tr7zw", "me.tychsen.enchantgui.nbt")
         relocate ("com.github.sarhatabaot.kraken", "me.tychsen.enchantgui.kraken")
+        relocate ("dev.triumphteam", "me.tychsen.enchantgui.gui")
     }
 }
 
