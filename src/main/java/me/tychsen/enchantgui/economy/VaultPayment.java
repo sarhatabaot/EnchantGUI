@@ -25,6 +25,7 @@ public class VaultPayment implements PaymentStrategy {
 
     }
 
+    @Override
     public boolean withdraw(@NotNull Player player, int amount) {
         if(!hasSufficientFunds(player,amount))
             return false;
