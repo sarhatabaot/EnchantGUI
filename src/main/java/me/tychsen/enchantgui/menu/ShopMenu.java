@@ -123,7 +123,8 @@ public class ShopMenu {
             tell(player, lm.getLanguageString("insufficient-funds"));
             return;
         }
-
+        
+        payment.withdraw(player,price);
         enchantItem(playerHand, enchantment, level);
         tell(player, "%s &d%s %d &ffor &6%.2f%s".formatted(lm.getLanguageString("item-enchanted"), item.getItemMeta().getDisplayName(), level, price, EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy().getCurrency()));
     }
