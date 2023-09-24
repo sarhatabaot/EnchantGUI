@@ -39,7 +39,7 @@ repositories {
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
-    compileOnly("org.black_ixx:playerpoints:3.2.3")
+    compileOnly("org.black_ixx:playerpoints:3.2.6")
     
     implementation("dev.triumphteam:triumph-gui:3.1.4")
     library("net.kyori:adventure-api:4.13.0")
