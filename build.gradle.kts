@@ -3,7 +3,7 @@ plugins {
     id("net.minecrell.plugin-yml.bukkit") version "0.5.3"
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.freefair.lombok") version "6.6.3"
-    id("org.sonarqube") version "4.0.0.2929"
+    id("org.sonarqube") version "4.3.1.3277"
 }
 
 group = "me.tychsen"
