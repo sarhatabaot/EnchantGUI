@@ -47,7 +47,7 @@ dependencies {
     implementation("com.github.sarhatabaot:krakencore:1.6.3")
     implementation("de.tr7zw:item-nbt-api:2.11.3")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.1")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
     
     library("org.jetbrains:annotations:24.0.1")
 }
