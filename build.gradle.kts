@@ -42,7 +42,7 @@ dependencies {
     compileOnly("org.black_ixx:playerpoints:3.2.6")
     
     implementation("dev.triumphteam:triumph-gui:3.1.5")
-    library("net.kyori:adventure-api:4.13.0")
+    library("net.kyori:adventure-api:4.14.0")
     
     implementation("com.github.sarhatabaot:krakencore:1.6.3")
     implementation("de.tr7zw:item-nbt-api:2.12.0")
