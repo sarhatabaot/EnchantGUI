@@ -41,7 +41,7 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
     compileOnly("org.black_ixx:playerpoints:3.2.3")
     
-    implementation("dev.triumphteam:triumph-gui:3.1.4")
+    implementation("dev.triumphteam:triumph-gui:3.1.5")
     library("net.kyori:adventure-api:4.13.0")
     
     implementation("com.github.sarhatabaot:krakencore:1.6.3")
