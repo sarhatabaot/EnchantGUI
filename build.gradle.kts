@@ -49,7 +49,7 @@ dependencies {
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
     
-    library("org.jetbrains:annotations:24.0.1")
+    library("org.jetbrains:annotations:24.1.0")
 }
 
 bukkit {
