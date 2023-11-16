@@ -45,7 +45,7 @@ dependencies {
     library("net.kyori:adventure-api:4.14.0")
     
     implementation("com.github.sarhatabaot:krakencore:1.6.3")
-    implementation("de.tr7zw:item-nbt-api:2.12.0")
+    implementation("de.tr7zw:item-nbt-api:2.12.1")
     implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
     implementation("org.bstats:bstats-bukkit:3.0.2")
     
