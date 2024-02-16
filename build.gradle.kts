@@ -2,7 +2,7 @@ plugins {
     id("java-library")
     id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.freefair.lombok") version "8.4"
+    id("io.freefair.lombok") version "8.6"
     id("org.sonarqube") version "4.4.1.3373"
 }
 
