@@ -7,8 +7,11 @@ opt-out: false
 # Max 32 characters!
 menu-name: "EnchantGUI"
 
-# Payment currency can be one of two. Either 'money' for regular money (using Vault+Economy system)
-# or 'xp' for XP levels.
+# Payment currency options:
+# 1. Either 'money' for regular money (using Vault+Economy system)
+# 2. 'xp' for XP levels.
+# 3. 'pp' for player points.
+# 4. 'material:id' for a specific material, for example, emeralds.
 # You can also put 'disable' to disable the economy-aspect of the plugin entirely.
 payment-currency: money
 

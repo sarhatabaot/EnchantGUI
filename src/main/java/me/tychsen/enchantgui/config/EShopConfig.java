@@ -4,11 +4,8 @@ import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
 import lombok.Setter;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
-import me.tychsen.enchantgui.economy.NullPayment;
-import me.tychsen.enchantgui.economy.PaymentStrategy;
-import me.tychsen.enchantgui.economy.PlayerPointsPayment;
-import me.tychsen.enchantgui.economy.VaultPayment;
-import me.tychsen.enchantgui.economy.XPPayment;
+import me.tychsen.enchantgui.economy.*;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
@@ -94,10 +91,29 @@ public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
                 case "money" -> setEconomy(new VaultPayment());
                 case "xp" -> setEconomy(new XPPayment());
                 case "playerpoints" -> setEconomy(new PlayerPointsPayment());
-                default -> setEconomy(new NullPayment());
+                default -> {
+                    final Material possibleMaterial = checkMaterialCurrency();
+                    if(possibleMaterial == Material.AIR) {
+                        setEconomy(new NullPayment());
+                    } else {
+                        setEconomy(new MaterialPayment(possibleMaterial));
+                    }
+
+                }
             }
         }
         return economy;
+    }
+
+    private Material checkMaterialCurrency() {
+        final String paymentType = getPaymentType();
+        if(paymentType.startsWith("material")) {
+            final String possibleMaterial = paymentType.split(":")[1];
+            return Material.matchMaterial(possibleMaterial.toUpperCase());
+        }
+
+        EnchantGUIPlugin.getInstance().getLogger().warning(() -> "Could not find matching material.");
+        return Material.AIR;
     }
 
     public String getLanguage() {
