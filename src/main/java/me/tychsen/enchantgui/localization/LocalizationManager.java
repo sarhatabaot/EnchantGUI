@@ -27,14 +27,14 @@ public class LocalizationManager {
         final File languagesFolder = new File(EnchantGUIPlugin.getInstance().getDataFolder(), "languages");
         if (!languagesFolder.exists()) {
             boolean made = languagesFolder.mkdirs();
-            EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: languages= %b".formatted(made));
+            EnchantGUIPlugin.debug("Created folder: languages = %b".formatted(made));
         }
         
         for (Map.Entry<String, Map<String, LocalizedConfigFile>> entry : languages.entrySet()) {
             final File langFolder = new File(languagesFolder, entry.getKey());
             if (!langFolder.exists()) {
                 boolean made = langFolder.mkdirs();
-                EnchantGUIPlugin.getInstance().getLogger().info(() -> "Created folder: %s = %b".formatted(entry.getKey(), made));
+                EnchantGUIPlugin.debug("Created folder: %s = %b".formatted(entry.getKey(), made));
             }
             for (Map.Entry<String, LocalizedConfigFile> localizedConfigFileEntry : entry.getValue().entrySet()) {
                 localizedConfigFileEntry.getValue().saveDefaultConfig();
