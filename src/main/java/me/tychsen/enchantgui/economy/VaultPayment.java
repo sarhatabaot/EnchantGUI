@@ -47,7 +47,7 @@ public class VaultPayment implements PaymentStrategy {
 
         RegisteredServiceProvider<Economy> rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            plugin.getLogger().severe("could not find Economy.class");
+            plugin.getLogger().severe("could not find Economy.class, missing economy plugin, install EssentialsX or something else.");
             return false;
         }
 
