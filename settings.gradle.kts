@@ -17,7 +17,7 @@ dependencyResolutionManagement {
             library("acf", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
             library("bstats", "org.bstats:bstats-bukkit:3.0.2")
             library("annotations", "org.jetbrains:annotations:24.1.0")
-            library("helper", "com.github.sarhatabaot:KrakenCore:1.6.3")
+            library("helper", "com.github.sarhatabaot:KrakenCore:1.8.3")
         }
     }
 }
