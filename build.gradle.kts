@@ -1,55 +1,40 @@
 plugins {
     id("java-library")
-    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.freefair.lombok") version "8.4"
-    id("org.sonarqube") version "4.4.1.3373"
+    alias(libs.plugins.plugin.yml)
+    alias(libs.plugins.shadow)
+    alias(libs.plugins.lombok)
+    alias(libs.plugins.sonarqube)
 }
 
 group = "me.tychsen"
-version  = "1.7.5"
+version  = "1.7.6"
 
 repositories {
     mavenCentral()
-    maven (
-        url = "https://repo.aikar.co/content/groups/aikar/" )
-    maven (
-        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
-    )
-    maven (
-        url = "https://nexus.hc.to/content/repositories/pub_releases"
-    )
-    maven (
-        url = "https://oss.sonatype.org/content/groups/public/"
-    )
-    maven (
-        url = "https://repo.codemc.org/repository/maven-public"
-    )
-    maven (
-        url = "https://jitpack.io"
-    )
-    maven (
-        url = "https://repo.rosewooddev.io/repository/public/"
-    )
-    maven (
-        url = "https://repo.mattstudios.me/artifactory/public/"
-    )
+    maven ("https://repo.aikar.co/content/groups/aikar/")
+    maven ("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven ("https://nexus.hc.to/content/repositories/pub_releases")
+    maven ("https://oss.sonatype.org/content/groups/public/")
+    maven ("https://repo.codemc.org/repository/maven-public")
+    maven ("https://jitpack.io")
+    maven ("https://repo.rosewooddev.io/repository/public/")
+    maven ("https://repo.mattstudios.me/artifactory/public/")
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7.1")
-    compileOnly("org.black_ixx:playerpoints:3.2.6")
+    compileOnly(libs.spigot.api)
+    compileOnly(libs.vault.api)
+    compileOnly(libs.playerpoints.api)
     
-    implementation("dev.triumphteam:triumph-gui:3.1.7")
-    library("net.kyori:adventure-api:4.16.0")
+    implementation(libs.triumph.gui)
+    library(libs.adventure.api)
     
-    implementation("com.github.sarhatabaot:krakencore:1.6.3")
-    implementation("de.tr7zw:item-nbt-api:2.12.2")
-    implementation("co.aikar:acf-paper:0.5.1-SNAPSHOT")
-    implementation("org.bstats:bstats-bukkit:3.0.2")
+    implementation(libs.helper)
+    implementation(libs.nbt.api)
+    implementation(libs.acf)
+    implementation(libs.bstats)
     
-    library("org.jetbrains:annotations:24.1.0")
+    library(libs.annotations)
 }
 
 bukkit {
