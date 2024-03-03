@@ -32,6 +32,7 @@ public class EnchantGUIPlugin extends JavaPlugin {
     private static Set<UUID> toggleRightClickPlayers = new HashSet<>();
 
     private EShopConfig config;
+    @Getter
     private LocalizationManager lm;
 
     @Getter
@@ -92,10 +93,6 @@ public class EnchantGUIPlugin extends JavaPlugin {
     @NotNull
     public EShopConfig getMainConfig() {
         return config;
-    }
-
-    public LocalizationManager getLm() {
-        return lm;
     }
 
 

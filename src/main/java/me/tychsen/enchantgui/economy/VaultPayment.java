@@ -41,13 +41,13 @@ public class VaultPayment implements PaymentStrategy {
 
     private boolean setupEconomy() {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") == null) {
-            plugin.getLogger().severe("could not find vault");
+            plugin.getLogger().severe("Could not find vault");
             return false;
         }
 
         RegisteredServiceProvider<Economy> rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            plugin.getLogger().severe("could not find Economy.class, missing economy plugin, install EssentialsX or something else.");
+            plugin.getLogger().severe("Could not find Economy.class, missing economy plugin, install EssentialsX or something else.");
             return false;
         }
 
