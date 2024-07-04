@@ -6,7 +6,7 @@ dependencyResolutionManagement {
             plugin("shadow", "com.github.johnrengelman.shadow").version("8.1.1")
             plugin("lombok", "io.freefair.lombok").version("8.6")
             plugin("plugin-yml", "net.minecrell.plugin-yml.bukkit").version("0.6.0")
-            plugin("sonarqube", "org.sonarqube").version("5.0.0.4638")
+            plugin("sonarqube", "org.sonarqube").version("5.1.0.4882")
 
             library("spigot-api", "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
             library("vault-api", "com.github.MilkBowl:VaultAPI:1.7.1")
