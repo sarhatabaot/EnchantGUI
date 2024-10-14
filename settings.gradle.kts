@@ -16,7 +16,7 @@ dependencyResolutionManagement {
             library("nbt-api", "de.tr7zw:item-nbt-api:2.13.2")
             library("acf", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
             library("bstats", "org.bstats:bstats-bukkit:3.0.2")
-            library("annotations", "org.jetbrains:annotations:24.1.0")
+            library("annotations", "org.jetbrains:annotations:26.0.1")
             library("helper", "com.github.sarhatabaot:KrakenCore:1.6.3")
         }
     }
