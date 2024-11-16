@@ -4,7 +4,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
             plugin("shadow", "com.github.johnrengelman.shadow").version("8.1.1")
-            plugin("lombok", "io.freefair.lombok").version("8.6")
+            plugin("lombok", "io.freefair.lombok").version("8.11")
             plugin("plugin-yml", "net.minecrell.plugin-yml.bukkit").version("0.6.0")
             plugin("sonarqube", "org.sonarqube").version("5.0.0.4638")
 
