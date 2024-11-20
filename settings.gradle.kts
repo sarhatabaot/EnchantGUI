@@ -15,7 +15,7 @@ dependencyResolutionManagement {
             library("adventure-api", "net.kyori:adventure-api:4.17.0")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.14.0")
             library("acf", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
-            library("bstats", "org.bstats:bstats-bukkit:3.0.2")
+            library("bstats", "org.bstats:bstats-bukkit:3.1.0")
             library("annotations", "org.jetbrains:annotations:26.0.1")
             library("helper", "com.github.sarhatabaot:KrakenCore:1.6.3")
         }
