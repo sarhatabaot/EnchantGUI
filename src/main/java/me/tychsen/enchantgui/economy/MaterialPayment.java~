@@ -16,19 +16,20 @@ public class MaterialPayment implements PaymentStrategy {
 
     @Override
     public boolean withdraw(@NotNull Player player, int amount) {
-        if(!hasSufficientFunds(player,amount)) return false;
+        if (!hasSufficientFunds(player, amount)) {
+            return false;
+        }
+
         final HashMap<Integer, ? extends ItemStack> items = player.getInventory().all(material).entrySet()
                 .stream()
-                .sorted(Comparator.comparing(e -> e.getValue().getAmount()))
-                ;
+                .sorted(Comparator.comparing(e -> e.getValue().getAmount()));
 
         Arrays.stream(player.getInventory().getContents())
                 .filter(Objects::nonNull)
                 .filter(itemStack -> itemStack.getType() == material)
                 .sorted(Comparator.comparing(ItemStack::getAmount))
-                .map(,);
-        // map the slots of the itemstacks, remove from the smallest ones first
-        //todo do stuff
+                .map(, );
+        //         map the slots of the itemstacks, remove from the smallest ones first
         return true;
     }
 

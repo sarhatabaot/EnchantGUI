@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class MaterialPayment implements PaymentStrategy {
     private final Material material;
@@ -19,18 +20,31 @@ public class MaterialPayment implements PaymentStrategy {
         if (!hasSufficientFunds(player, amount)) {
             return false;
         }
-        //todo
-        //        final HashMap<Integer, ? extends ItemStack> items = player.getInventory().all(material).entrySet()
-        //                .stream()
-        //                .sorted(Comparator.comparing(e -> e.getValue().getAmount()));
-        //
-        //        Arrays.stream(player.getInventory().getContents())
-        //                .filter(Objects::nonNull)
-        //                .filter(itemStack -> itemStack.getType() == material)
-        //                .sorted(Comparator.comparing(ItemStack::getAmount))
-        //                .map(, );
-        // map the slots of the itemstacks, remove from the smallest ones first
-        //todo do stuff
+
+        // Collect matching stacks from the inventory, sorted by stack size (ascending)
+        List<ItemStack> matchingStacks = Stream.of(player.getInventory().getContents())
+                .filter(stack -> stack != null && stack.isSimilar(new ItemStack(material)))
+                .sorted(Comparator.comparingInt(ItemStack::getAmount))
+                .toList();
+
+        int remaining = amount;
+
+        for (ItemStack stack : matchingStacks) {
+            int stackAmount = stack.getAmount();
+
+            if (remaining <= stackAmount) {
+                // Deduct the remaining amount and break
+                stack.setAmount(stackAmount - remaining);
+                break;
+            } else {
+                // Remove the entire stack and reduce the remaining amount
+                remaining -= stackAmount;
+                stack.setAmount(0);
+            }
+        }
+
+        // Update inventory to reflect changes
+        player.updateInventory();
         return true;
     }
 
