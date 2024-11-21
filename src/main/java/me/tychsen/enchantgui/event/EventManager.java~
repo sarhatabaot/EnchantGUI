@@ -31,7 +31,7 @@ public class EventManager implements Listener {
 
     private void handlePlayerInteractEvent(@NotNull PlayerInteractEvent event) {
         if (event.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE)) {
-            if (EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
+            if (EnchantGUIPlugin.getToggleRightClickPlayers().contains(event.getPlayer().getUniqueId())) {
                 return;
             }
 

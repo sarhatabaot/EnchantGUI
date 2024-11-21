@@ -2,6 +2,7 @@ package me.tychsen.enchantgui.config;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
+import lombok.Setter;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.economy.*;
 import org.bukkit.Material;

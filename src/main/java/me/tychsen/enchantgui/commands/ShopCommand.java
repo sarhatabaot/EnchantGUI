@@ -4,9 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.*;
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
-import me.tychsen.enchantgui.config.Enchants;
 import me.tychsen.enchantgui.localization.LocalizationManager;
-import me.tychsen.enchantgui.menu.ShopMenu;
 import me.tychsen.enchantgui.permissions.EShopPermissionSys;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,19 +15,16 @@ import org.bukkit.entity.Player;
 @Description("Command for the EnchantGUI plugin.")
 public class ShopCommand extends BaseCommand {
     private final String prefix;
-    private final ShopMenu shopMenu;
-
     private final LocalizationManager lm = EnchantGUIPlugin.getInstance().getLm();
 
     public ShopCommand() {
         this.prefix = lm.getLanguageString("prefix");
-        this.shopMenu = new ShopMenu(new Enchants());
     }
 
 
     @Default
     public void onGui(final Player player) {
-        shopMenu.showMainMenu(player);
+        EnchantGUIPlugin.getInstance().getShopMenu().showMainMenu(player);
     }
 
     @Subcommand("toggle")
@@ -40,11 +35,11 @@ public class ShopCommand extends BaseCommand {
             return;
         }
 
-        if (EnchantGUIPlugin.getToggleRightClickPlayers().contains(player.getUniqueId())) {
-            EnchantGUIPlugin.getToggleRightClickPlayers().remove(player.getUniqueId());
+        if (EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().contains(player.getUniqueId())) {
+            EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().remove(player.getUniqueId());
             tell(player, lm.getLanguageString("toggle-on"));
         } else {
-            EnchantGUIPlugin.getToggleRightClickPlayers().add(player.getUniqueId());
+            EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().add(player.getUniqueId());
             tell(player, lm.getLanguageString("toggle-off"));
         }
     }
@@ -55,7 +50,7 @@ public class ShopCommand extends BaseCommand {
     public void onReload(final CommandSender player) {
         EnchantGUIPlugin.getInstance().onReload();
         EnchantGUIPlugin.getInstance().getLm().reload(player);
-        this.shopMenu.reload();
+        EnchantGUIPlugin.getInstance().getShopMenu().reload();
         EnchantGUIPlugin.getInstance()
                 .getLogger()
                 .info(() -> "%s %s using: %s".formatted(getName(),

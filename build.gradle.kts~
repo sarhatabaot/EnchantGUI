@@ -2,6 +2,7 @@ plugins {
     id("java-library")
     alias(libs.plugins.plugin.yml)
     alias(libs.plugins.shadow)
+    alias(libs.plugins.lombok)
     alias(libs.plugins.sonarqube)
 }
 
