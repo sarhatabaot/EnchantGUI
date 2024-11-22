@@ -1,6 +1,7 @@
 package me.tychsen.enchantgui;
 
 import co.aikar.commands.PaperCommandManager;
+import de.tr7zw.changeme.nbtapi.NBT;
 import me.tychsen.enchantgui.commands.ShopCommand;
 import me.tychsen.enchantgui.config.EShopConfig;
 import me.tychsen.enchantgui.config.Enchants;
@@ -34,6 +35,12 @@ public class EnchantGUIPlugin extends JavaPlugin {
         config = new EShopConfig();
         lm = new LocalizationManager();
 
+        if (!NBT.preloadApi()) {
+            getLogger().warning("NBT-API wasn't initialized properly, disabling the plugin");
+            getPluginLoader().disablePlugin(this);
+            return;
+        }
+        
         this.shopMenu = new ShopMenu(new Enchants());
         // Register event manager
         getServer().getPluginManager().registerEvents(new EventManager(), this);

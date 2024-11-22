@@ -11,7 +11,7 @@ menu-name: "EnchantGUI"
 # 1. Either 'money' for regular money (using Vault+Economy system)
 # 2. 'xp' for XP levels.
 # 3. 'pp' for player points.
-# 4. 'material:id' for a specific material, for example, 'material:emerald'.
+# 4. 'material:id' for a specific material, for example, emeralds.
 # You can also put 'disable' to disable the economy-aspect of the plugin entirely.
 payment-currency: money
 
