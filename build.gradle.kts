@@ -75,7 +75,7 @@ tasks {
         relocate ("org.bstats", "me.tychsen.enchantgui.util")
         relocate ("co.aikar.commands", "me.tychsen.enchantgui.acf")
         relocate ("co.aikar.locales", "me.tychsen.enchantgui.locales")
-        relocate ("de.tr7zw", "me.tychsen.enchantgui.nbt")
+        relocate ("de.tr7zw.changeme.nbtapi", "me.tychsen.enchantgui.nbt")
         relocate ("com.github.sarhatabaot.kraken", "me.tychsen.enchantgui.kraken")
         relocate ("dev.triumphteam", "me.tychsen.enchantgui.gui")
     }
