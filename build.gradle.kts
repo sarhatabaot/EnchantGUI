@@ -79,7 +79,6 @@ tasks {
         relocate ("de.tr7zw.changeme.nbtapi", "me.tychsen.enchantgui.nbt")
         relocate ("com.github.sarhatabaot.kraken", "me.tychsen.enchantgui.kraken")
         relocate ("dev.triumphteam", "me.tychsen.enchantgui.gui")
-//        relocate("dev.dejvokep.boostedyaml", "me.tychsen.enchantgui.boostedyaml")
     }
 }
 
