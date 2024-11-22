@@ -182,12 +182,12 @@ public class ShopMenu {
         tempItem.setItemMeta(meta);
         tempItem.setAmount(level);
 
-        NBT.modify(item, nbt -> {
+        NBT.modify(tempItem, nbt -> {
             nbt.setInteger(NbtUtils.LEVEL, level);
             nbt.setDouble(NbtUtils.PRICE, price);
         });
 
-        return item;
+        return tempItem;
     }
 
     @NotNull

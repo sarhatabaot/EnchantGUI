@@ -51,7 +51,7 @@ public class EnchantGUIPlugin extends JavaPlugin {
         if (isPaperServer()) {
             getLogger().warning(() -> "You can ignore the message above about Commands API, we are aware, and are waiting on a fix from the commands library.");
         }
-
+        
         getLogger().info(() -> getNameWithVersion() + " enabled!");
         getLogger().info(() -> getNameWithVersion() + " using: " + EnchantGUIPlugin.getInstance().getMainConfig().getPaymentStrategy().name());
 
