@@ -30,7 +30,7 @@ public class ShopCommand extends BaseCommand {
     @Subcommand("toggle")
     @CommandPermission(EShopPermissionSys.TOGGLE)
     public void onToggle(final Player player) {
-        if (!EnchantGUIPlugin.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")) {
+        if (EnchantGUIPlugin.getInstance().getMainConfig().isNotRightClickEnchantingTable()) {
             tell(player, lm.getLanguageString("disabled-feature"));
             return;
         }

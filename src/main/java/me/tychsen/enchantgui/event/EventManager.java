@@ -14,13 +14,15 @@ public class EventManager implements Listener {
 
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent e) {
-        if (!EnchantGUIPlugin.getInstance().getMainConfig().getBoolean("right-click-enchanting-table")) {
+        if (EnchantGUIPlugin.getInstance().getMainConfig().isNotRightClickEnchantingTable()) {
             return;
         }
-        if (EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId()))
+        if (EnchantGUIPlugin.getInstance().getToggleRightClickPlayers().contains(e.getPlayer().getUniqueId())) {
             return;
-        if (!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE))
+        }
+        if (!e.getPlayer().hasPermission(EShopPermissionSys.ENCHANTING_TABLE)) {
             return;
+        }
 
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
             e.setCancelled(true);

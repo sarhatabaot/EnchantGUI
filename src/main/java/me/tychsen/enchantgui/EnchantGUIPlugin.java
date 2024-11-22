@@ -76,7 +76,7 @@ public class EnchantGUIPlugin extends JavaPlugin {
     }
 
     public void onReload() {
-        config.reloadConfig();
+        config.reload();
 
         hookPlayerPoints();
     }
