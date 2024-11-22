@@ -2,7 +2,8 @@ package me.tychsen.enchantgui.config;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
-import lombok.Setter;
+import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.economy.*;
 import org.bukkit.Material;
@@ -10,15 +11,21 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Map;
 
 public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
-
+    private YamlDocument newConfig;
     private static PaymentStrategy economy;
 
     public EShopConfig() {
         super(EnchantGUIPlugin.getInstance(), "", "config.yml", "");
         saveDefaultConfig();
+
+        newConfig = YamlDocument.create(new File(plugin.getDataFolder(), "config.yml"), plugin.getResource("config.yml"),
+                LoaderSettings.builder()
+                        .setAutoUpdate(true)
+                        .build());
     }
 
 

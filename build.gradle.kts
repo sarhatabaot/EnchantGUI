@@ -32,6 +32,7 @@ dependencies {
     implementation(libs.nbt.api)
     implementation(libs.acf)
     implementation(libs.bstats)
+    library(libs.boosted.yml)
     
     library(libs.annotations)
 }
@@ -78,6 +79,7 @@ tasks {
         relocate ("de.tr7zw.changeme.nbtapi", "me.tychsen.enchantgui.nbt")
         relocate ("com.github.sarhatabaot.kraken", "me.tychsen.enchantgui.kraken")
         relocate ("dev.triumphteam", "me.tychsen.enchantgui.gui")
+//        relocate("dev.dejvokep.boostedyaml", "me.tychsen.enchantgui.boostedyaml")
     }
 }
 

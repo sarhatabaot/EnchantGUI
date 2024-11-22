@@ -2,6 +2,8 @@ package me.tychsen.enchantgui.config;
 
 import com.github.sarhatabaot.kraken.core.chat.ChatUtil;
 import com.github.sarhatabaot.kraken.core.config.ConfigFile;
+import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings;
 import me.tychsen.enchantgui.EnchantGUIPlugin;
 import me.tychsen.enchantgui.economy.*;
 import org.bukkit.Material;
@@ -9,15 +11,38 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
-
+    private YamlDocument newConfig;
     private static PaymentStrategy economy;
 
     public EShopConfig() {
         super(EnchantGUIPlugin.getInstance(), "", "config.yml", "");
         saveDefaultConfig();
+
+
+    }
+
+    public void createAndLoad() {
+        try {
+            this.newConfig = YamlDocument.create(new File(plugin.getDataFolder(), "config.yml"), plugin.getResource("config.yml"),
+                    LoaderSettings.builder()
+                            .setAutoUpdate(true)
+                            .build());
+        } catch (IOException e) {
+            this.plugin.getLogger().severe("Failed to load config.yml");
+        }
+    }
+
+    public void reload() {
+        try {
+            this.newConfig.reload();
+        } catch (IOException e) {
+            this.plugin.getLogger().severe("Failed to reload config.yml");
+        }
     }
 
 
@@ -89,6 +114,7 @@ public class EShopConfig extends ConfigFile<EnchantGUIPlugin> {
                 case "money" -> setEconomy(new VaultPayment());
                 case "xp" -> setEconomy(new XPPayment());
                 case "playerpoints" -> setEconomy(new PlayerPointsPayment());
+                case "disable" -> setEconomy(new NullPayment());
                 default -> {
                     final Material possibleMaterial = checkMaterialCurrency();
                     if(possibleMaterial == Material.AIR) {

@@ -17,6 +17,8 @@ dependencyResolutionManagement {
             library("bstats", "org.bstats:bstats-bukkit:3.1.0")
             library("annotations", "org.jetbrains:annotations:26.0.1")
             library("helper", "com.github.sarhatabaot:KrakenCore:1.6.3")
+
+            library("boosted-yml", "dev.dejvokep:boosted-yaml:1.3.7")
         }
     }
 }

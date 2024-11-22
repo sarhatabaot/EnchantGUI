@@ -40,7 +40,7 @@ public class EnchantGUIPlugin extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             return;
         }
-        
+
         this.shopMenu = new ShopMenu(new Enchants());
         // Register event manager
         getServer().getPluginManager().registerEvents(new EventManager(), this);
