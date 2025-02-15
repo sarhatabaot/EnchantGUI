@@ -10,7 +10,7 @@ dependencyResolutionManagement {
             library("spigot-api", "org.spigotmc:spigot-api:1.17-R0.1-SNAPSHOT")
             library("vault-api", "com.github.MilkBowl:VaultAPI:1.7.1")
             library("playerpoints-api", "org.black_ixx:playerpoints:3.2.7")
-            library("triumph-gui", "dev.triumphteam:triumph-gui:3.1.10")
+            library("triumph-gui", "dev.triumphteam:triumph-gui:3.1.11")
             library("adventure-api", "net.kyori:adventure-api:4.17.0")
             library("nbt-api", "de.tr7zw:item-nbt-api:2.14.1")
             library("acf", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
