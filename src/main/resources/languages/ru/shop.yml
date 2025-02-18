@@ -4,11 +4,11 @@
 ########################################################
 #Important: Make sure to not remove '{0}'.
 shop:
-  level: "&eLevel: {0}"
-  price: "&aPrice: {0}$"
+  level: "&eУровень: {0}"
+  price: "&aЦена: {0}$"
   back-item:
     material: "EMERALD"
-    display-name: "Go back"
+    display-name: "Назад"
   #You can only set items that support the enchantment.
   enchants:
     power: "BOW"

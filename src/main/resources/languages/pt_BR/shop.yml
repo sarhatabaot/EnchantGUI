@@ -4,11 +4,11 @@
 ########################################################
 #Important: Make sure to not remove '{0}'.
 shop:
-  level: "&aרמה: {0}$"
-  price: "&aמחיר: {0}$"
+  level: "&eLevel: {0}"
+  price: "&aPrice: {0}$"
   back-item:
     material: "EMERALD"
-    display-name: "חזור אחורה"
+    display-name: "Go back"
   #You can only set items that support the enchantment.
   enchants:
     power: "BOW"
