@@ -12,7 +12,7 @@ dependencyResolutionManagement {
             library("playerpoints-api", "org.black_ixx:playerpoints:3.2.7")
             library("triumph-gui", "dev.triumphteam:triumph-gui:3.1.11")
             library("adventure-api", "net.kyori:adventure-api:4.17.0")
-            library("nbt-api", "de.tr7zw:item-nbt-api:2.14.1")
+            library("nbt-api", "de.tr7zw:item-nbt-api:2.15.0")
             library("acf", "co.aikar:acf-paper:0.5.1-SNAPSHOT")
             library("bstats", "org.bstats:bstats-bukkit:3.1.0")
             library("annotations", "org.jetbrains:annotations:26.0.1")
