@@ -24,7 +24,9 @@ public class EventManager implements Listener {
             return;
         }
 
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK &&
+                e.getClickedBlock() != null &&
+                e.getClickedBlock().getType() == Material.ENCHANTING_TABLE) {
             e.setCancelled(true);
             handlePlayerInteractEvent(e);
         }

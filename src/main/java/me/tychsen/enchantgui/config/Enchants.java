@@ -16,7 +16,7 @@ public class Enchants {
     private List<ItemStack> enchantList;
 
     public Enchants() {
-        enchantList = new ArrayList<>();
+        this.enchantList = new ArrayList<>();
         createEnchantList();
     }
 
@@ -25,7 +25,7 @@ public class Enchants {
     }
 
     public void reload() {
-        enchantList = new ArrayList<>();
+        this.enchantList = new ArrayList<>();
         createEnchantList();
     }
 
@@ -86,10 +86,12 @@ public class Enchants {
         ItemStack item = new ItemStack(mat);
         item.addEnchantment(type, 1);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(displayName);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
-        item.setItemMeta(meta);
-        enchantList.add(item);
+        if (meta != null) {
+            meta.setDisplayName(displayName);
+            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_ENCHANTS);
+            item.setItemMeta(meta);
+            enchantList.add(item);
+        }
     }
 
 }

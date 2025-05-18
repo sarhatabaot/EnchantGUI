@@ -1,6 +1,17 @@
 rootProject.name = "EnchantGUI"
 
 dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+        maven ("https://repo.aikar.co/content/groups/aikar/")
+        maven ("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+        maven ("https://nexus.hc.to/content/repositories/pub_releases")
+        maven ("https://oss.sonatype.org/content/groups/public/")
+        maven ("https://repo.codemc.org/repository/maven-public")
+        maven ("https://jitpack.io")
+        maven ("https://repo.rosewooddev.io/repository/public/")
+        maven ("https://repo.mattstudios.me/artifactory/public/")
+    }
     versionCatalogs {
         create("libs") {
             plugin("shadow", "com.github.johnrengelman.shadow").version("8.1.1")

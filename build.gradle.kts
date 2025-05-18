@@ -8,18 +8,6 @@ plugins {
 group = "me.tychsen"
 version  = "1.7.7"
 
-repositories {
-    mavenCentral()
-    maven ("https://repo.aikar.co/content/groups/aikar/")
-    maven ("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
-    maven ("https://nexus.hc.to/content/repositories/pub_releases")
-    maven ("https://oss.sonatype.org/content/groups/public/")
-    maven ("https://repo.codemc.org/repository/maven-public")
-    maven ("https://jitpack.io")
-    maven ("https://repo.rosewooddev.io/repository/public/")
-    maven ("https://repo.mattstudios.me/artifactory/public/")
-}
-
 dependencies {
     compileOnly(libs.spigot.api)
     compileOnly(libs.vault.api)
