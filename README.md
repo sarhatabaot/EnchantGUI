@@ -1,12 +1,13 @@
-> [!NOTE]
-> **Maintenance Mode**
+> [!WARNING]
+> **Project Status: Archived**
 >
-> Life has become a bit busier these days, so this project is no longer under active development.
+> This project has been **archived** and is no longer under active maintenance.
 >
-> I'll still keep an eye on critical issues and compatibility updates, and I'm happy to review pull requests when I can. New features are unlikely unless they come from community contributions or I find myself with more free time in the future.
+> I don't plan to release new updates or fixes, and I can't provide support for issues or feature requests. The repository will remain available for anyone who wishes to use, fork, or learn from it.
 >
-> Thanks for all the support and understanding—it really means a lot.
-
+> If you'd like to continue development, you're more than welcome to fork the project.
+>
+> Thanks to everyone who used, tested, reported bugs, or contributed over the years. I genuinely appreciate all the support ❤️
 
 EnchantGUI
 ==========
